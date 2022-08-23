@@ -1,13 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
+import React from "react";
+import logoGlp from './resources/logoGlp.png'
+ 
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <img src={logoGlp} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Edit <code>src/App.js</code> .
         </p>
         <a
           className="App-link"
@@ -21,5 +24,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;

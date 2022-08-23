@@ -36,3 +36,132 @@
     transform: rotate(360deg);
   }
 }
+
+
+a.button {
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  text-decoration: none; 
+  margin-top: 15px;
+  height: 29px; 
+  width: 160px; 
+  background-color: #0071ce;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  background-image: linear-gradient(#08b35a, #006a38);
+  font-weight: bold;
+  text-align:inherit;
+  text-align: center;
+  padding-top: 15px;
+ 
+}
+
+#link { 
+  color: #39e3e9;
+  font-weight: bold;
+  padding-top: 25px;
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+} 
+
+.toastProgress {
+  background: #0071ce !important;
+}
+
+input[type="date"]
+{
+  height: 25px;
+    display:block;
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    min-height: 1.2em;
+    background-color: white;
+    text-align: left;
+    color: black;
+    vertical-align: middle;
+}
+input[type="time"]
+{
+  height: 25px;
+    display:block;
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    min-height: 1.2em;
+    background-color: white;
+    text-align: left;
+    color: black;
+    vertical-align: middle;
+}
+
+.idInput{
+  height: 25px;
+  border: solid black 1px;
+  border-radius: 5px;
+  top: 10px;
+  margin-top: 10px;
+  width: 100%;
+}
+.idLabel{
+  font-weight: bold;
+  color: white;
+ /* align-items: start; */
+  text-align: left;
+}
+
+.divPrincipal{
+  background-image: url('./component/Background-gas.png');
+  background-size:     cover;                      /* <------ */
+  background-repeat:   no-repeat;
+  background-position: center center;   
+  background-attachment: fixed;
+}
+
+.containerMenuP{
+  background-image: url('./resources/bg-principal.png');
+  background-size:     cover;                      /* <------ */
+  background-repeat:   no-repeat;
+  background-position: center center;   
+  background-attachment: fixed;
+}
+
+.button{
+  height: 40px; 
+  width: 80px; 
+  background-color: #0071ce;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  background-image: linear-gradient(#2590d1, #076ab1); 
+}
+.buttonLogin{
+  height: 40px; 
+  width: 160px; 
+  background-color: #0071ce;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  background-image: linear-gradient(#08b35a, #006a38);
+  font-weight: bold;
+}
+.buttonSalir{
+  height: 40px;
+  width: 80px;
+  font-weight: bold;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin: 20px;
+  background-image: linear-gradient(#08b35a, #006a38); 
+}
+
+.buttonVerde{
+  height: 40px;
+  width: 80px; 
+  color: white;
+  border: none;
+  border-radius: 5px; 
+  background-image: linear-gradient(#08b35a, #006a38); 
+}
