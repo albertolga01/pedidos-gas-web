@@ -56,8 +56,7 @@ function Abonar(props){
     const[MensajeError, setMensajeError] = useState(); 
  
 	useEffect(() => {
-        setCantidad(50);
-        obtenerConsumidor();
+        setCantidad(50); 
         
 	},[])
   
@@ -90,22 +89,7 @@ function Abonar(props){
     function Seleccionar(){  
         props.unmount("MenuPrincipal");   
     }
-
-    async function obtenerConsumidor(){    
-		let fd = new FormData()   
-		fd.append("id", "obtenerConsumidor")  
-		fd.append("folioconsumidor", props.numero_consumidor) 
-		//setisLoggedIn(false);
-        openModalLoad();
-		const res = await axios.post("https://gaspetromarapp.grupopetromar.com/gasunionapi.php", fd);
-        closeModalLoad();
-		console.log(res.data);  
-        setComentarios(res.data[0].comentario);
-        setCalleNumero(res.data[0].calle_numero);
-        setColonia(res.data[0].colonia); 
-		setCodigoPostal(res.data[0].codigo_postal); 
-		//console.log(res.data); 
-	}
+ 
 
  
     
@@ -114,7 +98,7 @@ function Abonar(props){
 
                 {(pagar) ?
                     
-                    <div className='container' style={{margin: 'auto', width:'80%' , height: '100vh', backgroundImage: Backgroundgas}} align="center"> 
+                    <div   style={{margin: 'auto', width:'80%' , height: '100vh', backgroundImage: Backgroundgas}} align="center"> 
     
                          <div style={{ display: 'flex', flexDirection: 'column', width: '100%'}} align="center">
     
@@ -150,7 +134,7 @@ function Abonar(props){
                         </div> 
                 :
                     <>
-                     <div className='container' style={{margin: 'auto', width:'80%' , height: '100vh', backgroundImage: Backgroundgas}} align="center"> 
+                     <div  style={{margin: 'auto', width:'80%' , height: '100vh', backgroundImage: Backgroundgas}} align="center"> 
                      <br></br> <br></br> <br></br>
                             <div style={{ display: 'flex', flexDirection: 'column', width: '100%'}} align="center">
                              <StripeContainer unmount={props.unmount} cantidad={Cantidad} identificador_externo={props.identificador_externo} nombres={props.nombres} apellidos={props.apellidos}/>

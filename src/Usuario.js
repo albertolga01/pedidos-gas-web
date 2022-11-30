@@ -13,6 +13,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import CorrectoImg from './resources/Correcto.svg'
 import ErrorImg from './resources/error.svg'
 
+import { ModalCarga } from "./component/ModalCarga";
+
+
 const customStylesD = { 	
 	content: {
         width:'80%',
@@ -146,6 +149,9 @@ function Usuario(props){
         console.log(longFU * -1);
         setLat(latFU);
         setLong(longFU * -1);
+
+        setLat1(latFU);
+        setLong1(longFU * -1);
    
 		//console.log(res.data); 
 	}
@@ -177,7 +183,7 @@ function Usuario(props){
 		const res = await axios.post("https://gaspetromarapp.grupopetromar.com/gasunionapi.php", fd);
         closeModalLoad();
 		console.log(res.data); 
-        notify("Actualizado Correctamente");
+        notify("Actualizado correctamente");
 		//console.log(res.data); 
         }else{
             openModalLoadError();
@@ -230,7 +236,7 @@ function Usuario(props){
   
 
     return(
-        <div className='container' style={{margin: 'auto', width:'80%', height: '100vh'}} align="center"> 
+        <div   style={{margin: 'auto', width:'80%', height: '100vh'}} align="center"> 
  
 
             <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }} align="center">
@@ -335,14 +341,7 @@ function Usuario(props){
 				position="top-center"
 				/>
 
-                <Modal 
-						isOpen={modalIsOpenLoad}  
-						onRequestClose={closeModalLoad}   
-						style={customStyles}> 
-						<div style={{width:'100%'}}>  
-						<ThreeDots color="#0071ce" height={80} width={80} /> 
-						</div>  
-				</Modal>
+                <ModalCarga modalIsOpenLoad={modalIsOpenLoad} closeModalLoad={closeModalLoad}/>
 
                 <Modal 
 						isOpen={modalIsOpenError}

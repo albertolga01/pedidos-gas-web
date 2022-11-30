@@ -4,6 +4,9 @@ import React, { useState } from 'react'
 import Modal from 'react-modal';
 import CorrectoImg from '../resources/Correcto.svg'
 import ErrorImg from '../resources/error.svg'
+import redalerticon from '../resources/redalerticon.svg'
+import { ModalCarga } from "./ModalCarga"; 
+
 
 const customStylesD = { 	
 	content: {
@@ -40,9 +43,11 @@ const CARD_OPTIONS = {
 
 export default function PaymentForm(props) {
     
+	const [modalIsOpenLoad, setIsOpenLoad] = React.useState(false);
+
     const [modalIsOpenE, setIsOpenE] = React.useState(false);
     const [modalIsOpen, setIsOpen] = React.useState(false);
-
+    const [modalIsOpenE2, setIsOpenE2] = React.useState(false);
     const [success, setSuccess ] = useState(false)
     const stripe = useStripe()
     const elements = useElements()
@@ -54,6 +59,15 @@ export default function PaymentForm(props) {
 	function closeModal() { 
 		setIsOpen(false); 
 	}
+    function openModalLoad() { 
+		setIsOpenLoad(true); 
+	}  
+	   
+	function closeModalLoad() { 
+		setIsOpenLoad(false); 
+	}
+	
+	 
 
     //Error Mensaje
     function openModalE() { 
@@ -63,6 +77,16 @@ export default function PaymentForm(props) {
     function closeModalE() { 
         setIsOpenE(false); 
     }
+
+    //Error Mensaje
+    function openModalE2() { 
+        setIsOpenE2(true); 
+    }  
+    
+    function closeModalE2() { 
+        setIsOpenE2(false); 
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         const {error, paymentMethod} = await stripe.createPaymentMethod({
@@ -73,6 +97,7 @@ export default function PaymentForm(props) {
 
     if(!error) {
         try {
+            openModalLoad();
             let cant = props.cantidad;
             if(Number.isInteger(parseInt(cant))){
                 cant = cant + "00";
@@ -85,7 +110,7 @@ export default function PaymentForm(props) {
                 desc: props.nombres + " " + props.apellidos + " " + props.identificador_externo + " abono gas LP" ,
                 id
             })
-
+            closeModalLoad();
             if(response.data.success && response.data.codigobd == "1") {
                 console.log("Successful payment")
                 setSuccess(true)
@@ -97,8 +122,9 @@ export default function PaymentForm(props) {
 
         } catch (error) {
             // error 
+            closeModalLoad();
             console.log("Error", error)
-            
+            openModalE2()
             
         }
     } else {
@@ -180,6 +206,33 @@ export default function PaymentForm(props) {
                                 </div>  
 						</div>  
 				</Modal>  
+
+
+                <Modal 
+						isOpen={modalIsOpenE2}  
+						onRequestClose={closeModalE2}   
+						style={customStylesD}> 
+						<div style={{width:'100%'}} align="center">  
+						 <img src={redalerticon}></img>    <br></br>
+                         <label style={{fontWeight:'bold'}}>Operación no realizada</label><br></br> 
+                         <label>Lo sentimos, el servicio de pagos está temporalmente inactivo.</label>
+                         <label>Por favor, inténtalo más tarde</label>
+                         <div style={{justifyContent: 'space-between', columnGap:'0.875rem', width:'50%', display:'flex', flexDirection:'row'}}> 
+
+                         <div style={{width:'50%'}} align="center"> 
+                            <button style={{width:'100%', color:'white', backgroundColor:'#008445'}} className="buttonLogin" onClick={() => props.unmount("MenuPrincipal")}>Cancelar</button>
+
+                                </div>
+                                <div style={{width:'50%'}} align="center"> 
+                                <button style={{width:'100%', color:'white', backgroundColor:'#008445'}} className="buttonLogin" onClick={closeModalE}>Reintentar</button>
+
+                                    </div>
+                                </div>  
+						</div>  
+				</Modal>  
+
+					<ModalCarga modalIsOpenLoad={modalIsOpenLoad} closeModalLoad={closeModalLoad}/>
+
         </>
     )
 }

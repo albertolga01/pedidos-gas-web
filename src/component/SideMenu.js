@@ -20,6 +20,7 @@ export default function SideMenu(props) {
     const [ref, setRef] = useState(false); 
     const [title, setTitle] = useState("titul"); 
     const [n, setN] = useState(); 
+    const [saldo, setSaldo] = useState(); 
     // console.log(props.selected); 
   
   
@@ -38,6 +39,9 @@ export default function SideMenu(props) {
         close(selected);  
     }
 
+    function saldoCliente(saldoc){
+        setSaldo(saldoc);
+    }
    
     var isMenuOpen = function(state) {
  
@@ -54,7 +58,7 @@ export default function SideMenu(props) {
         }else if (selected === 'Novedades') {
             return <Novedades  unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
         }else if (selected === 'DetalleSaldo') {
-            return <DetalleSaldo  unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
+            return <DetalleSaldo  saldoCliente={saldo} unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} saldo={props.saldo}/>;
         }else if (selected === 'Abonar') {
             return <Abonar  unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
         }else {
@@ -113,7 +117,7 @@ export default function SideMenu(props) {
         if(selected == "MenuPrincipal"){
             return (
                 <div  class="containerMenuP" style={{ height: '100vh', width: '100vw', top: '0',  position: 'sticky', display: 'flex', overflowX: 'auto'}}>
-            <MenuPrincipal unmount={cambiarSelected}   isMenuOpen1={isMenuOpen1} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo}></MenuPrincipal>
+            <MenuPrincipal saldoCliente={saldoCliente} unmount={cambiarSelected}   isMenuOpen1={isMenuOpen1} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} saldo={props.saldo}></MenuPrincipal>
             </div>
             )
         }else{

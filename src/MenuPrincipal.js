@@ -12,7 +12,7 @@ import novedades from './resources/novedades.svg'
 import nuevopedido from './resources/nuevopedido.svg'
 import nivelgaslp from './resources/nivel_gas_lp.svg'
 import GaugeChart from 'react-gauge-chart' 
-
+import { ModalCarga } from "./component/ModalCarga";
 const customStylesD = { 	
 	content: {
         width:'30%',
@@ -35,7 +35,6 @@ const customStylesD = {
 	  transform: 'translate(-50%, -50%)',
 	},
   };
-
 function MenuPrincipal(props){
 	useEffect(() => {
         ObtenerPrecio();
@@ -102,10 +101,16 @@ function MenuPrincipal(props){
 		 //alert(res.trim);
          console.log(res.data);
         setSaldo(res.data); 
+        props.saldoCliente(res.data);
         //document.getElementById("precioGas").innerHTML =  "$" +json["productos"]["GAS"].precio;
 		//console.log(res.data); 
 	}
-
+    function FormatNumber(importe){
+        return ((Number(importe)).toLocaleString('en-US',{
+            style:'currency',
+            currency:'USD',
+        }));
+       }
     async function ObtenerPorcentaje(){  
           
       
@@ -147,11 +152,11 @@ function MenuPrincipal(props){
 
    
     return(
-        <div className='containerMenuPrincipal' style={{margin: 'auto', width:'100%', height: '100vh'}} align="center"> 
+        <div className='containerMenuPrincipal' style={{margin: 'auto', width:'100%', height: '100vh', overflowX: 'scroll'}} align="center"> 
             <div style={{width:'100%', display:'flex', flexDirection:'row', flexWrap:'wrap'}}> 
             <div style={{width:'50%', color:'white', fontWeight: 'bold', fontSize:'20px'}} align="left"> <h4 style={{margin: '20px'}}>Bienvenido (a): {props.nombres +" "+ props.apellidos}</h4> </div>
             <div style={{width:'50%' }} align="right">  <button className="buttonSalir" onClick={() => {logOut()}} >SALIR</button > </div>
-            <div style={{width:'50%', color:'white', fontWeight: 'bold', fontSize:'15px'}} align="left" onClick={() => Seleccionar("DetalleSaldo")}> <h4 style={{margin: '20px'}}>Saldo Disponible: ${SaldoDisponible}</h4> </div> 
+            <div style={{width:'50%', color:'white', fontWeight: 'bold', fontSize:'15px'}} align="left" onClick={() => Seleccionar("DetalleSaldo")} saldo={SaldoDisponible}> <h4 style={{margin: '20px'}}>Saldo Disponible: {FormatNumber(SaldoDisponible)}</h4> </div> 
             </div>
             <div style={{width:'80%'}} align="center"> 
             <img src={logoGlp} style={{width:'50%', height:'50%'}}></img>
@@ -232,14 +237,10 @@ function MenuPrincipal(props){
                          <button style={{width:'100%', color:'white', backgroundColor:'#008445'}} className="buttonLogin" onClick={closeModalE}>Ok</button>
 						</div>  
 				</Modal>
-                <Modal 
-						isOpen={modalIsOpenLoad}  
-						onRequestClose={closeModalLoad}   
-						style={customStyles}> 
-						<div style={{width:'100%'}}>  
-						<ThreeDots color="#0071ce" height={80} width={80} /> 
-						</div>  
-				</Modal>
+
+
+                <ModalCarga modalIsOpenLoad={modalIsOpenLoad} closeModalLoad={closeModalLoad}/>
+              
         </div>
     );
 }

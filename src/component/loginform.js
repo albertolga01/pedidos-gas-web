@@ -6,6 +6,8 @@ import SideMenu from './SideMenu';
 import Registro from '../Registro';
 //import 'dotenv/config';   
 import Modal from 'react-modal';
+import { ModalCarga } from "./ModalCarga"; 
+import logoGlp from '../resources/logoGlp.png';
 
 //import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";  
 import {ThreeDots } from  'react-loader-spinner'
@@ -103,8 +105,8 @@ const Login = (isLoggedIna) =>  {
 				:
 				<> 
 				<div id="body-content" style={{backgroundColor:'#0171CE', display:'flex', flexDirection:'column'}}>
-					<div id="div-img" style={{height:'30%', width:'100%'}}>
-						<img alt="Logo GasPetromar" src={Logo} style={{maxWidth:'100%', maxHeight:'80%'}}></img>
+					<div id="div-img" style={{ margin:'15px'}}>
+					<img src={logoGlp} style={{width:'50%', height:'50%'}}></img>
 						
 					</div>  
 					<div id="div-form">
@@ -130,14 +132,7 @@ const Login = (isLoggedIna) =>  {
                      		</div>
                     	</div>
 					</div>
-					<Modal 
-						isOpen={modalIsOpenLoad}  
-						onRequestClose={closeModalLoad}   
-						style={customStyles}> 
-						<div style={{width:'100%'}}>  
-						<ThreeDots color="#0071ce" height={80} width={80} /> 
-						</div>  
-				</Modal>
+					<ModalCarga modalIsOpenLoad={modalIsOpenLoad} closeModalLoad={closeModalLoad}/>
 				</div>
 				</>
 				}

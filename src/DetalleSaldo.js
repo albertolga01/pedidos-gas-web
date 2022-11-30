@@ -6,6 +6,7 @@ import Modal from 'react-modal';
 import { ThreeDots } from  'react-loader-spinner' 
 import {Navbar} from './component/Navbar';   
 import Abonar from "./Abonar";
+import Usuario from "./Usuario";
 function DetalleSaldo(props){
 
   
@@ -30,18 +31,24 @@ function DetalleSaldo(props){
      console.log(res.data);
      setlista(res.data);
    //  setSaldo(res.data); 
-     
+   
 }
  
     function Seleccionar(){  
-        props.unmount("Abonar");   
+        props.unmount("Abonar");    
     }
-   
+   function FormatNumber(importe){
+    return ((Number(importe)).toLocaleString('en-US',{
+        style:'currency',
+        currency:'USD',
+    }));
+   }
 
     return(
-        <div className='container' style={{margin: 'auto', width:'80%', height: '100vh'}} align="center"> 
+        <div  style={{margin: 'auto', width:'80%', height: '100vh'}} align="center"> 
             <div style={{width:'100%'}} align="center">
             <Navbar titulo="Detalle de saldo" /> </div> <br></br><br></br><br></br>
+            <div style={{width:'100%', color:'white', fontWeight: 'bold', fontSize:'15px'}} align="center" > <h2 >{FormatNumber(props.saldoCliente)}</h2> </div> 
             <div  style={{height:'100%', overflowY: 'scroll', width:'100%'}}>
 					<table  style={{width:'100%'}}>
 						<tr>
@@ -54,12 +61,12 @@ function DetalleSaldo(props){
 						</tr>
 
 						 { lista.map(item => ( 
-						<tr id="tabletr" style={{  fontSize:'13.5px', border: '2px solid #ABB2B9'}}>
-							<td style={{color:'white', textAlign:'center'}}>{item.folio}</td> 
-							<td style={{color:'white', textAlign:'center'}}> {(item.fechacaptura)}</td>
-							<td style={{color:'white', textAlign:'center'}}> {item.importe}</td>
-							<td style={{color:'white', textAlign:'center'}}> {item.disponible}</td>
-							<td style={{color:'white', textAlign:'center'}}> {item.descripcion}</td>
+						<tr id="tabletr" style={{  fontSize:'15.5px', border: 'px solid #ABB2B9'}}>
+							<td style={{color:'white', textAlign:'center' }}>{item.folio}</td> 
+							<td style={{color:'white', textAlign:'center' }}> {(item.fechacaptura)}</td>
+							<td style={{color:'white', textAlign:'center' }}> {FormatNumber(item.importe)}</td>
+							<td style={{color:'white', textAlign:'center' }}> {FormatNumber(item.disponible)}</td>
+							<td style={{color:'white', textAlign:'center' }}> {item.descripcion}</td>
 							 
 							  
 						</tr> 

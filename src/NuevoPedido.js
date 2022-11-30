@@ -8,6 +8,7 @@ import {Navbar} from './component/Navbar';
 import Backgroundgas from './component/Background-gas.png'
 import CorrectoImg from './resources/Correcto.svg'
 import ErrorImg from './resources/error.svg'
+import { ModalCarga } from "./component/ModalCarga";
  
 const customStyles = { 	
 	content: {
@@ -214,7 +215,7 @@ function NuevoPedido(props){
     const[fecha_hora, setHoraFecha] = useState(); 
 
     return(
-        <div className='container' style={{margin: 'auto', width:'80%' , height: '100vh', backgroundImage: Backgroundgas}} align="center"> 
+        <div  style={{margin: 'auto', width:'80%' , height: '100vh', backgroundImage: Backgroundgas}} align="center"> 
 
          
             
@@ -257,14 +258,7 @@ function NuevoPedido(props){
               
             </div>
 
-            <Modal 
-						isOpen={modalIsOpenLoad}  
-						onRequestClose={closeModalLoad}   
-						style={customStyles}> 
-						<div style={{width:'100%'}}>  
-						<ThreeDots color="#0071ce" height={80} width={80} /> 
-						</div>  
-				</Modal>
+            <ModalCarga modalIsOpenLoad={modalIsOpenLoad} closeModalLoad={closeModalLoad}/>
 
                 <Modal 
 						isOpen={modalIsOpen}  
