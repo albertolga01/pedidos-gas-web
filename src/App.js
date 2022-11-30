@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import React from "react";
 import logoGlp from './resources/logoGlp.png'
+import {loadStripe} from '@stripe/stripe-js'
  
 
 function App() {

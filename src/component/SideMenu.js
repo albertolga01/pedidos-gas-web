@@ -7,6 +7,8 @@ import OpcionesMenu from './OpcionesMenu';
 import MenuPrincipal from '../MenuPrincipal';  
 import { push as Menu } from 'react-burger-menu'
 import Backgroundgas from './Background-gas.png'
+import DetalleSaldo from '../DetalleSaldo';
+import Abonar from '../Abonar';
 
 export default function SideMenu(props) {
 
@@ -51,6 +53,10 @@ export default function SideMenu(props) {
             return <Usuario unmount={cambiarSelected}  nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
         }else if (selected === 'Novedades') {
             return <Novedades  unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
+        }else if (selected === 'DetalleSaldo') {
+            return <DetalleSaldo  unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
+        }else if (selected === 'Abonar') {
+            return <Abonar  unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
         }else {
             return (<div style={{ width: '100%', textAlign: 'center', backgroundColor: '', margin: 'auto' }}><h1>Error al Cargar</h1></div>);
         } 

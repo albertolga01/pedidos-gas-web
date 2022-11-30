@@ -98,7 +98,7 @@ function Usuario(props){
         return Number(decimalStr);
       }
 
-      function Seleccionar(){  
+    function Seleccionar(){  
         props.unmount("MenuPrincipal");   
     }
 
@@ -324,6 +324,9 @@ function Usuario(props){
                         <button type='submit' onClick={() => ActualizarConsumidor()} className='button' style={{ fontWeight: 'bold', width:'100%'}}>Actualizar</button>
                         </div>
                     </div>                    
+                    <br></br>
+                    <br></br>
+                    <br></br>
                     <br></br>
             </div>
 

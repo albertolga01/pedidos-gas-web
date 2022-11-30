@@ -238,7 +238,7 @@ function NuevoPedido(props){
                     <label class="idLabel">Hora:</label>
 	                <input id="HoraPedido" class="idInput"  style={{width:'100%', marginTop:'5px'}} type="time"/><br></br>
 
-                    <label class="idLabel">Cantidad</label>
+                    <label class="idLabel">Cantidad (Lts)</label>
                     <input type='text' class="idInput" onChange={e => setCantidad(e.target.value)}></input><br></br>
 	   
                     <label class="idLabel">Comentarios</label>
