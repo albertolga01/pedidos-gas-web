@@ -4,6 +4,7 @@ import Logo from '../resources/LogoGasPetromar.png';
 import axios from '../axios';
 import SideMenu from './SideMenu'; 
 import Registro from '../Registro';
+import BuscarServicio from '../BuscarServicio';
 //import 'dotenv/config';   
 import Modal from 'react-modal';
 import { ModalCarga } from "./ModalCarga"; 
@@ -25,6 +26,7 @@ const customStyles = {
 
 const Login = (isLoggedIna) =>  { 
 	const [isLoggedIn, setisLoggedIn] = useState(isLoggedIna);  
+	const [pagarServicio, setPagarServicio] = useState(false);  
 	const [registrarse, setRegistrarse] = useState(false);  
 
 
@@ -68,7 +70,7 @@ const Login = (isLoggedIna) =>  {
 		fd.append("telefono", telefono) 
 		//setisLoggedIn(false);
 		openModalLoad();
-		const res = await axios.post("https://gaspetromarapp.grupopetromar.com/gasunionapi.php", fd);
+		const res = await axios.post(process.env.REACT_APP_API_URL, fd);
 		closeModalLoad();
 		console.log(res.data);
 		if(res.data[0].telefono1 === telefono){
@@ -87,9 +89,15 @@ const Login = (isLoggedIna) =>  {
 	}
 	function cambiarSelected(nuevoConsumidor1, telefononc){ 
           setRegistrarse(false); 
+          setPagarServicio(false); 
 		  setNuevoConsumidor(nuevoConsumidor1);
 		  setNuevoTelefono(telefononc);
     }
+
+
+	function cambiarSelected1(){  
+		setPagarServicio(false);  
+  }
 
 	
 
@@ -104,7 +112,15 @@ const Login = (isLoggedIna) =>  {
 				</div>
 				:
 				<> 
-				<div id="body-content" style={{backgroundColor:'#0171CE', display:'flex', flexDirection:'column'}}>
+				{(pagarServicio) ? 
+					<>
+					<div  class="divPrincipal" align="center" style={{ height: '100vh', width: '100vw', top: '0',  position: 'sticky', display: 'flex', overflowX: 'auto'}}>
+						<BuscarServicio unmount={cambiarSelected1}/>
+					</div>
+					</>
+				:
+					<>
+					<div id="body-content" style={{backgroundColor:'#0171CE', display:'flex', flexDirection:'column'}}>
 					<div id="div-img" style={{ margin:'15px'}}>
 					<img src={logoGlp} style={{width:'50%', height:'50%'}}></img>
 						
@@ -118,6 +134,7 @@ const Login = (isLoggedIna) =>  {
 						<input id="form-usuario" onKeyPress={handleKeyPress} defaultValue={nuevoConsumidor} type="tel" style={{height:'30px'}} placeholder="Número Consumidor"/>
 						
 						<button id="form-btn" className='buttonLogin' style={{backgroundColor:'#0071ce', color:'white'}} onClick={(e) => Login(e)}>INICIAR SESIÓN</button> 
+						<button id="form-btn" className='buttonLogin' style={{backgroundColor:'#0071ce', color:'white'}} onClick={() => setPagarServicio(true)}>PAGAR</button> 
 						<br></br>
 						<div style={{width:'100%', height:'100px', justifyContent: 'space-between', columnGap:'0.875rem', display:'flex', flexDirection:'row'}} align="center"> 
                      		<div style={{width:'100%', display: 'flex', flexDirection:'column'}}>
@@ -127,13 +144,16 @@ const Login = (isLoggedIna) =>  {
                      		</div>
 							 <div style={{width:'100%', display: 'flex', flexDirection:'column'}}>
 					 			<label>¿Necesitas ayuda?</label>
-								 <a id="link" href="tel:6699842020">LLÁMANOS (669) 984-20-20</a>
+								 <a id="link" href="tel:6699842020">LLÁMANOS <br/>(669) 984-20-20</a>
 								 
                      		</div>
                     	</div>
 					</div>
 					<ModalCarga modalIsOpenLoad={modalIsOpenLoad} closeModalLoad={closeModalLoad}/>
 				</div>
+					</>
+				}
+				
 				</>
 				}
 			</div>

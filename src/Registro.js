@@ -119,7 +119,7 @@ function Registro(props){
             fd.append("c_latitud", lat1)
             fd.append("c_longitud", long1)
             openModalLoad();
-            const res = await axios.post("https://gaspetromarapp.grupopetromar.com/gasunionapi.php", fd);
+            const res = await axios.post(process.env.REACT_APP_API_URL, fd);
             closeModalLoad();
             console.log(res.data);
             var json = JSON.parse(JSON.stringify(res.data)); 

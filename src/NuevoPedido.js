@@ -94,7 +94,7 @@ function NuevoPedido(props){
 		fd.append("folioconsumidor", props.numero_consumidor) 
 		//setisLoggedIn(false);
         openModalLoad();
-		const res = await axios.post("https://gaspetromarapp.grupopetromar.com/gasunionapi.php", fd);
+		const res = await axios.post(process.env.REACT_APP_API_URL, fd);
         closeModalLoad();
 		console.log(res.data);  
         setComentarios(res.data[0].comentario);
@@ -176,7 +176,7 @@ function NuevoPedido(props){
             fd.append("consumidor_id", props.numero_consumidor)  
             fd.append("rutaid", "0")
             openModalLoad();
-            const res = await axios.post("https://gaspetromarapp.grupopetromar.com/gasunionapi.php", fd);
+            const res = await axios.post(process.env.REACT_APP_API_URL, fd);
             closeModalLoad();
             console.log(res.data);
             var json = JSON.parse(JSON.stringify(res.data));

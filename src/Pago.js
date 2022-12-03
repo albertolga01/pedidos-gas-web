@@ -93,7 +93,7 @@ function Pago(props){
 		fd.append("folioconsumidor", props.numero_consumidor) 
 		//setisLoggedIn(false);
         openModalLoad();
-		const res = await axios.post("https://gaspetromarapp.grupopetromar.com/gasunionapi.php", fd);
+		const res = await axios.post(process.env.REACT_APP_API_URL, fd);
         closeModalLoad();
 		console.log(res.data);  
         setComentarios(res.data[0].comentario);

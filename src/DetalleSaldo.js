@@ -26,7 +26,7 @@ function DetalleSaldo(props){
     let fd = new FormData()    
     fd.append("id", "detalleSaldo")   
     fd.append("noConsumidor", props.identificador_externo)   
-    const res = await axios.post("https://gaspetromarapp.grupopetromar.com/gasunionapi.php", fd); 
+    const res = await axios.post(process.env.REACT_APP_API_URL, fd); 
      //alert(res.trim);
      console.log(res.data);
      setlista(res.data);

@@ -111,7 +111,7 @@ function Usuario(props){
 		fd.append("folioconsumidor", props.numero_consumidor) 
 		//setisLoggedIn(false);
         openModalLoad();
-		const res = await axios.post("https://gaspetromarapp.grupopetromar.com/gasunionapi.php", fd);
+		const res = await axios.post(process.env.REACT_APP_API_URL, fd);
         closeModalLoad();
 		console.log(res.data);
         setNombre(res.data[0].nombres);
@@ -180,7 +180,7 @@ function Usuario(props){
         fd.append("c_longitud", long1)
         //setisLoggedIn(false);
         openModalLoad();
-		const res = await axios.post("https://gaspetromarapp.grupopetromar.com/gasunionapi.php", fd);
+		const res = await axios.post(process.env.REACT_APP_API_URL, fd);
         closeModalLoad();
 		console.log(res.data); 
         notify("Actualizado correctamente");

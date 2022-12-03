@@ -99,13 +99,14 @@ export default function PaymentForm(props) {
         try {
             openModalLoad();
             let cant = props.cantidad;
-            if(Number.isInteger(parseInt(cant))){
+            if(Number.isInteger(Number(cant))){
                 cant = cant + "00";
+                console.log("entero");
             }else{
                 cant = cant.replace(".", "");
             }
             const {id} = paymentMethod
-            const response = await axios.post("https://gaspetromarapp.grupopetromar.com/pago/payment", {
+            const response = await axios.post(process.env.REACT_APP_URL+"/pago/payment", {
                 amount: cant,
                 desc: props.nombres + " " + props.apellidos + " " + props.identificador_externo + " abono gas LP" ,
                 id

@@ -19,9 +19,9 @@ function Novedades(props){
         <div   style={{margin: 'auto', width:'80%', height: '100vh'}} align="center"> 
             <div style={{width:'100%'}} align="center">
             <Navbar titulo="Novedades" /> </div> <br></br><br></br><br></br>
-            <img alt="GasPetromar" src={"https://gaspetromarapp.grupopetromar.com/images/imagen1.jpg"} style={{maxWidth:'100%'}}></img>	<br></br><br></br>
-			<img alt="GasPetromar" src={"https://gaspetromarapp.grupopetromar.com/images/imagen1.jpg"} style={{maxWidth:'100%'}}></img><br></br><br></br>	
-			<img alt="GasPetromar" src={"https://gaspetromarapp.grupopetromar.com/images/imagen1.jpg"} style={{maxWidth:'100%'}}></img>	<br></br><br></br>
+            <img alt="GasPetromar" src={process.env.REACT_APP_URL+"/images/imagen1.jpg"} style={{maxWidth:'100%'}}></img>	<br></br><br></br>
+			<img alt="GasPetromar" src={process.env.REACT_APP_URL+"/images/imagen1.jpg"} style={{maxWidth:'100%'}}></img><br></br><br></br>	
+			<img alt="GasPetromar" src={process.env.REACT_APP_URL+"/images/imagen1.jpg"} style={{maxWidth:'100%'}}></img>	<br></br><br></br>
             <button className="buttonVerde" style={{width:'100%'}} onClick={() => { Seleccionar();}}>Regresar</button>
             <br></br>
             <br></br>
