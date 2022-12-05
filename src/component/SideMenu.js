@@ -8,6 +8,7 @@ import MenuPrincipal from '../MenuPrincipal';
 import { push as Menu } from 'react-burger-menu'
 import Backgroundgas from './Background-gas.png'
 import DetalleSaldo from '../DetalleSaldo';
+import Historial from '../Historial';
 import Abonar from '../Abonar';
 
 export default function SideMenu(props) {
@@ -52,7 +53,7 @@ export default function SideMenu(props) {
     const Element = () => {
 
           if (selected === 'NuevoPedido') {
-            return <NuevoPedido unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
+            return <NuevoPedido unmount={cambiarSelected} correo={props.correo} telefono={props.telefono} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
         } else if (selected === 'Usuario') {
             return <Usuario unmount={cambiarSelected}  nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
         }else if (selected === 'Novedades') {
@@ -61,6 +62,8 @@ export default function SideMenu(props) {
             return <DetalleSaldo  saldoCliente={saldo} unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} saldo={props.saldo}/>;
         }else if (selected === 'Abonar') {
             return <Abonar  unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
+        }else if (selected === 'Historial') {
+            return <Historial  unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
         }else {
             return (<div style={{ width: '100%', textAlign: 'center', backgroundColor: '', margin: 'auto' }}><h1>Error al Cargar</h1></div>);
         } 
@@ -117,6 +120,7 @@ export default function SideMenu(props) {
         if(selected == "MenuPrincipal"){
             return (
                 <div  class="containerMenuP" style={{ height: '100vh', width: '100vw', top: '0',  position: 'sticky', display: 'flex', overflowX: 'auto'}}>
+                 
             <MenuPrincipal saldoCliente={saldoCliente} unmount={cambiarSelected}   isMenuOpen1={isMenuOpen1} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} saldo={props.saldo}></MenuPrincipal>
             </div>
             )

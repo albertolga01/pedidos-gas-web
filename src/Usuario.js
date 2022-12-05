@@ -4,6 +4,7 @@ import axios from "axios";
 import './App.css'; 
 import Modal from 'react-modal';
 import { ThreeDots } from  'react-loader-spinner'
+import FadeIn from 'react-fade-in';
 import {Navbar} from './component/Navbar';  
 
 import {Gmaps, Marker, InfoWindow, Circle} from 'react-gmaps';
@@ -236,8 +237,9 @@ function Usuario(props){
   
 
     return(
+        
         <div   style={{margin: 'auto', width:'80%', height: '100vh'}} align="center"> 
- 
+ <FadeIn>
 
             <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }} align="center">
             <Navbar titulo="Usuario" />
@@ -249,34 +251,43 @@ function Usuario(props){
                     
                     <label class="idLabel">Apellido (s)*</label>
                     <input type='text' class="idInput" onChange={e => setApellido(e.target.value)} defaultValue={Apellido}></input><br></br>
-
-                    <label class="idLabel">Telefono1*</label>
-                    <input type='tel' class="idInput" onChange={e => setTelUno(e.target.value)} defaultValue={TelefonoUno}></input><br></br>
-
-                    <label class="idLabel">Telefono2*</label>
-                    <input type='tel' class="idInput" onChange={e => setTelDos(e.target.value)} defaultValue={TelefonoDos}></input><br></br>
+                    <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'20px' }}>
+                         <div style={{display:'flex',flexDirection:'column', width:'50%' }}>
+                            <label class="idLabel">Telefono1*</label>
+                            <input type='tel' class="idInput" onChange={e => setTelUno(e.target.value)} defaultValue={TelefonoUno}></input><br></br>
+                        </div>
+                         <div style={{display:'flex',flexDirection:'column', width:'50%' }}>
+                            <label class="idLabel">Telefono2*</label>
+                            <input type='tel' class="idInput" onChange={e => setTelDos(e.target.value)} defaultValue={TelefonoDos}></input><br></br>
+                         </div>
+                    </div>
+                   
                     
+                    <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'20px' }}>
+                         <div style={{display:'flex',flexDirection:'column', width:'50%' }}>
+                            <label class="idLabel">Ciudad*</label>
+                            <input type='text' class="idInput" onChange={e => setCiudad(e.target.value)} defaultValue={Ciudad}></input><br></br>
+                        </div>
+                       <div style={{display:'flex',flexDirection:'column', width:'50%' }}>
+                            <label class="idLabel">Código Postal*</label>
+                            <input type='text' class="idInput" onChange={e => setCodigoPostal(e.target.value)} defaultValue={CodigoPostal}></input><br></br>
+                        </div>
+                    </div>
+                    <label class="idLabel">Colonia*</label>
+                    <input type='text' class="idInput" onChange={e => setColonia(e.target.value)} defaultValue={Colonia}></input><br></br>
+                    
+                    <label class="idLabel">Calle y Número*</label>
+                    <input type='text' class="idInput" onChange={e => setCalleNumero(e.target.value)} defaultValue={CalleNumero}></input><br></br>
+                    
+                    <label class="idLabel" onChange={e => setEmail(e.target.value)} for="email" defaultValue={Email}>Correo Electrónico</label>
+                    <input type="email" class="idInput" name="email"></input>
+                    <br></br>
                     <label class="idLabel">Descripción*</label>
                     <textarea class="idInput" style={{minHeight:'90px'}} onChange={e => setDescripcion(e.target.value)} rows="15" cols="50" defaultValue={Descripcion}></textarea><br></br>
 
                     <label class="idLabel">Comentarios*</label>
                     <textarea class="idInput" style={{minHeight:'90px'}} onChange={e => setComentarios(e.target.value)} rows="15" cols="50" defaultValue={Comentarios}></textarea><br></br>
                     
-                    <label class="idLabel">Calle y Número*</label>
-                    <input type='text' class="idInput" onChange={e => setCalleNumero(e.target.value)} defaultValue={CalleNumero}></input><br></br>
-                    
-                    <label class="idLabel">Colonia*</label>
-                    <input type='text' class="idInput" onChange={e => setColonia(e.target.value)} defaultValue={Colonia}></input><br></br>
-
-                    <label class="idLabel">Ciudad*</label>
-                    <input type='text' class="idInput" onChange={e => setCiudad(e.target.value)} defaultValue={Ciudad}></input><br></br>
-
-                    <label class="idLabel">Código Postal*</label>
-                    <input type='text' class="idInput" onChange={e => setCodigoPostal(e.target.value)} defaultValue={CodigoPostal}></input><br></br>
-
-                    <label class="idLabel" onChange={e => setEmail(e.target.value)} for="email" defaultValue={Email}>Correo Electrónico</label>
-                    <input type="email" class="idInput" name="email"></input>
-
                     <label class="idLabel" >Ubicación</label><br></br>
                     <div style={{width:'100%'}}>
                         <Gmaps
@@ -353,7 +364,7 @@ function Usuario(props){
                          <label>Complete todos los campos</label><br></br> 
                          <button style={{width:'100%', color:'white', backgroundColor:'#008445'}} className="buttonLogin" onClick={closeModalLoadError}>Ok</button>
 						</div>  
-				</Modal>
+				</Modal></FadeIn>
         </div>
     );
 }

@@ -7,9 +7,10 @@ import Registro from '../Registro';
 import BuscarServicio from '../BuscarServicio';
 //import 'dotenv/config';   
 import Modal from 'react-modal';
+import FadeIn from 'react-fade-in';
 import { ModalCarga } from "./ModalCarga"; 
 import logoGlp from '../resources/logoGlp.png';
-
+import { fadeIn } from 'react-animations'
 //import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";  
 import {ThreeDots } from  'react-loader-spinner'
 
@@ -32,6 +33,8 @@ const Login = (isLoggedIna) =>  {
 
 	const [nombres, setnombres] = useState("null");
 	const [apellidos, setapellidos] = useState("null");
+	const [correo, setCorreo] = useState("null");
+	const [telefono, setTelefono] = useState("null");
 	const [numero_consumidor, setnumero_consumidor] = useState("null");
 	const [identificador_externo, setidentificador_externo] = useState("null");
 	const [nuevoConsumidor, setNuevoConsumidor] = useState();
@@ -61,7 +64,7 @@ const Login = (isLoggedIna) =>  {
 	 
 	async function Login(e){  
 		e.preventDefault();  
-	 
+		document.body.style.zoom = "100%";
 		var NoConsumidor = document.getElementById("form-usuario").value;
 		var telefono = document.getElementById("form-password").value;  
 		let fd = new FormData()   
@@ -75,9 +78,11 @@ const Login = (isLoggedIna) =>  {
 		console.log(res.data);
 		if(res.data[0].telefono1 === telefono){
 			
-	 
+			
 			setnombres(res.data[0].nombres);
 			setapellidos(res.data[0].apellidos);
+			setCorreo(res.data[0].email);
+			setTelefono(res.data[0].telefono1);
 			setnumero_consumidor(res.data[0].numero_consumidor);
 			setidentificador_externo(res.data[0].identificador_externo);
 	 
@@ -109,7 +114,9 @@ const Login = (isLoggedIna) =>  {
 				{(registrarse) ?
 				<div  class="divPrincipal" align="center" style={{ height: '100vh', width: '100vw', top: '0',  position: 'sticky', display: 'flex', overflowX: 'auto'}}>
 					<Registro unmount={cambiarSelected}/>
+							
 				</div>
+				
 				:
 				<> 
 				{(pagarServicio) ? 
@@ -120,21 +127,30 @@ const Login = (isLoggedIna) =>  {
 					</>
 				:
 					<>
+					<div style={{width:'100%', display:'flex', flexDirection:'row', flexWrap:'wrap', backgroundColor:'#0158A0'}}> 
+							<div style={{width:'100%' }} align="right">
+								<button id="form-btn" className='buttonLogin' style={{margin:'5px', width: '80px', color:'white'}} onClick={() => setPagarServicio(true)}>PAGAR</button> 
+								</div>
+
+					</div>
 					<div id="body-content" style={{backgroundColor:'#0171CE', display:'flex', flexDirection:'column'}}>
 					<div id="div-img" style={{ margin:'15px'}}>
+					
 					<img src={logoGlp} style={{width:'50%', height:'50%'}}></img>
-						
+					
 					</div>  
+					<FadeIn  >
 					<div id="div-form">
 					<h1>Bienvenido, <br></br>
 					<span>Ingresa tus datos</span></h1>
+					
 						<span>Teléfono</span>
 						<input id="form-password" onKeyPress={handleKeyPress} defaultValue={nuevoTelefono} type="tel" maxlength="10" style={{height:'30px'}}  placeholder="Teléfono"/>
 						<span>No. Consumidor</span>
 						<input id="form-usuario" onKeyPress={handleKeyPress} defaultValue={nuevoConsumidor} type="tel" style={{height:'30px'}} placeholder="Número Consumidor"/>
 						
 						<button id="form-btn" className='buttonLogin' style={{backgroundColor:'#0071ce', color:'white'}} onClick={(e) => Login(e)}>INICIAR SESIÓN</button> 
-						<button id="form-btn" className='buttonLogin' style={{backgroundColor:'#0071ce', color:'white'}} onClick={() => setPagarServicio(true)}>PAGAR</button> 
+						
 						<br></br>
 						<div style={{width:'100%', height:'100px', justifyContent: 'space-between', columnGap:'0.875rem', display:'flex', flexDirection:'row'}} align="center"> 
                      		<div style={{width:'100%', display: 'flex', flexDirection:'column'}}>
@@ -144,11 +160,13 @@ const Login = (isLoggedIna) =>  {
                      		</div>
 							 <div style={{width:'100%', display: 'flex', flexDirection:'column'}}>
 					 			<label>¿Necesitas ayuda?</label>
-								 <a id="link" href="tel:6699842020">LLÁMANOS <br/>(669) 984-20-20</a>
+								 <u><a id="link" href="tel:6699842020">LLÁMANOS <br></br>(669) 984-20-20</a></u>
 								 
                      		</div>
                     	</div>
+						
 					</div>
+					</FadeIn>
 					<ModalCarga modalIsOpenLoad={modalIsOpenLoad} closeModalLoad={closeModalLoad}/>
 				</div>
 					</>
@@ -163,7 +181,7 @@ const Login = (isLoggedIna) =>  {
 	}else {
 		return (
 			<div >
-				<SideMenu nombres={nombres} apellidos={apellidos} numero_consumidor={numero_consumidor} identificador_externo={identificador_externo} selected='MenuPrincipal'   />
+				<SideMenu correo={correo} telefono={telefono} nombres={nombres} apellidos={apellidos} numero_consumidor={numero_consumidor} identificador_externo={identificador_externo} selected='MenuPrincipal'   />
 			
 				 
 			</div>

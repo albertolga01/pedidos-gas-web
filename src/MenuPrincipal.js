@@ -9,9 +9,11 @@ import bgprincipal from './resources/bg-principal.png'
 import logoGlp from './resources/logoGlp.png'
 import usericon from './resources/usericon.svg'
 import novedades from './resources/novedades.svg'
-import nuevopedido from './resources/nuevopedido.svg'
+import nuevopedido from './resources/truck.svg'
+import FadeIn from 'react-fade-in'
 import nivelgaslp from './resources/nivel_gas_lp.svg'
 import GaugeChart from 'react-gauge-chart' 
+import historialpedidos from './resources/historialpedidos.svg'
 import { ModalCarga } from "./component/ModalCarga";
 const customStylesD = { 	
 	content: {
@@ -106,10 +108,13 @@ function MenuPrincipal(props){
 		//console.log(res.data); 
 	}
     function FormatNumber(importe){
+        
         return ((Number(importe)).toLocaleString('en-US',{
             style:'currency',
             currency:'USD',
         }));
+
+
        }
     async function ObtenerPorcentaje(){  
           
@@ -152,60 +157,65 @@ function MenuPrincipal(props){
 
    
     return(
+       
         <div className='containerMenuPrincipal' style={{margin: 'auto', width:'100%', height: '100vh', overflowX: 'scroll'}} align="center"> 
-            <div style={{width:'100%', display:'flex', flexDirection:'row', flexWrap:'wrap'}}> 
-            <div style={{width:'50%', color:'white', fontWeight: 'bold', fontSize:'20px'}} align="left"> <h4 style={{margin: '20px'}}>Bienvenido (a): {props.nombres +" "+ props.apellidos}</h4> </div>
-            <div style={{width:'50%' }} align="right">  <button className="buttonSalir" onClick={() => {logOut()}} >SALIR</button > </div>
-            <div style={{width:'50%', color:'white', fontWeight: 'bold', fontSize:'15px'}} align="left" onClick={() => Seleccionar("DetalleSaldo")} saldo={SaldoDisponible}> <h4 style={{margin: '20px'}}>Saldo Disponible: {FormatNumber(SaldoDisponible)}</h4> </div> 
-            </div>
+           <FadeIn>
+            <div style={{width:'100%', display:'flex', flexDirection:'row', flexWrap:'wrap', backgroundColor:'#0158A0'}}> 
+                <div style={{width:'50%', color:'white', fontWeight: 'bold', fontSize:'20px'}} align="left"> <h4 style={{margin: '20px'}}>Bienvenido (a): {props.nombres +" "+ props.apellidos}</h4> </div>
+                 <div style={{width:'50%' }} align="right">  <button className="buttonSalir" onClick={() => {logOut()}} >SALIR</button > </div>
+           </div>
+         
+           <div style={{width:'100%', color:'white', fontWeight: 'bold', fontSize:'15px'}} align="left" onClick={() => Seleccionar("DetalleSaldo")} saldo={SaldoDisponible}> <h4 style={{margin: '20px'}}>Saldo Disponible: {FormatNumber(SaldoDisponible)}</h4> </div> 
+           </FadeIn> 
             <div style={{width:'80%'}} align="center"> 
-            <img src={logoGlp} style={{width:'50%', height:'50%'}}></img>
+           <FadeIn>  <img src={logoGlp} style={{width:'50%', height:'50%'}}></img>
+           </FadeIn>
             <br></br>
             <br></br>
-            <div style={{backgroundColor:'white', borderRadius:'5px'}} onClick={() => { Seleccionar("NuevoPedido");}} >
-            <img src={nuevopedido} style={{width:'50%', height:'50%'}}></img>
+            <div style={{boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px',backgroundColor:'white', borderRadius:'5px'}} onClick={() => { Seleccionar("NuevoPedido");}} >
+            <img src={nuevopedido} style={{ margin: '5px',width:'60%', height:'60%'}}></img>
             <br></br>
             <label style={{fontWeight: 'bold'}}>NUEVO PEDIDO</label>
             <br></br>
             <br></br>
             </div><br></br>
                 <div style={{justifyContent: 'space-between', columnGap:'0.875rem', borderRadius:'5px', width:'100%', display:'flex', flexDirection:'row'}}> 
-                    <div style={{width:'50%', backgroundColor:'white', borderRadius:'5px'}} align="center" onClick={() => { Seleccionar("Usuario");}}> 
+                    <div style={{boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px', width:'50%', backgroundColor:'white', borderRadius:'5px'}} align="center" onClick={() => { Seleccionar("Usuario");}}> 
                     <img src={usericon} style={{width:'100%'}}></img>
                     <br></br>
                     <label style={{fontWeight: 'bold'}}>USUARIO</label>
                     <br></br>
                     <br></br></div>
-                    <div style={{width:'50%', backgroundColor:'white', borderRadius:'5px'}} align="center" onClick={() => { Seleccionar("Novedades");}}> 
+                    <div style={{boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px',width:'50%', backgroundColor:'white', borderRadius:'5px'}} align="center" onClick={() => { Seleccionar("Novedades");}}> 
                     <img src={novedades} style={{width:'100%'}}></img>
                     <br></br>
-                    <label style={{fontWeight: 'bold'}}>NOVEDADES</label>
+                    <label style={{fontWeight: 'bold'}}>PROMOCIONES</label>
                     <br></br>
                     <br></br>
                     </div>
                 </div>
                 <br></br>
-                <div style={{justifyContent: 'space-between', columnGap:'0.875rem', borderRadius:'5px', width:'100%', display:'flex', flexDirection:'row'}}> 
-                    <div style={{width:'50%', backgroundColor:'white', borderRadius:'5px'}} align="center"> 
-                    
+                <div style={{justifyContent: 'space-between', columnGap:'0.875rem', height: '111px', borderRadius:'5px', width:'100%', display:'flex', flexDirection:'row'}}> 
+                    <div style={{boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px',width:'50%',  height:'100%', backgroundColor:'white', borderRadius:'5px'}} align="center" onClick={() => { Seleccionar("Historial");}}> 
+                    <img src={historialpedidos} style={{width:'50%'}}></img>
                     <br></br>
-                    <label style={{color:'#008445' , fontSize:'25px', fontWeight:'bold'}}>Nuestro precio</label>
+                    <label style={{ fontWeight:'bold'}}>Historial</label>
                     <br></br>
                     <br></br></div>
-                    <div style={{width:'50%', height:'100px', backgroundColor:'white', borderRadius:'5px'}} align="center"> 
-                     <div style={{width:'100%', height:'35%', backgroundImage:'linear-gradient(#145e9c, #145e9c)'}}>
+                    <div style={{boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px', width:'50%', height:'100%', backgroundColor:'white', borderRadius:'5px'}} align="center"> 
+                     <div style={{width:'100%', borderTopLeftRadius: '5px', borderTopRightRadius: '5px', height:'30%', backgroundImage:'linear-gradient(#145e9c, #145e9c)'}}>
                         <label style={{color:'white' , fontSize:'25px'}}>Precio Gas</label>
                      
                      </div>
-                     <div style={{width:'100%', height:'70%', backgroundImage:'linear-gradient(#115680, #2590d1)'}}>
+                     <div style={{width:'100%', borderBottomLeftRadius: '5px', borderBottomRightRadius: '5px', height:'70%', backgroundImage:'linear-gradient(#115680, #2590d1)'}}>
                      <label id='precioGas' style={{color:'white', fontSize:'40px'}}>${PrecioGas}</label>
                         
                      </div> 
-                    </div><br></br>
+                    </div> 
                  
                 </div>
                 <br></br>
-                    <div style={{backgroundColor:'white', borderRadius:'5px'}} onClick={() => ObtenerPorcentaje()} >
+                    <div style={{boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px',backgroundColor:'white', borderRadius:'5px'}} onClick={() => ObtenerPorcentaje()} >
                     <img src={nivelgaslp} style={{width:'25%', height:'25%'}}></img>
                     <br></br>
                     <label style={{fontWeight: 'bold'}}>Nivel de Gas Lp</label>
@@ -242,6 +252,7 @@ function MenuPrincipal(props){
                 <ModalCarga modalIsOpenLoad={modalIsOpenLoad} closeModalLoad={closeModalLoad}/>
               
         </div>
+       
     );
 }
 

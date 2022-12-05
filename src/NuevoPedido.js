@@ -7,6 +7,7 @@ import { ThreeDots } from  'react-loader-spinner'
 import {Navbar} from './component/Navbar';  
 import Backgroundgas from './component/Background-gas.png'
 import CorrectoImg from './resources/Correcto.svg'
+import FadeIn from 'react-fade-in';
 import ErrorImg from './resources/error.svg'
 import { ModalCarga } from "./component/ModalCarga";
  
@@ -175,6 +176,10 @@ function NuevoPedido(props){
             fd.append("cantidad", cantidadServicio)  
             fd.append("consumidor_id", props.numero_consumidor)  
             fd.append("rutaid", "0")
+            fd.append("correo", "0")
+            fd.append("nombres", props.nombres)
+            fd.append("apellidos", props.apellidos)
+            fd.append("telefono", "0")
             openModalLoad();
             const res = await axios.post(process.env.REACT_APP_API_URL, fd);
             closeModalLoad();
@@ -215,30 +220,41 @@ function NuevoPedido(props){
     const[fecha_hora, setHoraFecha] = useState(); 
 
     return(
+       
         <div  style={{margin: 'auto', width:'80%' , height: '100vh', backgroundImage: Backgroundgas}} align="center"> 
 
-         
+          <FadeIn>
             
                 <div style={{ display: 'flex', flexDirection: 'column', width: '100%'}} align="center">
 
                 <Navbar titulo="Nuevo Pedido" />
                 <br></br>
                 <br></br>
+                      <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'20px' }}>
+                         <div style={{display:'flex',flexDirection:'column', width:'50%' }}>
+                            <label class="idLabel">Colonia</label>
+                            <input type='text' class="idInput" onChange={e => setColonia(e.target.value)} defaultValue={Colonia}></input><br></br>
+                        </div>
+                        <div style={{display:'flex',flexDirection:'column', width:'50%' }}>
+                           <label class="idLabel">Código Postal</label>
+                           <input type='text' class="idInput" onChange={e => setCodigoPostal(e.target.value)} defaultValue={CodigoPostal}></input><br></br>
+                       </div>
+                    </div>
+
                     <label class="idLabel">Calle y Número</label> 
                     <input type='text' class="idInput" onChange={e => setCalleNumero(e.target.value)} defaultValue={CalleNumero}></input><br></br>
+                    <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'20px' }}>
+                         <div style={{display:'flex',flexDirection:'column', width:'50%' }}>
+                            <label class="idLabel">Fecha:</label>
+	                        <input id="FechaPedido" class="idInput"   style={{width:'100%', marginTop:'5px'}} type="date"/><br></br>
+                         </div>
+                         <div style={{display:'flex',flexDirection:'column', width:'50%' }}>
+                              <label class="idLabel">Hora:</label>
+	                        <input id="HoraPedido" class="idInput"  style={{width:'100%', marginTop:'5px'}} type="time"/><br></br>
+                         </div>
+                    </div>
                     
-                    <label class="idLabel">Colonia</label>
-                    <input type='text' class="idInput" onChange={e => setColonia(e.target.value)} defaultValue={Colonia}></input><br></br>
-
-                    <label class="idLabel">Código Postal</label>
-                    <input type='text' class="idInput" onChange={e => setCodigoPostal(e.target.value)} defaultValue={CodigoPostal}></input><br></br>
-
-                    <label class="idLabel">Fecha:</label>
-	                <input id="FechaPedido" class="idInput"   style={{width:'100%', marginTop:'5px'}} type="date"/><br></br>
-
-                    <label class="idLabel">Hora:</label>
-	                <input id="HoraPedido" class="idInput"  style={{width:'100%', marginTop:'5px'}} type="time"/><br></br>
-
+                   
                     <label class="idLabel">Cantidad (Lts)</label>
                     <input type='text' class="idInput" onChange={e => setCantidad(e.target.value)}></input><br></br>
 	   
@@ -283,8 +299,9 @@ function NuevoPedido(props){
                          <label>{MensajeError}</label>
                          <button style={{width:'100%', color:'white', backgroundColor:'#008445'}} className="buttonLogin" onClick={closeModalE}>Ok</button>
 						</div>  
-				</Modal>
+				</Modal> </FadeIn>
         </div>
+       
     );
 }
 

@@ -8,6 +8,7 @@ export  const Navbar = (props) =>(
   justifyContent: 'space-between',
   paddingTop: '.3rem',
   paddingBottom: '.3rem',
+  backgroundColor: '#0171CE',
   top: '20px',
   bottom: '20px'}}>
   <label style={{ width:'100%', textAlign:"center", color:'white', fontFamily: "'Roboto', Sans-Serif", fontSize:'20px', fontWeight:'bold'}}>{props.titulo}</label>
