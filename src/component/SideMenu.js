@@ -2,17 +2,24 @@ import React, { useState, useEffect, useSyncExternalStore } from 'react'
 import App from '../App'; 
 import NuevoPedido from '../NuevoPedido';
 import Usuario from '../Usuario';
+import axios from "axios";
 import Novedades from '../Novedades';
 import OpcionesMenu from './OpcionesMenu';  
 import MenuPrincipal from '../MenuPrincipal';  
-import { push as Menu } from 'react-burger-menu'
-import Backgroundgas from './Background-gas.png'
+import { push as Menu } from 'react-burger-menu';
+import Backgroundgas from './Background-gas.png';
 import DetalleSaldo from '../DetalleSaldo';
 import Historial from '../Historial';
 import Abonar from '../Abonar';
+import BuscarConsumidor from '../BuscarConsumidor';
 
 export default function SideMenu(props) {
+    window.event = new Event('event');
 
+    window.addEventListener('event', function() {
+        console.log("evento menu"); 
+        setSelect("MenuPrincipal");
+    }, false);
  
 
     const [selected, setSelect] = useState(props.selected);
@@ -24,14 +31,28 @@ export default function SideMenu(props) {
     const [saldo, setSaldo] = useState(); 
     // console.log(props.selected); 
   
-  
+    const[PrecioGas, setPrecioGas] = useState(); 
 
     function close(selected){
         setSelect(selected);
         if(isMenuOpen1 == true){
             SetIsMenuOpen1(false);
         } 
-    }
+    } 
+        useEffect(() => {
+            ObtenerPrecio(); 
+        },[])
+    
+    async function ObtenerPrecio(){    
+		let fd = new FormData()    
+        fd.append("id", "ObtenerPrecio")   
+		const res = await axios.post("https://grupopetromar.com/db/scripts/get_productos.php", fd); 
+		var json = JSON.parse(JSON.stringify(res.data));
+		var precio = json["productos"]["GAS"].precio;
+        setPrecioGas(precio); 
+        //document.getElementById("precioGas").innerHTML =  "$" +json["productos"]["GAS"].precio;
+		//console.log(res.data); 
+	}
 
     
 
@@ -53,7 +74,7 @@ export default function SideMenu(props) {
     const Element = () => {
 
           if (selected === 'NuevoPedido') {
-            return <NuevoPedido unmount={cambiarSelected} correo={props.correo} telefono={props.telefono} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
+            return <NuevoPedido PrecioGas={PrecioGas} unmount={cambiarSelected} correo={props.correo} telefono={props.telefono} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo}  />;
         } else if (selected === 'Usuario') {
             return <Usuario unmount={cambiarSelected}  nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
         }else if (selected === 'Novedades') {
@@ -64,6 +85,8 @@ export default function SideMenu(props) {
             return <Abonar  unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
         }else if (selected === 'Historial') {
             return <Historial  unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
+        }else if (selected === 'BuscarConsumidor') {
+            return <BuscarConsumidor  unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
         }else {
             return (<div style={{ width: '100%', textAlign: 'center', backgroundColor: '', margin: 'auto' }}><h1>Error al Cargar</h1></div>);
         } 
@@ -115,13 +138,15 @@ export default function SideMenu(props) {
 
     }*/
 
+ 
+
 
    
         if(selected == "MenuPrincipal"){
             return (
                 <div  class="containerMenuP" style={{ height: '100vh', width: '100vw', top: '0',  position: 'sticky', display: 'flex', overflowX: 'auto'}}>
                  
-            <MenuPrincipal saldoCliente={saldoCliente} unmount={cambiarSelected}   isMenuOpen1={isMenuOpen1} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} saldo={props.saldo}></MenuPrincipal>
+            <MenuPrincipal PrecioGas={PrecioGas} saldoCliente={saldoCliente} unmount={cambiarSelected}   isMenuOpen1={isMenuOpen1} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} saldo={props.saldo}></MenuPrincipal>
             </div>
             )
         }else{

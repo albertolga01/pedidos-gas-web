@@ -15,6 +15,7 @@ import nivelgaslp from './resources/nivel_gas_lp.svg'
 import GaugeChart from 'react-gauge-chart' 
 import historialpedidos from './resources/historialpedidos.svg'
 import { ModalCarga } from "./component/ModalCarga";
+import NuevoPedido from "./NuevoPedido";
 const customStylesD = { 	
 	content: {
         width:'30%',
@@ -38,8 +39,7 @@ const customStylesD = {
 	},
   };
 function MenuPrincipal(props){
-	useEffect(() => {
-        ObtenerPrecio();
+	useEffect(() => { 
         obtenerSaldo();
 	},[])
 
@@ -84,16 +84,7 @@ function MenuPrincipal(props){
     const[Mensaje, setMensaje] = useState(); 
     const[MensajeError, setMensajeError] = useState(); 	  
 
-    async function ObtenerPrecio(){    
-		let fd = new FormData()    
-        fd.append("id", "ObtenerPrecio")   
-		const res = await axios.post("https://grupopetromar.com/db/scripts/get_productos.php", fd); 
-		var json = JSON.parse(JSON.stringify(res.data));
-		var precio = json["productos"]["GAS"].precio;
-        setPrecioGas(precio); 
-        //document.getElementById("precioGas").innerHTML =  "$" +json["productos"]["GAS"].precio;
-		//console.log(res.data); 
-	}
+    
 
     async function obtenerSaldo(){    
 		let fd = new FormData()    
@@ -208,7 +199,7 @@ function MenuPrincipal(props){
                      
                      </div>
                      <div style={{width:'100%', borderBottomLeftRadius: '5px', borderBottomRightRadius: '5px', height:'70%', backgroundImage:'linear-gradient(#115680, #2590d1)'}}>
-                     <label id='precioGas' style={{color:'white', fontSize:'40px'}}>${PrecioGas}</label>
+                     <label id='precioGas' style={{color:'white', fontSize:'40px'}}>${props.PrecioGas}</label>
                         
                      </div> 
                     </div> 
@@ -248,6 +239,7 @@ function MenuPrincipal(props){
 						</div>  
 				</Modal>
 
+               
 
                 <ModalCarga modalIsOpenLoad={modalIsOpenLoad} closeModalLoad={closeModalLoad}/>
               

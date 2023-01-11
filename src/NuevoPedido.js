@@ -44,6 +44,7 @@ function NuevoPedido(props){
     const[CalleNumero, setCalleNumero] = useState();
     const[Colonia, setColonia] = useState();
     const[Cantidad, setCantidad] = useState();
+    const[Importe, setImporte] = useState();
     const[CodigoPostal, setCodigoPostal] = useState(); 
     const [fechaHoy, setFechaHoy] = useState("null");
 
@@ -162,11 +163,25 @@ function NuevoPedido(props){
 
         if(fechaValida == true && horaAtencion == true){ 
             let cantidadServicio = 1;
-            if(Cantidad == "" || Cantidad == undefined){
+            
+
+            let pesos = document.getElementById("tipopesos");
+            let litros = document.getElementById("tipolitros"); 
+            var cantidad = 0;
+            if(pesos.checked){ 
+                 cantidad = document.getElementById("inputpesos").value;
+                 cantidad = (cantidad / props.PrecioGas).toFixed(2);
+            }
+            if(litros.checked){
+                cantidad = document.getElementById("inputlitros").value;
+            }
+
+            if(cantidad == "" || cantidad == undefined){
                 
             }else{ 
-                cantidadServicio = Cantidad;
+                cantidadServicio = cantidad;
             }
+            alert(cantidadServicio);
             let fd = new FormData()   
             fd.append("id", "altaPedido")  
             fd.append("identificadorexterno", props.numero_consumidor) //props.identificador_externo 
@@ -180,6 +195,7 @@ function NuevoPedido(props){
             fd.append("nombres", props.nombres)
             fd.append("apellidos", props.apellidos)
             fd.append("telefono", "0")
+            fd.append("importe", Importe)
             openModalLoad();
             const res = await axios.post(process.env.REACT_APP_API_URL, fd);
             closeModalLoad();
@@ -191,7 +207,7 @@ function NuevoPedido(props){
             }else{ 
                 setMensaje("folio: "+json.folio + " cantidad: "+json.cantidad+ " estatus: "+json.estatus);
                 openModal();
-            }
+            } 
             //console.log(res.data); 
         }
 	}
@@ -205,6 +221,27 @@ function NuevoPedido(props){
         document.getElementById("HoraPedido").value = hora;
 
 	}
+
+    function tipoPedido(){
+        let pesos = document.getElementById("tipopesos");
+        let litros = document.getElementById("tipolitros"); 
+        document.getElementById("inputlitros").value = "";
+        document.getElementById("inputpesos").value = "";
+        if(pesos.checked){
+            //mostrar inut pesos
+       
+            document.getElementById("divpesos").style.display = "block";
+            document.getElementById("divlitros").style.display = "none";
+            
+             
+
+        }
+        if(litros.checked){
+            //mostrar el de litros  
+            document.getElementById("divpesos").style.display = "none";
+            document.getElementById("divlitros").style.display = "block";
+        }
+    }
 
 
     function HoraFecha(){
@@ -239,8 +276,7 @@ function NuevoPedido(props){
                            <label class="idLabel">Código Postal</label>
                            <input type='text' class="idInput" onChange={e => setCodigoPostal(e.target.value)} defaultValue={CodigoPostal}></input><br></br>
                        </div>
-                    </div>
-
+                    </div> 
                     <label class="idLabel">Calle y Número</label> 
                     <input type='text' class="idInput" onChange={e => setCalleNumero(e.target.value)} defaultValue={CalleNumero}></input><br></br>
                     <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'20px' }}>
@@ -253,10 +289,43 @@ function NuevoPedido(props){
 	                        <input id="HoraPedido" class="idInput"  style={{width:'100%', marginTop:'5px'}} type="time"/><br></br>
                          </div>
                     </div>
+
+                    <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'20px' }}>
                     
+
+                    </div>
+                    
+                    <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'20px' }}>
                    
-                    <label class="idLabel">Cantidad (Lts)</label>
-                    <input type='text' class="idInput" onChange={e => setCantidad(e.target.value)}></input><br></br>
+                    <div style={{display:'flex',flexDirection:'column', width:'50%' }}  >
+                    <fieldset>
+                            <legend class="idLabel">Seleccione:</legend>
+                            <div >
+                            <input type="radio" id="tipopesos" name="tipopedido"  
+                                     onClick={() => tipoPedido()}/>
+                            <label class="idLabel" for="pesos">Pesos</label>
+                           
+                            </div>
+                            <div>
+                                 <input type="radio" id="tipolitros" name="tipopedido"    onClick={() => tipoPedido()}/>
+                            <label class="idLabel" for="litros">Litros</label>
+                            </div>
+  
+                        </fieldset>
+                        </div>
+                        <div style={{display:'flex',flexDirection:'column', width:'50%' }} >
+                         <div  id="divlitros" style={{display: 'none'}}>
+                            <label class="idLabel">Cantidad (Lts)</label>
+                            <input type='text' class="idInput" id="inputlitros"  ></input> 
+                         </div>
+                         <div  id="divpesos">
+                              <label class="idLabel">Importe</label> 
+	                          <input type='text' id="inputpesos" class="idInput"    ></input><br></br>
+                         </div>
+                         </div>
+                    </div>
+                   
+                    <br></br>
 	   
                     <label class="idLabel">Comentarios</label>
                     <textarea class="idInput" onChange={e => setComentarios(e.target.value)} rows="15" cols="50" defaultValue={Comentarios}></textarea><br></br>

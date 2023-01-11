@@ -13,6 +13,7 @@ import logoGlp from '../resources/logoGlp.png';
 import { fadeIn } from 'react-animations'
 //import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";  
 import {ThreeDots } from  'react-loader-spinner'
+import BuscarConsumidor from '../BuscarConsumidor';
 
 const customStyles = { 	
 	content: {
@@ -26,8 +27,15 @@ const customStyles = {
   };
 
 const Login = (isLoggedIna) =>  { 
+	/*window.event = new Event('event');
+
+		window.addEventListener('event', function() {
+			console.log("sdfghjklñ{ññññññ");
+			alert("a");
+		}, false);
+	*/
 	const [isLoggedIn, setisLoggedIn] = useState(isLoggedIna);  
-	const [pagarServicio, setPagarServicio] = useState(false);  
+	const [pagarServicio, setPagarServicio] = useState(false);   
 	const [registrarse, setRegistrarse] = useState(false);  
 
 
@@ -42,16 +50,24 @@ const Login = (isLoggedIna) =>  {
  
 	const [modalIsOpenLoad, setIsOpenLoad] = React.useState(false);
 
+
+	const [buscarConsumidor, setBuscarConsumidor] = useState(false); 
+
 	function handleKeyPress  (event) {
 		if(event.key === 'Enter'){ 
 			Login(event);
 		}
 	}
-	useEffect(() => {
-          
+	useEffect(() => { 
+			/*if (navigator.geolocation) {
+			  navigator.geolocation.watchPosition(function(position) {
+				console.log("Latitude is :", position.coords.latitude);
+				console.log("Longitude is :", position.coords.longitude);
+			  });
+			} */ 
 	},[])
   
-
+	 
 	function openModalLoad() { 
 		setIsOpenLoad(true); 
 	}  
@@ -99,10 +115,19 @@ const Login = (isLoggedIna) =>  {
 		  setNuevoTelefono(telefononc);
     }
 
+	function hello() { 
+		alert("hello world"); 
+	}
 
 	function cambiarSelected1(){  
 		setPagarServicio(false);  
   }
+
+  function cambiarSelected2(noConsumidor){  
+	setBuscarConsumidor(false);  
+	//document.getElementById("form-usuario").value = noConsumidor;
+	setNuevoConsumidor(noConsumidor);
+}
 
 	
 
@@ -127,48 +152,69 @@ const Login = (isLoggedIna) =>  {
 					</>
 				:
 					<>
-					<div style={{width:'100%', display:'flex', flexDirection:'row', flexWrap:'wrap', backgroundColor:'#0158A0'}}> 
-							<div style={{width:'100%' }} align="right">
-								<button id="form-btn" className='buttonLogin' style={{margin:'5px', width: '80px', color:'white'}} onClick={() => setPagarServicio(true)}>PAGAR</button> 
-								</div>
-
+					{(buscarConsumidor) ?
+						<>
+						<div  class="divPrincipal" align="center" style={{ height: '100vh', width: '100vw', top: '0',  position: 'sticky', display: 'flex', overflowX: 'auto'}}>
+						<BuscarConsumidor unmount={cambiarSelected2}/>
 					</div>
-					<div id="body-content" style={{backgroundColor:'#0171CE', display:'flex', flexDirection:'column'}}>
-					<div id="div-img" style={{ margin:'15px'}}>
-					
-					<img src={logoGlp} style={{width:'50%', height:'50%'}}></img>
-					
-					</div>  
-					<FadeIn  >
-					<div id="div-form">
-					<h1>Bienvenido, <br></br>
-					<span>Ingresa tus datos</span></h1>
-					
-						<span>Teléfono</span>
-						<input id="form-password" onKeyPress={handleKeyPress} defaultValue={nuevoTelefono} type="tel" maxlength="10" style={{height:'30px'}}  placeholder="Teléfono"/>
-						<span>No. Consumidor</span>
-						<input id="form-usuario" onKeyPress={handleKeyPress} defaultValue={nuevoConsumidor} type="tel" style={{height:'30px'}} placeholder="Número Consumidor"/>
-						
-						<button id="form-btn" className='buttonLogin' style={{backgroundColor:'#0071ce', color:'white'}} onClick={(e) => Login(e)}>INICIAR SESIÓN</button> 
-						
-						<br></br>
-						<div style={{width:'100%', height:'100px', justifyContent: 'space-between', columnGap:'0.875rem', display:'flex', flexDirection:'row'}} align="center"> 
-                     		<div style={{width:'100%', display: 'flex', flexDirection:'column'}}>
-					 			<label>¿No tienes cuenta?</label>
-								<u><a  id="link"   onClick={() => setRegistrarse(true)}>REGISTRATE</a> </u>
-						
-                     		</div>
-							 <div style={{width:'100%', display: 'flex', flexDirection:'column'}}>
-					 			<label>¿Necesitas ayuda?</label>
-								 <u><a id="link" href="tel:6699842020">LLÁMANOS <br></br>(669) 984-20-20</a></u>
+						</>
+					:
+						<>
+							<div style={{width:'100%', display:'flex', flexDirection:'row', flexWrap:'wrap', backgroundColor:'#0158A0'}}> 
+										<div style={{width:'100%' }} align="right">
+											<button id="form-btn" className='buttonLogin' style={{margin:'5px', width: '80px', color:'white'}} onClick={() => setPagarServicio(true)}>PAGAR</button> 
+											</div>
 								 
-                     		</div>
-                    	</div>
-						
-					</div>
-					</FadeIn>
-					<ModalCarga modalIsOpenLoad={modalIsOpenLoad} closeModalLoad={closeModalLoad}/>
-				</div>
+
+								</div>
+								<div id="body-content" style={{backgroundColor:'#0171CE', display:'flex', flexDirection:'column'}}>
+								<div id="div-img" style={{ margin:'15px'}}>
+								
+								<img src={logoGlp} style={{width:'50%', height:'50%'}}></img>
+								
+								</div>  
+								<FadeIn  >
+								<div id="div-form">
+								<div style={{width:'100%'}} align="center">
+								<span style={{fontSize:'30px'}}>Bienvenido,  </span><br></br>
+								<span style={{width:'100%'}}>Ingresa tus datos</span>
+								</div>
+								
+									<span>Teléfono</span>
+									<input id="form-password" onKeyPress={handleKeyPress} defaultValue={nuevoTelefono} type="tel" maxlength="10" style={{height:'30px'}}  placeholder="Teléfono"/>
+									<span>No. Consumidor</span>
+									<input id="form-usuario" onKeyPress={handleKeyPress} defaultValue={nuevoConsumidor} type="tel" style={{height:'30px'}} placeholder="Número Consumidor"/>
+									
+									<button id="form-btn" className='buttonLogin' style={{backgroundColor:'#0071ce', color:'white'}} onClick={(e) => Login(e)}>INICIAR SESIÓN</button> 
+									<br></br>
+									<div style={{width:'100%', height:'50px', justifyContent: 'space-between', columnGap:'0.875rem', display:'flex', flexDirection:'row'}} align="center"> 
+										<div style={{width:'100%', display: 'flex', flexDirection:'column'}}>
+											<label>¿Olvidaste el no. de consumidor?</label>
+											<u><a  id="link"   onClick={() => setBuscarConsumidor(true)}>Buscar</a> </u>
+									
+										</div> 
+									</div>
+									 
+									<div style={{width:'100%', height:'50px', justifyContent: 'space-between', columnGap:'0.875rem', display:'flex', flexDirection:'row'}} align="center"> 
+										<div style={{width:'100%', display: 'flex', flexDirection:'column'}}>
+											<label>¿No tienes cuenta?</label>
+											<u><a  id="link"   onClick={() => setRegistrarse(true)}>REGISTRATE</a> </u>
+									
+										</div>
+										<div style={{width:'100%', display: 'flex', flexDirection:'column'}}>
+											<label>¿Necesitas ayuda?</label>
+											<u><a id="link" href="tel:6699842020">LLÁMANOS <br></br>(669) 984-20-20</a></u>
+											
+										</div>
+									</div>
+									
+								</div>
+								</FadeIn>
+								<ModalCarga modalIsOpenLoad={modalIsOpenLoad} closeModalLoad={closeModalLoad}/>
+							</div>
+						</>
+					}
+					
 					</>
 				}
 				

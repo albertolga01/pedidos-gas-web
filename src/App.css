@@ -61,7 +61,7 @@ a.button {
 #link { 
   color: #39e3e9;
   font-weight: bold;
-  padding-top: 25px;
+  padding-top: 10px;
   -webkit-appearance: textfield;
   -moz-appearance: textfield;
   appearance: textfield;
@@ -162,9 +162,24 @@ input[type="time"]
   textarea,
   input {
     font-size: 16px;
+    touch-action: none;
+  }
+  textarea,
+  input:focus {
+    font-size: 16px;
+    touch-action: none;
   }
 }
-
+textarea,
+  input {
+    font-size: 16px;
+    touch-action: none;
+  }
+  textarea,
+  input:focus {
+    font-size: 16px;
+    touch-action: none;
+  }
 .buttonVerde{
   height: 40px;
   width: 80px;
