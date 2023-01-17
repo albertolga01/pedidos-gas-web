@@ -27,16 +27,23 @@ const customStyles = {
   };
 
 const Login = (isLoggedIna) =>  { 
-	/*window.event = new Event('event');
-
-		window.addEventListener('event', function() {
-			console.log("sdfghjklñ{ññññññ");
-			alert("a");
-		}, false);
-	*/
+	
+		
 	const [isLoggedIn, setisLoggedIn] = useState(isLoggedIna);  
 	const [pagarServicio, setPagarServicio] = useState(false);   
 	const [registrarse, setRegistrarse] = useState(false);  
+ 
+
+
+	window.event = new Event('event');
+
+		window.addEventListener('event', function(info) {
+			console.log("aaaaaaaaaaaaaaaaaaan" + info.detail.consumidor	);
+			setNuevoTelefono(info.detail.telefono);
+			setNuevoConsumidor(info.detail.consumidor);
+			alert("a");
+		}, false);
+	
 
 
 	const [nombres, setnombres] = useState("null");
@@ -80,6 +87,8 @@ const Login = (isLoggedIna) =>  {
 	 
 	async function Login(e){  
 		e.preventDefault();  
+		
+ 
 		document.body.style.zoom = "100%";
 		var NoConsumidor = document.getElementById("form-usuario").value;
 		var telefono = document.getElementById("form-password").value;  
@@ -93,7 +102,8 @@ const Login = (isLoggedIna) =>  {
 		closeModalLoad();
 		console.log(res.data);
 		if(res.data[0].telefono1 === telefono){
-			
+			if (window.Android)
+		    window.Android.showToast(telefono, NoConsumidor);
 			
 			setnombres(res.data[0].nombres);
 			setapellidos(res.data[0].apellidos);
@@ -101,8 +111,9 @@ const Login = (isLoggedIna) =>  {
 			setTelefono(res.data[0].telefono1);
 			setnumero_consumidor(res.data[0].numero_consumidor);
 			setidentificador_externo(res.data[0].identificador_externo);
-	 
+			
 			setisLoggedIn(false); 
+
 		} else {
 			alert("Datos de acceso incorrectos");
 		} 

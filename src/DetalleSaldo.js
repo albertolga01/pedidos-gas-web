@@ -62,7 +62,7 @@ function DetalleSaldo(props){
 							<th style={{color:'white'}}>Descripción</th> 
 							 
 						</tr>
-
+                        
 						 { lista.map(item => ( 
 						<tr id="tabletr" style={{  fontSize:'15.5px', border: 'px solid #ABB2B9'}}>
 							<td style={{color:'white', textAlign:'center' }}>{item.folio}</td> 
