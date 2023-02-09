@@ -118,7 +118,9 @@ function Usuario(props){
         setNombre(res.data[0].nombres);
         setApellido(res.data[0].apellidos);
         setTelUno(res.data[0].telefono1);
-        setTelDos(res.data[0].telefono2);
+        if(res.data[0].telefono2 != "null"){
+            setTelDos(res.data[0].telefono2);
+        }
         setDescripcion(res.data[0].descripcion);
         setComentarios(res.data[0].comentario);
         setCalleNumero(res.data[0].calle_numero);
@@ -126,6 +128,7 @@ function Usuario(props){
         setCiudad(res.data[0].ciudad);
 		setCodigoPostal(res.data[0].codigo_postal);
         setEmail(res.data[0].email);
+        /*
         var latU = res.data[0]["posicion_gps"].latitud_grados_decimales;
         var longU = res.data[0]["posicion_gps"].longitud_grados_decimales;
 
@@ -153,7 +156,10 @@ function Usuario(props){
 
         setLat1(latFU);
         setLong1(longFU * -1);
-   
+*/
+        setLat1(res.data[0]["posicion_gps"].latitud_grados_decimales);
+        setLong1(res.data[0]["posicion_gps"].longitud_grados_decimales);
+ 
 		//console.log(res.data); 
 	}
 
@@ -162,7 +168,7 @@ function Usuario(props){
     }
 
     async function ActualizarConsumidor(){    
-        var valido = Validador(Nombre, Apellido, TelefonoUno, CalleNumero, lat1, long1); 
+        var valido = Validador(Nombre, Apellido, TelefonoUno, CalleNumero); 
         if(valido == true){
 		let fd = new FormData()   
 		fd.append("id", "altaConsumidor")  
@@ -214,7 +220,7 @@ function Usuario(props){
         const decimalStr = num.toString().split('.')[1];
         return Number(decimalStr);
       }
-      function Validador(NombreV, ApellidoV,Tel1V, CalleNumV, lat1V, long1V){
+      function Validador(NombreV, ApellidoV,Tel1V, CalleNumV){
       
         if(NombreV == "" || NombreV == null ){
            return false;
@@ -224,11 +230,7 @@ function Usuario(props){
            return false;
         } else if (CalleNumV == "" || CalleNumV == null){
            return false;
-        } else if (lat1V == "" || lat1V == null){
-           return false;
-        } else if (long1V == "" || long1V == null){
-           return false;
-        } else {
+        }  else {
            return true;
         }
        
@@ -288,8 +290,8 @@ function Usuario(props){
                     <label class="idLabel">Comentarios*</label>
                     <textarea class="idInput" style={{minHeight:'90px'}} onChange={e => setComentarios(e.target.value)} rows="15" cols="50" defaultValue={Comentarios}></textarea><br></br>
                     
-                    <label class="idLabel" >Ubicación</label><br></br>
-                    <div style={{width:'100%'}}>
+                    <label class="idLabel" hidden >Ubicación</label ><br></br>
+                    <div style={{width:'100%'}} hidden>
                         <Gmaps
                         width={'100%'}
                         height={'500px'}
@@ -313,8 +315,8 @@ function Usuario(props){
                             longF = Math.trunc(longF*100)/100;
                             console.log("Latitud decimals: " + latF);
                             console.log("longitud decimals: " + longF);
-                            setLat1(latF);
-                            setLong1(longF);
+                         //   setLat1(latF);
+                          //  setLong1(longF);
                             setLat(ev.latLng.lat());
                             setLong(ev.latLng.lng());
                           //  console.log("latitide = ", ev.latLng.lat());

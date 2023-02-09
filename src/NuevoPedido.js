@@ -328,7 +328,7 @@ function NuevoPedido(props){
                     <br></br>
 	   
                     <label class="idLabel">Comentarios</label>
-                    <textarea class="idInput" onChange={e => setComentarios(e.target.value)} rows="15" cols="50" defaultValue={Comentarios}></textarea><br></br>
+                    <textarea class="idInput" onChange={e => setComentarios(e.target.value)} rows="15" cols="50" defaultValue={Comentarios} style={{minHeight:'90px'}}></textarea><br></br>
                     <br></br>
                     <div style={{justifyContent: 'space-between', columnGap:'0.875rem', width:'100%', display:'flex', flexDirection:'row'}}> 
                     <div style={{width:'50%'}} align="center"> 

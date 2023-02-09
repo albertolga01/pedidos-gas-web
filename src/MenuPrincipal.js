@@ -143,7 +143,16 @@ function MenuPrincipal(props){
 
  
     function logOut() {
-        window.location.reload();
+        if (window.Android){
+            window.Android.showToast("", "", "", "", "", "", "0");
+            //alert(res);
+        }else{
+            window.location.reload();
+        }
+		    
+			
+
+        
     }
 
    

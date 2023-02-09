@@ -67,8 +67,8 @@ function BuscarConsumidor(props){
 		setIsOpenLoadError(false); 
 	}
 
-    function Seleccionar(noconsumidor){  
-        props.unmount(noconsumidor);   
+    function Seleccionar(telefono, noconsumidor){  
+        props.unmount(telefono, noconsumidor);   
     }
  
       async function buscarServicio(){
@@ -81,6 +81,7 @@ function BuscarConsumidor(props){
             openModalLoad();
            
         const res = await axios.post(process.env.REACT_APP_API_URL, fd);
+        console.log(res.data);
             closeModalLoad();
             if(res.data.length == 0){
               notify("No se encontró información");
@@ -116,7 +117,7 @@ function BuscarConsumidor(props){
 
 						 { lista.map(item => ( 
 						<tr id="tabletr" style={{  fontSize:'15.5px', border: 'px solid #ABB2B9'}}>
-							<td style={{color:'white', textAlign:'center' }}> <button className="buttonVerde" style={{width:'89px', paddingLeft:'6px'}} onClick={() => Seleccionar(item.noconsumidor)}>Seleccionar</button></td> 
+							<td style={{color:'white', textAlign:'center' }}> <button className="buttonVerde" style={{width:'89px', paddingLeft:'6px'}} onClick={() => Seleccionar(item.telefono, item.noconsumidor)}>Seleccionar</button></td> 
 							<td style={{color:'white', textAlign:'center' }}> {item.nombre}</td>
 							<td style={{color:'white', textAlign:'center' }}> {item.apellido}</td>
 							<td style={{color:'white', textAlign:'center' }}> {item.direccion}</td> 

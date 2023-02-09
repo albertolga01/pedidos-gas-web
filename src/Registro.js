@@ -80,7 +80,7 @@ function Registro(props){
         props.unmount(Mensaje, TelefonoNC);   
     }
 
-    function Validador(NombreV, ApellidoV,Tel1V, CalleNumV, lat1V, long1V){
+    function Validador(NombreV, ApellidoV,Tel1V, CalleNumV){
       
          if(NombreV == "" || NombreV == null ){
             return false;
@@ -90,10 +90,6 @@ function Registro(props){
             return false;
          } else if (CalleNumV == "" || CalleNumV == null){
             return false;
-         } else if (lat1V == "" || lat1V == null){
-            return false;
-         } else if (long1V == "" || long1V == null){
-            return false;
          } else {
             return true;
          }
@@ -101,7 +97,7 @@ function Registro(props){
     }
 
     async function altaConsumidor(){   
-         var valido = Validador(Nombre, Apellido, TelefonoUno, CalleNumero, lat1, long1); 
+         var valido = Validador(Nombre, Apellido, TelefonoUno, CalleNumero); 
          if(valido == true){
             let fd = new FormData()   
             fd.append("id", "altaConsumidor")  
@@ -116,13 +112,14 @@ function Registro(props){
             fd.append("ciudad", Ciudad)
             fd.append("codigo_postal", CodigoPostal)
             fd.append("email", Email)
-            fd.append("c_latitud", lat1)
-            fd.append("c_longitud", long1)
+            fd.append("c_latitud", "2314.3201")
+            fd.append("c_longitud", "10626.7197")
             openModalLoad();
             const res = await axios.post(process.env.REACT_APP_API_URL, fd);
             closeModalLoad();
-            console.log(res.data);
+            
             var json = JSON.parse(JSON.stringify(res.data)); 
+           console.log(json.numero_consumidor);
             setMensaje(json.numero_consumidor);
             setTelefonoNC(json.telefono1);
             openModal();
@@ -208,8 +205,8 @@ function Registro(props){
                     <textarea class="idInput" onChange={e => setComentarios(e.target.value)} rows="5" cols="50"></textarea><br></br>
                     
 
-                    <label class="idLabel" >Ubicación</label><br></br>
-                    <div style={{width:'100%'}}>
+                    <label class="idLabel" hidden >Ubicación</label><br></br>
+                    <div style={{width:'100%'}} hidden>
                         <Gmaps
                         width={'100%'}
                         height={'500px'}
@@ -233,8 +230,8 @@ function Registro(props){
                             longF = Math.trunc(longF*100)/100;
                             console.log("Latitud decimals: " + latF);
                             console.log("longitud decimals: " + longF);
-                            setLat1(latF);
-                            setLong1(longF);
+                          //  setLat1(latF);
+                           // setLong1(longF);
                             setLat(ev.latLng.lat());
                             setLong(ev.latLng.lng());
                           //  console.log("latitide = ", ev.latLng.lat());

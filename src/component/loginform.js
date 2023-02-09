@@ -38,10 +38,31 @@ const Login = (isLoggedIna) =>  {
 	window.event = new Event('event');
 
 		window.addEventListener('event', function(info) {
-			console.log("aaaaaaaaaaaaaaaaaaan" + info.detail.consumidor	);
-			setNuevoTelefono(info.detail.telefono);
-			setNuevoConsumidor(info.detail.consumidor);
-			alert("a");
+			
+			if(info.detail.nombres != "" && info.detail.apellidos != ""  && info.detail.telefono != "" && info.detail.consumidor != "" && info.detail.identificador_externo != ""){
+				console.log("nombre: " + info.detail.nombres);
+				console.log("apellidos: " + info.detail.apellidos);
+				console.log("email: " + info.detail.email);
+				console.log("telefono: " + info.detail.telefono);
+				console.log("consumidor: " + info.detail.consumidor);
+				console.log("identificador: " + info.detail.identificador_externo); 
+	
+			setnombres(info.detail.nombres);
+			setapellidos(info.detail.apellidos);
+			setCorreo(info.detail.email);
+			setTelefono(info.detail.telefono);
+			setnumero_consumidor(info.detail.consumidor);
+			setidentificador_externo(info.detail.identificador_externo);
+			setisLoggedIn(false); 
+			}else if (info.detail.telefono != "" && info.detail.consumidor){
+				setNuevoTelefono(info.detail.telefono);
+				setNuevoConsumidor(info.detail.consumidor);
+			}
+
+
+			//alert("a");
+			//Login();
+		//	document.getElementById("form-btn").click();
 		}, false);
 	
 
@@ -102,8 +123,9 @@ const Login = (isLoggedIna) =>  {
 		closeModalLoad();
 		console.log(res.data);
 		if(res.data[0].telefono1 === telefono){
-			if (window.Android)
-		    window.Android.showToast(telefono, NoConsumidor);
+			if (window.Android){
+		    window.Android.showToast(telefono, NoConsumidor, res.data[0].nombres, res.data[0].apellidos, res.data[0].email, res.data[0].identificador_externo, "1");
+			}
 			
 			setnombres(res.data[0].nombres);
 			setapellidos(res.data[0].apellidos);
@@ -124,6 +146,9 @@ const Login = (isLoggedIna) =>  {
           setPagarServicio(false); 
 		  setNuevoConsumidor(nuevoConsumidor1);
 		  setNuevoTelefono(telefononc);
+	console.log("----tele "+telefononc);
+	console.log("----nocon "+nuevoConsumidor1);
+
     }
 
 	function hello() { 
@@ -134,10 +159,12 @@ const Login = (isLoggedIna) =>  {
 		setPagarServicio(false);  
   }
 
-  function cambiarSelected2(noConsumidor){  
+  function cambiarSelected2(telefono, noConsumidor){  
 	setBuscarConsumidor(false);  
 	//document.getElementById("form-usuario").value = noConsumidor;
+	setNuevoTelefono(telefono);
 	setNuevoConsumidor(noConsumidor);
+	console.log("----nocon "+noConsumidor);
 }
 
 	
@@ -173,7 +200,7 @@ const Login = (isLoggedIna) =>  {
 						<>
 							<div style={{width:'100%', display:'flex', flexDirection:'row', flexWrap:'wrap', backgroundColor:'#0158A0'}}> 
 										<div style={{width:'100%' }} align="right">
-											<button id="form-btn" className='buttonLogin' style={{margin:'5px', width: '80px', color:'white'}} onClick={() => setPagarServicio(true)}>PAGAR</button> 
+											<button id="form-btn-pagar" className='buttonLogin' style={{margin:'5px', width: '80px', color:'white'}} onClick={() => setPagarServicio(true)}>PAGAR</button> 
 											</div>
 								 
 
