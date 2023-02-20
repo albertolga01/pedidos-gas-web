@@ -214,13 +214,18 @@ function NuevoPedido(props){
 
     function currentDate(){ 
         var hoy = new Date()
+        hoy.setMinutes ( hoy.getMinutes() + 30 ); 
         var fecha = hoy.getFullYear() + '-' + ('0' + (hoy.getMonth() + 1)).slice(-2) + '-' + ('0' + hoy.getDate()).slice(-2) ;
-         var hora = ('0' + (hoy.getHours()+1)).slice(-2) + ':' + ('0' + hoy.getMinutes()).slice(-2);
-       console.log(hora);
+         var hora = ('0' + (hoy.getHours())).slice(-2) + ':' + ('0' + (hoy.getMinutes())).slice(-2);
+      // console.log(hora);
         document.getElementById("FechaPedido").value = fecha;
-        document.getElementById("HoraPedido").value = hora;
+        document.getElementById("HoraPedido").value = hora; 
 
 	}
+
+    
+
+    
 
     function tipoPedido(){
         let pesos = document.getElementById("tipopesos");

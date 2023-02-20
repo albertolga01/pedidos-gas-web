@@ -45,11 +45,12 @@ export default function SideMenu(props) {
     
     async function ObtenerPrecio(){    
 		let fd = new FormData()    
-        fd.append("id", "ObtenerPrecio")   
-		const res = await axios.post("https://grupopetromar.com/db/scripts/get_productos.php", fd); 
+        fd.append("id", "ObtenerPrecios")   
+		const res = await axios.post("https://sistemagas.grupopetromar.com/scripts/obtenerPrecioGPLP.php", fd); 
 		var json = JSON.parse(JSON.stringify(res.data));
-		var precio = json["productos"]["GAS"].precio;
-        setPrecioGas(precio); 
+		console.log(json.precio_venta); 
+        //var precio = json["precio_venta"].precio;
+        setPrecioGas(json.precio_venta.slice(0,-2)); 
         //document.getElementById("precioGas").innerHTML =  "$" +json["productos"]["GAS"].precio;
 		//console.log(res.data); 
 	}

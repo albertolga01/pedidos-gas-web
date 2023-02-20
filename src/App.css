@@ -162,23 +162,23 @@ input[type="time"]
   textarea,
   input {
     font-size: 16px;
-    touch-action: none;
+    /*touch-action: none;*/
   }
   textarea,
   input:focus {
     font-size: 16px;
-    touch-action: none;
+    /*touch-action: none;*/
   }
 }
 textarea,
   input {
     font-size: 16px;
-    touch-action: none;
+    /*touch-action: none;*/
   }
   textarea,
   input:focus {
     font-size: 16px;
-    touch-action: none;
+    /*touch-action: none;*/
   }
 .buttonVerde{
   height: 40px;

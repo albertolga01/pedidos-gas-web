@@ -198,32 +198,44 @@ const Login = (isLoggedIna) =>  {
 						</>
 					:
 						<>
-							<div style={{width:'100%', display:'flex', flexDirection:'row', flexWrap:'wrap', backgroundColor:'#0158A0'}}> 
+							<div  style={{width:'100%', display:'flex', flexDirection:'row', flexWrap:'wrap', backgroundColor:'#0158A0'}}> 
 										<div style={{width:'100%' }} align="right">
-											<button id="form-btn-pagar" className='buttonLogin' style={{margin:'5px', width: '80px', color:'white'}} onClick={() => setPagarServicio(true)}>PAGAR</button> 
+											<button hidden id="form-btn-pagar" className='buttonLogin' style={{margin:'5px', width: '80px', color:'white'}} onClick={() => setPagarServicio(true)}>PAGAR</button> 
 											</div>
 								 
 
 								</div>
-								<div id="body-content" style={{backgroundColor:'#0171CE', display:'flex', flexDirection:'column'}}>
-								<div id="div-img" style={{ margin:'15px'}}>
+								<div id="body-content" style={{height:'100vh', width: '100vw', top: '0',  position: 'sticky', backgroundColor:'#0171CE', display:'flex', flexDirection:'column'}}>
 								
-								<img src={logoGlp} style={{width:'50%', height:'50%'}}></img>
-								
-								</div>  
-								<FadeIn  >
-								<div id="div-form">
+								<div id="div-form" style={{backgroundColor:'#0171CE'}} >
+								<div align="center"> 
+									 	<img src={logoGlp} style={{width:'250px', height:'250px'}}></img>
+								</div>
+								 
+									<FadeIn  >
 								<div style={{width:'100%'}} align="center">
 								<span style={{fontSize:'30px'}}>Bienvenido,  </span><br></br>
 								<span style={{width:'100%'}}>Ingresa tus datos</span>
 								</div>
-								
-									<span>Teléfono</span>
-									<input id="form-password" onKeyPress={handleKeyPress} defaultValue={nuevoTelefono} type="tel" maxlength="10" style={{height:'30px'}}  placeholder="Teléfono"/>
-									<span>No. Consumidor</span>
-									<input id="form-usuario" onKeyPress={handleKeyPress} defaultValue={nuevoConsumidor} type="tel" style={{height:'30px'}} placeholder="Número Consumidor"/>
 									
-									<button id="form-btn" className='buttonLogin' style={{backgroundColor:'#0071ce', color:'white'}} onClick={(e) => Login(e)}>INICIAR SESIÓN</button> 
+									
+									<div style={{width:'100%'}} align="center">
+											<div style={{width:'80%'}} align="left">
+									<span>Teléfono</span><br></br>
+									</div>
+									<input id="form-password" onKeyPress={handleKeyPress} defaultValue={nuevoTelefono} type="tel" maxlength="10" style={{height:'30px', width:'80%'}}  placeholder="Teléfono"/>
+									</div>
+									<div style={{width:'100%'}} align="center">
+									<div style={{width:'80%'}} align="left">
+									<span>No. Consumidor</span>
+									</div>
+									<input id="form-usuario" onKeyPress={handleKeyPress} defaultValue={nuevoConsumidor} type="tel" style={{height:'30px', width:'80%'}} placeholder="Número Consumidor"/>
+									</div>
+									<div style={{width:'100%', height:'50px'	}} align="center"> 
+										
+										<button id="form-btn" className='buttonLogin' style={{backgroundColor:'#0071ce', color:'white'}} onClick={(e) => Login(e)}>INICIAR SESIÓN</button> 
+										
+									</div>
 									<br></br>
 									<div style={{width:'100%', height:'50px', justifyContent: 'space-between', columnGap:'0.875rem', display:'flex', flexDirection:'row'}} align="center"> 
 										<div style={{width:'100%', display: 'flex', flexDirection:'column'}}>
@@ -244,10 +256,16 @@ const Login = (isLoggedIna) =>  {
 											<u><a id="link" href="tel:6699842020">LLÁMANOS <br></br>(669) 984-20-20</a></u>
 											
 										</div>
+										<br></br>
+									<br></br>
+									<br></br>
+									<br></br>	
 									</div>
-									
+									</FadeIn> 
+									<br></br>
+									<br></br> 
 								</div>
-								</FadeIn>
+								
 								<ModalCarga modalIsOpenLoad={modalIsOpenLoad} closeModalLoad={closeModalLoad}/>
 							</div>
 						</>
