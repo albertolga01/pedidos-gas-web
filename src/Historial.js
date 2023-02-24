@@ -55,6 +55,14 @@ function Historial(props){
     setNombres(props.nombres);
    }
 
+   function formatDate(date){
+    let index = date.search(" ");
+    date = date.substring(0, index);
+    date = date.split("-");
+    let formatedDate = date[2] +"/"+ date[1] +"/"+ date[0];
+    return(formatedDate);
+}
+
     return(
         <>
         {(pagarServicio) ? 
@@ -81,18 +89,18 @@ function Historial(props){
 							<th style={{color:'white'}}>Litros</th>
 							<th style={{color:'white'}}>Importe</th> 
 							<th style={{color:'white'}}>Estatus</th> 
-							<th style={{color:'white'}}>Pagar</th> 
+							<th style={{color:'white'}} hidden>Pagar</th> 
 							 
 						</tr>
 
 						 { lista.map(item => ( 
 						<tr id="tabletr" style={{  fontSize:'15.5px', border: 'px solid #ABB2B9'}}>
 							<td style={{color:'white', textAlign:'center' }}>{item.folio}</td> 
-							<td style={{color:'white', textAlign:'center' }}> {(item.fechahoraservicio)}</td>
+							<td style={{color:'white', textAlign:'center' }}> {formatDate(item.fechahoraservicio)}</td>
 							<td style={{color:'white', textAlign:'center' }}> {FormatNumber(item.litros)}</td>
 							<td style={{color:'white', textAlign:'center' }}> {FormatNumber(item.monto)}</td>
 							<td style={{color:'white', textAlign:'center' }}> {item.estatus_pedido}</td>
-							<td style={{color:'white', textAlign:'center' }}> <button id="form-btn" className='buttonLogin' style={{margin:'5px', width: '80px', color:'white'}} onClick={() => pagarServicio1(item.monto)}>PAGAR</button>  </td>
+							<td style={{color:'white', textAlign:'center' }} hidden> <button id="form-btn" className='buttonLogin' style={{margin:'5px', width: '80px', color:'white'}} onClick={() => pagarServicio1(item.monto)}>PAGAR</button>  </td>
 							 
 							  
 						</tr> 

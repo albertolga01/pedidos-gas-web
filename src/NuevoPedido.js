@@ -140,11 +140,22 @@ function NuevoPedido(props){
             return false;
         } 
     }
+    function validarDomingo(fecha){
+        let day = new Date(fecha);
+        console.log(day.getDay());
+        if(day.getDay() == 6){
+            return true;
+        }else{
+            return false;
+        }
+        
+    }
  
 
     async function altaPedido(){  
         var fechaValida = validarDia(document.getElementById("FechaPedido").value);
         var horaAtencion = validarHorarioAtencion(document.getElementById("HoraPedido").value);
+        var domingo = validarDomingo(document.getElementById("FechaPedido").value);
 
         if(fechaValida == false){
             //alert("fecha invalida o anterior a la hora actual para el mismo dia");
@@ -161,7 +172,14 @@ function NuevoPedido(props){
             //modal hora fuera del horario de atencion
         }
 
-        if(fechaValida == true && horaAtencion == true){ 
+        if(domingo == true){
+            //alert("fuera del horario de atencion");
+            setMensajeError("No se puede programar pedido para día domingo");
+            openModalE();
+            //modal hora fuera del horario de atencion
+        }
+
+        if(fechaValida == true && horaAtencion == true && domingo == false){ 
             let cantidadServicio = 1;
             
 
@@ -181,7 +199,7 @@ function NuevoPedido(props){
             }else{ 
                 cantidadServicio = cantidad;
             }
-            alert(cantidadServicio);
+           // alert(cantidadServicio);
             let fd = new FormData()   
             fd.append("id", "altaPedido")  
             fd.append("identificadorexterno", props.numero_consumidor) //props.identificador_externo 

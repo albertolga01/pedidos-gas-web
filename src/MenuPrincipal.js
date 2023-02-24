@@ -165,7 +165,8 @@ function MenuPrincipal(props){
                  <div style={{width:'50%' }} align="right">  <button className="buttonSalir" onClick={() => {logOut()}} >SALIR</button > </div>
            </div>
          
-           <div style={{width:'100%', color:'white', fontWeight: 'bold', fontSize:'15px'}} align="left" onClick={() => Seleccionar("DetalleSaldo")} saldo={SaldoDisponible}> <h4 style={{margin: '20px'}}>Saldo Disponible: {FormatNumber(SaldoDisponible)}</h4> </div> 
+           <div hidden style={{width:'100%', color:'white', fontWeight: 'bold', fontSize:'15px'}} align="left" onClick={() => Seleccionar("DetalleSaldo")} saldo={SaldoDisponible}> <h4 style={{margin: '20px'}}>Saldo Disponible: {FormatNumber(SaldoDisponible)}</h4> </div> 
+           <br></br>
            </FadeIn> 
             <div style={{width:'80%'}} align="center"> 
            <FadeIn>  <img src={logoGlp} style={{width:'50%', height:'50%'}}></img>
@@ -215,7 +216,7 @@ function MenuPrincipal(props){
                  
                 </div>
                 <br></br>
-                    <div style={{boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px',backgroundColor:'white', borderRadius:'5px'}} onClick={() => ObtenerPorcentaje()} >
+                    <div hidden style={{boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px',backgroundColor:'white', borderRadius:'5px'}} onClick={() => ObtenerPorcentaje()} >
                     <img src={nivelgaslp} style={{width:'25%', height:'25%'}}></img>
                     <br></br>
                     <label style={{fontWeight: 'bold'}}>Nivel de Gas Lp</label>
