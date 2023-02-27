@@ -199,10 +199,10 @@ function Registro(props){
 
 
                     <label class="idLabel">Descripción</label>
-                    <textarea class="idInput" onChange={e => setDescripcion(e.target.value)} rows="5" cols="50"></textarea><br></br>
+                    <textarea class="idInput" style={{resize: 'none'}} onChange={e => setDescripcion(e.target.value)} rows="5" cols="50"></textarea><br></br>
 
                     <label class="idLabel">Comentarios</label>
-                    <textarea class="idInput" onChange={e => setComentarios(e.target.value)} rows="5" cols="50"></textarea><br></br>
+                    <textarea class="idInput" style={{ resize: 'none'}} onChange={e => setComentarios(e.target.value)} rows="5" cols="50"></textarea><br></br>
                     
 
                     <label class="idLabel" hidden >Ubicación</label><br></br>

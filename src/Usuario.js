@@ -285,10 +285,10 @@ function Usuario(props){
                     <input type="email" class="idInput" name="email"></input>
                     <br></br>
                     <label class="idLabel">Descripción*</label>
-                    <textarea class="idInput" style={{minHeight:'90px'}} onChange={e => setDescripcion(e.target.value)} rows="15" cols="50" defaultValue={Descripcion}></textarea><br></br>
+                    <textarea class="idInput" style={{minHeight:'90px', resize: 'none'}} onChange={e => setDescripcion(e.target.value)} rows="15" cols="50" defaultValue={Descripcion}></textarea><br></br>
 
                     <label class="idLabel">Comentarios*</label>
-                    <textarea class="idInput" style={{minHeight:'90px'}} onChange={e => setComentarios(e.target.value)} rows="15" cols="50" defaultValue={Comentarios}></textarea><br></br>
+                    <textarea class="idInput" style={{minHeight:'90px', resize: 'none'}} onChange={e => setComentarios(e.target.value)} rows="15" cols="50" defaultValue={Comentarios}></textarea><br></br>
                     
                     <label class="idLabel" hidden >Ubicación</label ><br></br>
                     <div style={{width:'100%'}} hidden>
