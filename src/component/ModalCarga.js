@@ -31,7 +31,7 @@ export const ModalCarga = (props) =>(
 	</div> 
 		<div style={{width:'100%'}} align="center">  
 						 
-            <label style={{fontWeight:'bold', width:'200px', color:'white', backgroundColor:'#0171CE', borderRadius:'5px', height: '40px'}}>&nbsp; &nbsp; &nbsp; Cargando..&nbsp; &nbsp; &nbsp; </label>
+            <label style={{fontWeight:'bold', width:'200px', color:'white', backgroundColor:'#0171CE', borderRadius:'5px', height: '40px'}}>&nbsp; &nbsp; &nbsp; Cargando...&nbsp; &nbsp; &nbsp; </label>
                          
 		</div>  
 </Modal>

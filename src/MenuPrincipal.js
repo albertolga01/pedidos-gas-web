@@ -16,6 +16,21 @@ import GaugeChart from 'react-gauge-chart'
 import historialpedidos from './resources/historialpedidos.svg'
 import { ModalCarga } from "./component/ModalCarga";
 import NuevoPedido from "./NuevoPedido";
+
+import UsuarioProp from './resources/usericon.svg'
+import UsuariomenuProp from './resources/UsuariomenuProp.svg'
+import PromocionProp from './resources/usericon.svg'
+import PromocionmenuProp from './resources/PromocionProp.svg'
+import PrivacidadProp from './resources/usericon.svg'
+import PedidoProp from './resources/PedidoProp.svg'
+import LogoProp from './resources/LogoProp.svg'
+import HistorialProp from './resources/HistorialProp.svg'
+import ConfiguracionProp from './resources/usericon.svg'
+import CerrarProp from './resources/usericon.svg'
+import AyudaProp from './resources/usericon.svg'
+import AcercaProp from './resources/usericon.svg'
+
+
 const customStylesD = { 	
 	content: {
         width:'30%',
@@ -160,21 +175,28 @@ function MenuPrincipal(props){
        
         <div className='containerMenuPrincipal' style={{margin: 'auto', width:'100%', height: '100vh', overflowX: 'scroll'}} align="center"> 
            <FadeIn>
-            <div style={{width:'100%', display:'flex', flexDirection:'row', flexWrap:'wrap', backgroundColor:'#0158A0'}}> 
-                <div style={{width:'50%', color:'white', fontWeight: 'bold', fontSize:'20px'}} align="left"> <h4 style={{margin: '20px'}}>Bienvenido (a): {props.nombres +" "+ props.apellidos}</h4> </div>
-                 <div style={{width:'50%' }} align="right">  <button className="buttonSalir" onClick={() => {logOut()}} >SALIR</button > </div>
+            <div style={{width:'100%', display:'flex', flexDirection:'row', flexWrap:'wrap', backgroundColor:'#0158A0',  borderRadius: '0px 0px 9px 9px', boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px'}}> 
+                <div style={{width:'100%', color:'white', fontSize:'20px'}} align="left"> 
+                <br></br>
+                <label style={{margin: '20px', fontWeight: 'bold'}}>Bienvenido (a):</label> <br></br>
+                <label style={{margin: '20px'}}>{props.nombres} </label>  <br></br>
+                <label style={{margin: '20px'}}>{ props.apellidos}</label> 
+                <br></br><label>&nbsp; </label>
+                </div>
+                 
+                 
            </div>
          
            <div hidden style={{width:'100%', color:'white', fontWeight: 'bold', fontSize:'15px'}} align="left" onClick={() => Seleccionar("DetalleSaldo")} saldo={SaldoDisponible}> <h4 style={{margin: '20px'}}>Saldo Disponible: {FormatNumber(SaldoDisponible)}</h4> </div> 
            <br></br>
            </FadeIn> 
             <div style={{width:'80%'}} align="center"> 
-           <FadeIn>  <img src={logoGlp} style={{width:'50%', height:'50%'}}></img>
+           <FadeIn>  <img src={LogoProp} style={{width:'50%', height:'50%'}}></img>    
            </FadeIn>
             <br></br>
             <br></br>
             <div style={{boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px',backgroundColor:'white', borderRadius:'5px'}} onClick={() => { Seleccionar("NuevoPedido");}} >
-            <img src={nuevopedido} style={{ margin: '5px',width:'60%', height:'60%'}}></img>
+            <img style={{width:'25%'}} src={PedidoProp} ></img>
             <br></br>
             <label style={{fontWeight: 'bold'}}>NUEVO PEDIDO</label>
             <br></br>
@@ -182,13 +204,13 @@ function MenuPrincipal(props){
             </div><br></br>
                 <div style={{justifyContent: 'space-between', columnGap:'0.875rem', borderRadius:'5px', width:'100%', display:'flex', flexDirection:'row'}}> 
                     <div style={{boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px', width:'50%', backgroundColor:'white', borderRadius:'5px'}} align="center" onClick={() => { Seleccionar("Usuario");}}> 
-                    <img src={usericon} style={{width:'100%'}}></img>
+                    <img style={{width:'25%', paddingTop:'25px'}} src={UsuariomenuProp}  ></img>
                     <br></br>
                     <label style={{fontWeight: 'bold'}}>USUARIO</label>
                     <br></br>
                     <br></br></div>
                     <div style={{boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px',width:'50%', backgroundColor:'white', borderRadius:'5px'}} align="center" onClick={() => { Seleccionar("Novedades");}}> 
-                    <img src={novedades} style={{width:'100%'}}></img>
+                    <img style={{width:'25%', paddingTop:'25px'}} src={PromocionmenuProp} ></img>
                     <br></br>
                     <label style={{fontWeight: 'bold'}}>PROMOCIONES</label>
                     <br></br>
@@ -196,12 +218,13 @@ function MenuPrincipal(props){
                     </div>
                 </div>
                 <br></br>
-                <div style={{justifyContent: 'space-between', columnGap:'0.875rem', height: '111px', borderRadius:'5px', width:'100%', display:'flex', flexDirection:'row'}}> 
+                <div style={{justifyContent: 'space-between', columnGap:'0.875rem', height: '103px', borderRadius:'5px', width:'100%', display:'flex', flexDirection:'row'}}> 
                     <div style={{boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px',width:'50%',  height:'100%', backgroundColor:'white', borderRadius:'5px'}} align="center" onClick={() => { Seleccionar("Historial");}}> 
-                    <img src={historialpedidos} style={{width:'50%'}}></img>
+                    <img style={{width:'25%', paddingTop:'25px'}} src={HistorialProp}  ></img>
                     <br></br>
-                    <label style={{ fontWeight:'bold'}}>Historial</label>
-                    <br></br>
+                   
+                    <label style={{ fontWeight:'bold'}}>HISTORIAL</label> 
+                    
                     <br></br></div>
                     <div style={{boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px', width:'50%', height:'100%', backgroundColor:'white', borderRadius:'5px'}} align="center"> 
                      <div style={{width:'100%', borderTopLeftRadius: '5px', borderTopRightRadius: '5px', height:'30%', backgroundImage:'linear-gradient(#145e9c, #145e9c)'}}>
@@ -209,6 +232,7 @@ function MenuPrincipal(props){
                      
                      </div>
                      <div style={{width:'100%', borderBottomLeftRadius: '5px', borderBottomRightRadius: '5px', height:'70%', backgroundImage:'linear-gradient(#115680, #2590d1)'}}>
+                    <br></br>
                      <label id='precioGas' style={{color:'white', fontSize:'40px'}}>${props.PrecioGas}</label>
                         
                      </div> 
@@ -222,13 +246,9 @@ function MenuPrincipal(props){
                     <label style={{fontWeight: 'bold'}}>Nivel de Gas Lp</label>
                     <br></br>
                     <br></br>
-                    </div>
-                <br></br>
-                <br></br>
-                <br></br>
-            </div>
-            <br></br>
-                <br></br> 
+                    </div> 
+
+            </div>  
 
                 <Modal 
 						isOpen={modalIsOpenE}  
@@ -252,6 +272,9 @@ function MenuPrincipal(props){
                
 
                 <ModalCarga modalIsOpenLoad={modalIsOpenLoad} closeModalLoad={closeModalLoad}/>
+                <div style={{width:'80%' }} align="right">  <button style={{boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px'}} className="buttonSalir" onClick={() => {logOut()}} >SALIR</button > </div>
+                <br></br>
+                    <br></br>
               
         </div>
        

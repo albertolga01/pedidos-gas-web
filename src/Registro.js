@@ -9,6 +9,9 @@ import {Gmaps, Marker, InfoWindow, Circle} from 'react-gmaps';
 import CorrectoImg from './resources/Correcto.svg'
 import ErrorImg from './resources/error.svg'
 import { ModalCarga } from "./component/ModalCarga";
+import { Input } from 'semantic-ui-react'
+
+
 const customStylesD = { 	
 	content: {
         width:'80%',
@@ -153,141 +156,205 @@ function Registro(props){
       }
   
     return(
-        <div className='divPrincipal'  style={{width:'100%', height: '100vh'}}> 
+      <div style={{width:'100%'}}>
+         <Navbar titulo="Registro" />  <br></br><br></br>
+          <div className='divPrincipal'  style={{width:'100%', height: '100vh'}}> 
 
-            
+              
 
-            <div style={{display:'flex', flexDirection:'column',   width: '80%'}} align="center">
-            <Navbar titulo="Registro" />  <br></br><br></br>
-                    <label class="idLabel">Nombre (s)*</label>
-                    <input type='text' class="idInput" onChange={e => setNombre(e.target.value)}></input><br></br>
-                    
-                    <label class="idLabel">Apellido (s)*</label>
-                    <input type='text' class="idInput" onChange={e => setApellido(e.target.value)}></input><br></br>
-                    <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'20px' }}>
-                          <div style={{display:'flex',flexDirection:'column', width:'50%' }}>
-                              <label class="idLabel">Telefono1*</label>
-                              <input type='tel' class="idInput" onChange={e => setTelUno(e.target.value)}></input><br></br>
-                          </div>
-                          <div style={{display:'flex',flexDirection:'column', width:'50%' }}>
-                              <label class="idLabel">Telefono2</label>
-                              <input type='tel' class="idInput" onChange={e => setTelDos(e.target.value)}></input><br></br>
-                          </div>
-                    </div>
-                     
-
-                    <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'20px' }}>
-                          <div style={{display:'flex',flexDirection:'column', width:'50%' }}>
-                              <label class="idLabel">Ciudad</label>
-                               <input type='text' class="idInput" onChange={e => setCiudad(e.target.value)}></input><br></br>
-                          </div>
-                          <div style={{display:'flex',flexDirection:'column', width:'50%' }}>
-                               <label class="idLabel">Código Postal</label>
-                              <input type='text' class="idInput" onChange={e => setCodigoPostal(e.target.value)}></input><br></br>
-                          </div>
-                    </div>
-
-                    <label class="idLabel">Colonia*</label>
-                    <input type='text' class="idInput" onChange={e => setColonia(e.target.value)}></input><br></br>
-                    
-                    <label class="idLabel">Calle y Número*</label>
-                    <input type='text' class="idInput" onChange={e => setCalleNumero(e.target.value)}></input><br></br>
-                    
-                    
-                    <label class="idLabel"  for="email">Correo Electrónico</label>
-                    <input type="email" class="idInput" onChange={e => setEmail(e.target.value)} name="email"></input>
-
-
-                    <label class="idLabel">Descripción</label>
-                    <textarea class="idInput" style={{resize: 'none'}} onChange={e => setDescripcion(e.target.value)} rows="5" cols="50"></textarea><br></br>
-
-                    <label class="idLabel">Comentarios</label>
-                    <textarea class="idInput" style={{ resize: 'none'}} onChange={e => setComentarios(e.target.value)} rows="5" cols="50"></textarea><br></br>
-                    
-
-                    <label class="idLabel" hidden >Ubicación</label><br></br>
-                    <div style={{width:'100%'}} hidden>
-                        <Gmaps
-                        width={'100%'}
-                        height={'500px'}
-                        lat={coords.lat}
-                        lng={coords.lng}
-                        zoom={12} 
-                        params={params} 
-                        onClick={ev => {
-                            var latInt = parseInt(ev.latLng.lat());
-                            var longInt = parseInt(ev.latLng.lng());
-                            longInt = longInt * -1;
-                            var decimalsLat =  getDecimalPart(ev.latLng.lat());
-                            var decimalsLong = getDecimalPart(ev.latLng.lng());
-                            decimalsLat = "0."+decimalsLat;
-                            decimalsLong = "0."+decimalsLong;
-                            decimalsLat = ((decimalsLat * 60) * 100) / 100;
-                            decimalsLong = ((decimalsLong * 60)* 100) / 100;
-                            var latF = ""+latInt + decimalsLat;
-                            var longF = ""+longInt + decimalsLong;
-                            latF = Math.trunc(latF*100)/100;
-                            longF = Math.trunc(longF*100)/100;
-                            console.log("Latitud decimals: " + latF);
-                            console.log("longitud decimals: " + longF);
-                          //  setLat1(latF);
-                           // setLong1(longF);
-                            setLat(ev.latLng.lat());
-                            setLong(ev.latLng.lng());
-                          //  console.log("latitide = ", ev.latLng.lat());
-                           // console.log("longitude = ", ev.latLng.lng());
-                          }}
-                       >
-                        <Marker
-                            lat={lat}
-                            lng={long}
-                            draggable={false}  />
-                       
-                        <Circle
-                            lat={lat}
-                            lng={long}
-                            radius={100}  />
-                        </Gmaps>
-                    </div>
-                    <br></br>
-                    <br></br>
-                    <div style={{justifyContent: 'space-between', columnGap:'0.875rem', width:'100%', display:'flex', flexDirection:'row'}}> 
-                    <div style={{width:'50%'}} align="center"> 
-                    <button className="buttonVerde" style={{width:'100%', fontWeight: 'bold'}}  onClick={() => { Seleccionar();}}>Regresar</button>
-                    </div>
-                    <div style={{width:'50%'}} align="center">
-                        <button type='submit' className='button' style={{ fontWeight: 'bold', width:'100%'}} onClick={() => {altaConsumidor();}}>Registrarse</button> 
-                        </div>
-                    </div> 
-
+              <div style={{display:'flex', flexDirection:'column',   width: '80%'}} align="center">
               <br></br>
-            </div>
-            <Modal 
-						isOpen={modalIsOpen}  
-						onRequestClose={closeModal}   
-						style={customStylesD}> 
-						<div style={{width:'100%'}} align="center">  
-						 <img src={CorrectoImg}></img>    <br></br>
-                         <label style={{fontWeight:'bold'}}>Mensaje</label><br></br>
-                         <label>Se ha registrado exitosamente, su número de consumidor es: </label><br></br>
-                         <label>{Mensaje}</label>
-                         <button style={{width:'100%', color:'white', backgroundColor:'#008445'}} className="buttonLogin" onClick={closeModal}>Ok</button>
-						</div>  
-				</Modal>
+                      <label class="idLabel">Nombre (s)*</label>
+                      <Input type="text" 
+                            placeholder='Nombre(s)'
+                            style={{width:'100%'}} 
+                            onChange={e => setNombre(e.target.value)}
+											/>
+                      {/** 
+                      <input type='text' class="idInput" onChange={e => setNombre(e.target.value)}></input><br></br>
+                      */}
+                      <label class="idLabel">Apellido (s)*</label>
+                      <Input type="text" 
+                            placeholder='Apellido'
+                            style={{width:'100%'}}
+                            onChange={e => setApellido(e.target.value)}
+											/>
+                      {/**
+                      <input type='text' class="idInput" onChange={e => setApellido(e.target.value)}></input><br></br>
+                      */}
+                      <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'6%' }}>
+                            <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
+                                <label class="idLabel">Telefono1*</label>
+                      <Input type="text" 
+                            placeholder='Teléfono uno'
+                            style={{width:'100%'}}
+                            onChange={e => setTelUno(e.target.value)}
+											/>
+                                {/**
+                                <input type='tel' class="idInput" onChange={e => setTelUno(e.target.value)}></input><br></br>
+                             */}
+                                </div>
+                            <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
+                                <label class="idLabel">Telefono2</label>
+                      <Input type="text" 
+                            placeholder='Teléfono dos'
+                            style={{width:'100%'}}
+                            onChange={e => setTelDos(e.target.value)}
+											/>
+                      {/**
+                                <input type='tel' class="idInput" onChange={e => setTelDos(e.target.value)}></input><br></br>
+                           */}
+                                </div>
+                      </div>
+                      
 
-                <Modal 
-						isOpen={modalIsOpenError}
-						onRequestClose={closeModalLoadError}   
-						style={customStylesD}> 
-						<div style={{width:'100%'}} align="center">  
-						 <img src={ErrorImg}></img>    <br></br>
-                         <label style={{fontWeight:'bold'}}>Mensaje</label><br></br>
-                         <label>Complete todos los campos</label><br></br> 
-                         <button style={{width:'100%', color:'white', backgroundColor:'#008445'}} className="buttonLogin" onClick={closeModalLoadError}>Ok</button>
-						</div>  
-				</Modal>
-        <ModalCarga modalIsOpenLoad={modalIsOpenLoad} closeModalLoad={closeModalLoad}/>
-        </div>
+                      <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'6%' }}>
+                            <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
+                                <label class="idLabel">Ciudad</label>
+                      <Input type="text" 
+                            placeholder='Ciudad'
+                            style={{width:'100%'}}
+                            onChange={e => setCiudad(e.target.value)}
+											/>
+                      {/**
+                                <input type='text' class="idInput" onChange={e => setCiudad(e.target.value)}></input><br></br>
+                           */}
+                                </div>
+                            <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
+                                <label class="idLabel">Código Postal</label>
+                      <Input type="text" 
+                            placeholder='Código Postal'
+                            style={{width:'100%'}}
+                            onChange={e => setCodigoPostal(e.target.value)}
+											/>
+                                {/*
+                                <input type='text' class="idInput" onChange={e => setCodigoPostal(e.target.value)}></input><br></br>
+                            */}
+                                </div>
+                      </div>
+
+                      <label class="idLabel">Colonia*</label>
+                      <Input type="text" 
+                            placeholder='Colonia'
+                            style={{width:'100%'}}
+                            onChange={e => setColonia(e.target.value)}
+											/>
+                      {/**
+                      <input type='text' class="idInput" onChange={e => setColonia(e.target.value)}></input>
+                       */}<br></br>
+                      
+                      <label class="idLabel">Calle y Número*</label>
+                      <Input type="text" 
+                            placeholder='Calle/Numero'
+                            style={{width:'100%'}}
+                            onChange={e => setCalleNumero(e.target.value)}
+											/>
+                      {/**
+                      <input type='text' class="idInput" onChange={e => setCalleNumero(e.target.value)}></input>
+                       */}<br></br>
+                      
+                      
+                      <label class="idLabel"  for="email">Correo Electrónico</label>
+                      <Input type="email" 
+                            placeholder='Email'
+                            style={{width:'100%'}}
+                            onChange={e => setEmail(e.target.value)}
+											/>
+                      {/**
+                      <input type="email" class="idInput" onChange={e => setEmail(e.target.value)} name="email"></input>
+                      */}
+
+                      <label class="idLabel">Descripción</label>
+                      <textarea class="idInput" style={{ minHeight:'50px', resize: 'none'}} onChange={e => setDescripcion(e.target.value)} rows="5" cols="50"></textarea><br></br>
+
+                      <label class="idLabel">Comentarios</label>
+                      <textarea class="idInput"  style={{ minHeight:'50px', resize: 'none'}} onChange={e => setComentarios(e.target.value)} rows="5" cols="50"></textarea><br></br>
+                      
+
+                      <label class="idLabel" hidden >Ubicación</label><br></br>
+                      <div style={{width:'100%'}} hidden>
+                          <Gmaps
+                          width={'100%'}
+                          height={'500px'}
+                          lat={coords.lat}
+                          lng={coords.lng}
+                          zoom={12} 
+                          params={params} 
+                          onClick={ev => {
+                              var latInt = parseInt(ev.latLng.lat());
+                              var longInt = parseInt(ev.latLng.lng());
+                              longInt = longInt * -1;
+                              var decimalsLat =  getDecimalPart(ev.latLng.lat());
+                              var decimalsLong = getDecimalPart(ev.latLng.lng());
+                              decimalsLat = "0."+decimalsLat;
+                              decimalsLong = "0."+decimalsLong;
+                              decimalsLat = ((decimalsLat * 60) * 100) / 100;
+                              decimalsLong = ((decimalsLong * 60)* 100) / 100;
+                              var latF = ""+latInt + decimalsLat;
+                              var longF = ""+longInt + decimalsLong;
+                              latF = Math.trunc(latF*100)/100;
+                              longF = Math.trunc(longF*100)/100;
+                              console.log("Latitud decimals: " + latF);
+                              console.log("longitud decimals: " + longF);
+                            //  setLat1(latF);
+                            // setLong1(longF);
+                              setLat(ev.latLng.lat());
+                              setLong(ev.latLng.lng());
+                            //  console.log("latitide = ", ev.latLng.lat());
+                            // console.log("longitude = ", ev.latLng.lng());
+                            }}
+                        >
+                          <Marker
+                              lat={lat}
+                              lng={long}
+                              draggable={false}  />
+                        
+                          <Circle
+                              lat={lat}
+                              lng={long}
+                              radius={100}  />
+                          </Gmaps>
+                      </div>
+                      <br></br>
+                      <br></br>
+                      <div style={{justifyContent: 'space-between', columnGap:'0.875rem', width:'100%', display:'flex', flexDirection:'row'}}> 
+                      <div style={{width:'50%'}} align="center"> 
+                      <button className="buttonVerde" style={{width:'100%', fontWeight: 'bold'}}  onClick={() => { Seleccionar();}}>Regresar</button>
+                      </div>
+                      <div style={{width:'50%'}} align="center">
+                          <button type='submit' className='button' style={{ fontWeight: 'bold', width:'100%'}} onClick={() => {altaConsumidor();}}>Registrarse</button> 
+                          </div>
+                      </div> 
+
+                <br></br>
+              </div>
+              <Modal 
+              isOpen={modalIsOpen}  
+              onRequestClose={closeModal}   
+              style={customStylesD}> 
+              <div style={{width:'100%'}} align="center">  
+              <img src={CorrectoImg}></img>    <br></br>
+                          <label style={{fontWeight:'bold'}}>Mensaje</label><br></br>
+                          <label>Se ha registrado exitosamente, su número de consumidor es: </label><br></br>
+                          <label>{Mensaje}</label>
+                          <button style={{width:'100%', color:'white', backgroundColor:'#008445'}} className="buttonLogin" onClick={closeModal}>Ok</button>
+              </div>  
+          </Modal>
+
+                  <Modal 
+              isOpen={modalIsOpenError}
+              onRequestClose={closeModalLoadError}   
+              style={customStylesD}> 
+              <div style={{width:'100%'}} align="center">  
+              <img src={ErrorImg}></img>    <br></br>
+                          <label style={{fontWeight:'bold'}}>Mensaje</label><br></br>
+                          <label>Complete todos los campos</label><br></br> 
+                          <button style={{width:'100%', color:'white', backgroundColor:'#008445'}} className="buttonLogin" onClick={closeModalLoadError}>Ok</button>
+              </div>  
+          </Modal>
+          <ModalCarga modalIsOpenLoad={modalIsOpenLoad} closeModalLoad={closeModalLoad}/>
+          </div>
+      </div>
     );
 }
 

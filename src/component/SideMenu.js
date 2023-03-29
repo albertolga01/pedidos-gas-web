@@ -12,6 +12,9 @@ import DetalleSaldo from '../DetalleSaldo';
 import Historial from '../Historial';
 import Abonar from '../Abonar';
 import BuscarConsumidor from '../BuscarConsumidor';
+import Avisoprivacidad from '../Avisoprivacidad';
+import AcercaDe from '../AcercaDe';
+import Ayuda from '../Ayuda';
 
 export default function SideMenu(props) {
     window.event = new Event('event');
@@ -88,6 +91,12 @@ export default function SideMenu(props) {
             return <Historial  unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
         }else if (selected === 'BuscarConsumidor') {
             return <BuscarConsumidor  unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
+        }else if (selected === 'Avisoprivacidad') {
+            return <Avisoprivacidad  unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
+        }else if (selected === 'AcercaDe') {
+            return <AcercaDe  unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
+        }else if (selected === 'Ayuda') {
+            return <Ayuda  unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
         }else {
             return (<div style={{ width: '100%', textAlign: 'center', backgroundColor: '', margin: 'auto' }}><h1>Error al Cargar</h1></div>);
         } 
@@ -98,11 +107,7 @@ export default function SideMenu(props) {
 		// eslint-disable-next-line
 	},[])
   
-
-    function logOut() {
-        window.location.reload();
-    }
-
+ 
    
     /*
         function Not(data, user){
@@ -146,15 +151,26 @@ export default function SideMenu(props) {
         if(selected == "MenuPrincipal"){
             return (
                 <div  class="containerMenuP" style={{ height: '100vh', width: '100vw', top: '0',  position: 'sticky', display: 'flex', overflowX: 'auto'}}>
-                 
+                 <OpcionesMenu unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos}></OpcionesMenu>
             <MenuPrincipal PrecioGas={PrecioGas} saldoCliente={saldoCliente} unmount={cambiarSelected}   isMenuOpen1={isMenuOpen1} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} saldo={props.saldo}></MenuPrincipal>
             </div>
             )
         }else{
             return (
-            <div  class="divPrincipal" style={{ height: '100vh', width: '100vw', top: '0',  position: 'sticky', display: 'flex', overflowX: 'auto'}}>
-                     {/*   <OpcionesMenu unmount={cambiarSelected}   isMenuOpen1={isMenuOpen1} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo}></OpcionesMenu>*/}
-                        <Element selected={selected} style={{backgroundColor:'red'}} />   
+           
+           <div  class="divPrincipal" style={{ height: '100vh', width: '100vw', top: '0',  position: 'sticky', display: 'flex', flexDirection:'column', overflowX: 'auto'}}>
+                     {/*   <OpcionesMenu unmount={cambiarSelected}   isMenuOpen1={isMenuOpen1} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo}></OpcionesMenu>
+                     <div style={{width:'100%', display:'flex', flexDirection:'row', flexWrap:'wrap', backgroundColor:'#0158A0',  borderRadius: '0px 0px 9px 9px', boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px'}}> 
+                <div style={{width:'100%', color:'white', fontSize:'20px'}} align="center"> 
+                <br></br>
+                <br></br>
+                <label style={{margin: '20px', fontWeight: 'bold'}}>Nuevo Pedido</label> <br></br>
+                <br></br>
+                </div>
+                 
+                 
+           </div>
+               */}         <Element  selected={selected} style={{backgroundColor:'red'}} />   
                     </div>
                 )
         }

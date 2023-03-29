@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@mui/material": "^5.11.14",
     "@stripe/react-stripe-js": "^1.4.0",
     "@stripe/stripe-js": "^1.13.2",
     "@testing-library/jest-dom": "^5.16.5",
@@ -10,6 +13,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
     "dotenv": "^16.0.1",
+    "pdf-viewer-reactjs": "^2.2.3",
     "querystring": "^0.2.1",
     "querystring-es3": "^0.2.1",
     "react": "^17.0.1",
@@ -22,10 +26,14 @@
     "react-geolocated": "^4.0.3",
     "react-gmaps": "^1.9.0",
     "react-https-redirect": "^1.1.0",
+    "react-icons": "^4.8.0",
     "react-loader-spinner": "^5.1.7-beta.1",
     "react-modal": "^3.15.1",
+    "react-pdf": "^5.6.0",
+    "react-responsive-carousel": "^3.2.23",
     "react-scripts": "^5.0.1",
     "react-toastify": "^9.0.8",
+    "semantic-ui-react": "^2.1.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

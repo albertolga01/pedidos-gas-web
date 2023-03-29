@@ -15,6 +15,7 @@ import CorrectoImg from './resources/Correcto.svg'
 import ErrorImg from './resources/error.svg'
 
 import { ModalCarga } from "./component/ModalCarga";
+import { Input } from 'semantic-ui-react'
 
 
 const customStylesD = { 	
@@ -239,50 +240,127 @@ function Usuario(props){
   
 
     return(
-        
+        <div style={{width:'100%'}}>
+             <Navbar titulo="Usuario" cambiarSelected={props.unmount} />
         <div   style={{margin: 'auto', width:'80%', height: '100vh'}} align="center"> 
  <FadeIn>
 
             <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }} align="center">
-            <Navbar titulo="Usuario" />
+           
             <br></br>
                 <br></br>
                 
                     <label class="idLabel">Nombre (s)*</label>
-                    <input type='text' class="idInput" onChange={e => setNombre(e.target.value)} defaultValue={Nombre}></input><br></br>
-                    
+                    <Input type="text" 
+												placeholder='Nombre'
+												id="form-usuario"
+												style={{width:'100%'}}
+                                                defaultValue={Nombre}
+                                                onChange={e => setNombre(e.target.value)}
+											/>
+                    {/*<input hidden type='text' class="idInput" onChange={e => setNombre(e.target.value)} defaultValue={Nombre}></input><br></br>
+                    */}
                     <label class="idLabel">Apellido (s)*</label>
-                    <input type='text' class="idInput" onChange={e => setApellido(e.target.value)} defaultValue={Apellido}></input><br></br>
-                    <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'20px' }}>
-                         <div style={{display:'flex',flexDirection:'column', width:'50%' }}>
+                    <Input type="text" 
+												placeholder='Apellido'
+												id="form-usuario"
+												style={{width:'100%'}}
+                                                defaultValue={Apellido}
+                                                onChange={e => setApellido(e.target.value)}
+											/>
+                    {/*}
+                    <input hidden type='text' class="idInput" onChange={e => setApellido(e.target.value)} defaultValue={Apellido}></input><br></br>
+                    */}
+                    <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'6%' }}>
+                         <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
                             <label class="idLabel">Telefono1*</label>
+                            <Input type="tel" 
+												placeholder='Teléfono uno'
+												id="form-usuario"
+												style={{width:'100%'}}
+                                                defaultValue={TelefonoUno}
+                                                onChange={e => setTelUno(e.target.value)}
+											/>
+                    {/*
                             <input type='tel' class="idInput" onChange={e => setTelUno(e.target.value)} defaultValue={TelefonoUno}></input><br></br>
+                    */}
                         </div>
-                         <div style={{display:'flex',flexDirection:'column', width:'50%' }}>
+                         <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
                             <label class="idLabel">Telefono2*</label>
+                            <Input type="tel" 
+												placeholder='Teléfono dos'
+												id="form-usuario"
+												style={{width:'100%'}}
+                                                defaultValue={TelefonoDos}
+                                                onChange={e => setTelDos(e.target.value)}
+											/>
+                            {/*
                             <input type='tel' class="idInput" onChange={e => setTelDos(e.target.value)} defaultValue={TelefonoDos}></input><br></br>
-                         </div>
+                         **/}
+                            </div>
                     </div>
                    
                     
-                    <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'20px' }}>
-                         <div style={{display:'flex',flexDirection:'column', width:'50%' }}>
+                    <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'6&' }}>
+                         <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
                             <label class="idLabel">Ciudad*</label>
+                            <Input type="text" 
+												placeholder='Ciudad'
+												id="form-usuario"
+												style={{width:'100%'}}
+                                                defaultValue={Ciudad}
+                                                onChange={e => setCiudad(e.target.value)}
+											/>
+                                            {/*
                             <input type='text' class="idInput" onChange={e => setCiudad(e.target.value)} defaultValue={Ciudad}></input><br></br>
-                        </div>
-                       <div style={{display:'flex',flexDirection:'column', width:'50%' }}>
+                        * */}
+                            </div>
+                       <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
                             <label class="idLabel">Código Postal*</label>
+                            <Input type="text" 
+												placeholder='Codigo Postal'
+												id="form-usuario"
+												style={{width:'100%'}}
+                                                defaultValue={CodigoPostal}
+                                                onChange={e => setCodigoPostal(e.target.value)}
+											/>
+                                            {/** 
                             <input type='text' class="idInput" onChange={e => setCodigoPostal(e.target.value)} defaultValue={CodigoPostal}></input><br></br>
-                        </div>
+                        */}
+                            </div>
                     </div>
                     <label class="idLabel">Colonia*</label>
+                    <Input type="text" 
+												placeholder='Colonia'
+												id="form-usuario"
+												style={{width:'100%'}}
+                                                defaultValue={Colonia}
+                                                onChange={e => setColonia(e.target.value)}
+											/>
+                    {/*
                     <input type='text' class="idInput" onChange={e => setColonia(e.target.value)} defaultValue={Colonia}></input><br></br>
-                    
+                     */}
                     <label class="idLabel">Calle y Número*</label>
+                    <Input type="text" 
+												placeholder='Calle/Numero'
+												id="form-usuario"
+												style={{width:'100%'}}
+                                                defaultValue={CalleNumero}
+                                                onChange={e => setCalleNumero(e.target.value)}
+											/>
+                    {/**
                     <input type='text' class="idInput" onChange={e => setCalleNumero(e.target.value)} defaultValue={CalleNumero}></input><br></br>
-                    
-                    <label class="idLabel" onChange={e => setEmail(e.target.value)} for="email" defaultValue={Email}>Correo Electrónico</label>
-                    <input type="email" class="idInput" name="email"></input>
+                     */}
+                     {/** onChange={e => setEmail(e.target.value)} for="email" defaultValue={Email} */}
+                    <label class="idLabel">Correo Electrónico</label>
+                    {/*<input type="email" class="idInput" name="email"></input>*/}
+                    <Input type="email" 
+												placeholder='Email'
+												id="form-usuario"
+												style={{width:'100%'}}
+                                                defaultValue={Email}
+                                                onChange={e => setEmail(e.target.value)}
+											/>
                     <br></br>
                     <label class="idLabel">Descripción*</label>
                     <textarea class="idInput" style={{minHeight:'90px', resize: 'none'}} onChange={e => setDescripcion(e.target.value)} rows="15" cols="50" defaultValue={Descripcion}></textarea><br></br>
@@ -367,6 +445,7 @@ function Usuario(props){
                          <button style={{width:'100%', color:'white', backgroundColor:'#008445'}} className="buttonLogin" onClick={closeModalLoadError}>Ok</button>
 						</div>  
 				</Modal></FadeIn>
+        </div>
         </div>
     );
 }

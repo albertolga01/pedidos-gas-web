@@ -10,7 +10,9 @@ import CorrectoImg from './resources/Correcto.svg'
 import FadeIn from 'react-fade-in';
 import ErrorImg from './resources/error.svg'
 import { ModalCarga } from "./component/ModalCarga";
+import { Input } from 'semantic-ui-react'
  
+
 const customStyles = { 	
 	content: {
 	  top: '50%',
@@ -280,29 +282,53 @@ function NuevoPedido(props){
     const[fecha_hora, setHoraFecha] = useState(); 
 
     return(
-       
+       <div style={{width:'100%'}}>
+         <Navbar titulo="Nuevo Pedido" cambiarSelected={props.unmount} />
         <div  style={{margin: 'auto', width:'80%' , height: '100vh', backgroundImage: Backgroundgas}} align="center"> 
 
           <FadeIn>
             
                 <div style={{ display: 'flex', flexDirection: 'column', width: '100%'}} align="center">
 
-                <Navbar titulo="Nuevo Pedido" />
+               
                 <br></br>
                 <br></br>
-                      <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'20px' }}>
-                         <div style={{display:'flex',flexDirection:'column', width:'50%' }}>
+                      <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'6%' }}>
+                         <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
                             <label class="idLabel">Colonia</label>
+                            <Input type="text" 
+												placeholder='Colonia' 
+												style={{width:'100%'}}
+                                                defaultValue={Colonia}
+                                                onChange={e => setColonia(e.target.value)}
+											/>
+                            {/*
                             <input type='text' class="idInput" onChange={e => setColonia(e.target.value)} defaultValue={Colonia}></input><br></br>
-                        </div>
-                        <div style={{display:'flex',flexDirection:'column', width:'50%' }}>
+                            */}
+                            </div>
+                        <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
                            <label class="idLabel">Código Postal</label>
+                           <Input type="text" 
+												placeholder='Código Postal'
+												style={{width:'100%'}}
+                                                defaultValue={CodigoPostal}
+                                                onChange={e => setCodigoPostal(e.target.value)}
+											/>
+                                            {/**
                            <input type='text' class="idInput" onChange={e => setCodigoPostal(e.target.value)} defaultValue={CodigoPostal}></input><br></br>
-                       </div>
+                        */}
+                           </div>
                     </div> 
                     <label class="idLabel">Calle y Número</label> 
-                    <input type='text' class="idInput" onChange={e => setCalleNumero(e.target.value)} defaultValue={CalleNumero}></input><br></br>
-                    <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'20px' }}>
+                    <Input type="text" 
+												placeholder='Calle/Numero' 
+												style={{width:'100%'}}
+                                                defaultValue={CalleNumero}
+                                                onChange={e => setCalleNumero(e.target.value)}
+											/>
+                {/*    <input type='text' class="idInput" onChange={e => setCalleNumero(e.target.value)} defaultValue={CalleNumero}></input><br></br>
+                    
+                    */}<div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'20px' }}>
                          <div style={{display:'flex',flexDirection:'column', width:'50%' }}>
                             <label class="idLabel">Fecha:</label>
 	                        <input id="FechaPedido" class="idInput"   style={{width:'100%', marginTop:'5px'}} type="date"/><br></br>
@@ -318,9 +344,9 @@ function NuevoPedido(props){
 
                     </div>
                     
-                    <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'20px' }}>
+                    <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'6%' }}>
                    
-                    <div style={{display:'flex',flexDirection:'column', width:'50%' }}  >
+                    <div style={{display:'flex',flexDirection:'column', width:'47%' }}  >
                     <fieldset>
                             <legend class="idLabel">Seleccione:</legend>
                             <div >
@@ -336,14 +362,25 @@ function NuevoPedido(props){
   
                         </fieldset>
                         </div>
-                        <div style={{display:'flex',flexDirection:'column', width:'50%' }} >
+                        <div style={{display:'flex',flexDirection:'column', width:'47%' }} >
                          <div  id="divlitros" style={{display: 'none'}}>
                             <label class="idLabel">Cantidad (Lts)</label>
-                            <input type='text' class="idInput" id="inputlitros"  ></input> 
+                            <Input type="text" 
+												placeholder='Cantidad' 
+												style={{width:'100%'}}
+                                                id="inputlitros"  
+											/>
+                           {/** <input type='text' class="idInput" id="inputlitros"  ></input>  */}
                          </div>
                          <div  id="divpesos">
                               <label class="idLabel">Importe</label> 
-	                          <input type='text' id="inputpesos" class="idInput"    ></input><br></br>
+                              <Input type="text" 
+												placeholder='Importe' 
+												style={{width:'100%'}}
+                                                id="inputpesos"  
+											/>
+                             {/**
+	                          <input type='text' id="inputpesos" class="idInput"    ></input> */}<br></br>
                          </div>
                          </div>
                     </div>
@@ -393,7 +430,7 @@ function NuevoPedido(props){
 						</div>  
 				</Modal> </FadeIn>
         </div>
-       
+        </div>
     );
 }
 

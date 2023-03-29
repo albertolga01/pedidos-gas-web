@@ -4,7 +4,9 @@ import axios from "axios";
 import './App.css'; 
 import Modal from 'react-modal';
 import { ThreeDots } from  'react-loader-spinner' 
-import {Navbar} from './component/Navbar';   
+import {Navbar} from './component/Navbar';  
+import {Carousel} from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 function Novedades(props){
 
      
@@ -16,16 +18,40 @@ function Novedades(props){
     }
 
     return(
+        <div style={{width:'100%'}}>
+            <Navbar titulo="Promociones" /> 
         <div   style={{margin: 'auto', width:'80%', height: '100vh'}} align="center"> 
-            <div style={{width:'100%'}} align="center">
-            <Navbar titulo="Novedades" /> </div> <br></br><br></br><br></br>
-            <img alt="GasPetromar" src={process.env.REACT_APP_URL+"/images/imagen1.jpg"} style={{maxWidth:'100%'}}></img>	<br></br><br></br>
+        
+           {/*  <img alt="GasPetromar" src={process.env.REACT_APP_URL+"/images/imagen1.jpg"} style={{maxWidth:'100%'}}></img>	<br></br><br></br>
 			<img alt="GasPetromar" src={process.env.REACT_APP_URL+"/images/imagen1.jpg"} style={{maxWidth:'100%'}}></img><br></br><br></br>	
 			<img alt="GasPetromar" src={process.env.REACT_APP_URL+"/images/imagen1.jpg"} style={{maxWidth:'100%'}}></img>	<br></br><br></br>
-            <button className="buttonVerde" style={{width:'100%'}} onClick={() => { Seleccionar();}}>Regresar</button>
+            */}
+            <br></br> 
+            <div style={{width:'100%', maxHeight:'500px'}} >
+            <Carousel autoPlay >
+                <div>
+                    <img src={process.env.REACT_APP_URL+"/images/imagen1.jpg"} style={{maxWidth:'500px'}} />
+                     
+                </div>
+                <div>
+                    <img src={process.env.REACT_APP_URL+"/images/imagen1.jpg"} style={{maxWidth:'500px'}} />
+                   
+                </div>
+                <div>
+                    <img src={process.env.REACT_APP_URL+"/images/imagen1.jpg"} style={{maxWidth:'500px'}} />
+                   
+                </div>
+                <div>
+                    <img src={process.env.REACT_APP_URL+"/images/imagen1.jpg"} style={{maxWidth:'500px'}} w/>
+                  
+                </div> 
+            </Carousel>
+            <button className="buttonVerde" style={{width:'100%', marginBottom: '27px'}} onClick={() => { Seleccionar();}}>Regresar</button>
             <br></br>
             <br></br>
-            <br></br>
+            </div>
+        </div>
+       
         </div>
     );
 }

@@ -10,10 +10,15 @@ import Modal from 'react-modal';
 import FadeIn from 'react-fade-in';
 import { ModalCarga } from "./ModalCarga"; 
 import logoGlp from '../resources/logoGlp.png';
-import { fadeIn } from 'react-animations'
+import { fadeIn } from 'react-animations';
 //import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";  
-import {ThreeDots } from  'react-loader-spinner'
+import {ThreeDots } from  'react-loader-spinner';
 import BuscarConsumidor from '../BuscarConsumidor';
+import LogoProp from '../resources/LogoProp.svg';
+import Button from '@mui/material/Button';
+import TextField from "@mui/material/TextField";    
+
+import { Input } from 'semantic-ui-react'
 
 const customStyles = { 	
 	content: {
@@ -74,7 +79,7 @@ const Login = (isLoggedIna) =>  {
 	const [numero_consumidor, setnumero_consumidor] = useState("null");
 	const [identificador_externo, setidentificador_externo] = useState("null");
 	const [nuevoConsumidor, setNuevoConsumidor] = useState();
-	const [nuevoTelefono, setNuevoTelefono] = useState();
+	const [nuevoTelefono, setNuevoTelefono] = useState("");
  
 	const [modalIsOpenLoad, setIsOpenLoad] = React.useState(false);
 
@@ -209,7 +214,7 @@ const Login = (isLoggedIna) =>  {
 								
 								<div id="div-form" style={{backgroundColor:'#0171CE'}} >
 								<div align="center"> 
-									 	<img src={logoGlp} style={{width:'250px', height:'250px'}}></img>
+									 	<img src={LogoProp} style={{width:'250px', height:'250px'}}></img>
 								</div>
 								 
 									<FadeIn  >
@@ -223,13 +228,31 @@ const Login = (isLoggedIna) =>  {
 											<div style={{width:'80%'}} align="left">
 									<span>Teléfono</span><br></br>
 									</div>
-									<input id="form-password" onKeyPress={handleKeyPress} defaultValue={nuevoTelefono} type="tel" maxlength="10" style={{height:'30px', width:'80%'}}  placeholder="Teléfono"/>
+									<Input type="tel"
+												icon={{ name: 'call',   link: false }}
+												placeholder='Teléfono'
+												id="form-password"
+												style={{width:'80%'}}
+												onKeyPress={handleKeyPress}
+												defaultValue={nuevoTelefono}  
+												maxlength="10"
+											/>
+									{/* <input id="form-password" onKeyPress={handleKeyPress} defaultValue={nuevoTelefono} type="tel" maxlength="10" style={{height:'30px', width:'80%'}}  placeholder="Teléfono"/>*/}
 									</div>
 									<div style={{width:'100%'}} align="center">
 									<div style={{width:'80%'}} align="left">
 									<span>No. Consumidor</span>
 									</div>
-									<input id="form-usuario" onKeyPress={handleKeyPress} defaultValue={nuevoConsumidor} type="tel" style={{height:'30px', width:'80%'}} placeholder="Número Consumidor"/>
+									<Input type="tel"
+												icon={{ name: 'hashtag',   link: false }}
+												placeholder='Número Consumidor'
+												id="form-usuario"
+												style={{width:'80%'}}
+												onKeyPress={handleKeyPress}
+												defaultValue={nuevoConsumidor}  
+												maxlength="6"
+											/>
+									{/* <input id="form-usuario" onKeyPress={handleKeyPress} defaultValue={nuevoConsumidor} type="tel" style={{height:'30px', width:'80%'}} placeholder="Número Consumidor"/>*/}
 									</div>
 									<div style={{width:'100%', height:'50px'	}} align="center"> 
 										

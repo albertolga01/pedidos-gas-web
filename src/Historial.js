@@ -64,6 +64,8 @@ function Historial(props){
 }
 
     return(
+        <div style={{width:'100%'}}>
+             <Navbar titulo="Historial" />
         <>
         {(pagarServicio) ? 
         	<>
@@ -78,7 +80,7 @@ function Historial(props){
        
         <div  style={{margin: 'auto', width:'80%', height: '100vh'}} align="center"> 
              <FadeIn><div style={{width:'100%'}} align="center">
-            <Navbar titulo="Historial" /> </div> <br></br><br></br><br></br>
+            </div> <br></br><br></br><br></br>
             
             
             <div  style={{height:'100%', overflowY: 'scroll', width:'100%'}}>
@@ -122,7 +124,7 @@ function Historial(props){
         }
 
 </>
-
+</div>
       
     );
 }

@@ -27,6 +27,10 @@
 .App-link {
   color: #61dafb;
 }
+#link2 {
+  color: #ffffff;
+}
+
 
 @keyframes App-logo-spin {
   from {
@@ -59,7 +63,7 @@ a.button {
 }
 
 #link { 
-  color: #39e3e9;
+  color: white;
   font-weight: bold;
   padding-top: 10px;
   -webkit-appearance: textfield;
@@ -104,6 +108,28 @@ input[type="time"]
   margin-top: 10px;
   width: 100%;
 }
+
+div#is-relative{
+  max-width: 420px;
+  position: relative;
+}
+
+/* El icono debe ser "position: absolute"
+ * Ademas le damos un "display: block" y lo posicionamos */
+#icon{
+  position: absolute;
+  display: block;
+  bottom: 0.05rem;
+  right: 1rem;
+  background-color: white;
+  user-select: none;
+  cursor: pointer;
+  height: 100%;
+}
+input.input{
+  padding-right: 2.5rem;
+}
+
 .idLabel{
   font-weight: bold;
   color: white;
@@ -120,6 +146,7 @@ input[type="time"]
 }
 
 .containerMenuP{
+  /*background-image: url('./resources/bg_gas_nf.svg');*/
   background-image: url('./resources/bg-principal.png');
   background-size:     cover;                      /* <------ */
   background-repeat:   no-repeat;
@@ -147,13 +174,12 @@ input[type="time"]
   font-weight: bold;
 }
 .buttonSalir{
-  height: 40px;
-  width: 80px;
+  height: 50px;
+  width: 143px;
   font-weight: bold;
   color: white;
   border: none;
-  border-radius: 5px;
-  margin: 20px;
+  border-radius: 5px; 
   background-image: linear-gradient(#08b35a, #006a38); 
 }
 
@@ -346,24 +372,24 @@ body{
   left:15px;  
   width: 30px; 
   height: 30px; 
-  background:black; 
-  box-shadow: 0px 0px 9px 4px blue; 
+  background:#0071ce;
+  box-shadow: 0px 0px 9px 4px #0071ce; 
 } 
  
 .orange{ 
   left:10px;  
   width: 40px; 
   height: 40px; 
-  background:blue; 
-  box-shadow: 0px 0px 9px 4px blue; 
+  background:#0071ce; 
+  box-shadow: 0px 0px 9px 4px #0071ce; 
 } 
  
 .red{ 
   left:5px; 
   width: 50px; 
   height: 50px; 
-  background:blue; 
-  box-shadow: 0px 0px 5px 4px blue; 
+  background:#0071ce; 
+  box-shadow: 0px 0px 5px 4px #0071ce; 
 } 
  
 .white{ 
@@ -385,8 +411,8 @@ body{
   height: 10px; 
   left:25px; 
   bottom:-25px;  
-  background: SlateBlue; 
-  box-shadow: 0px 0px 15px 10px SlateBlue; 
+  background: #0071ce; 
+  box-shadow: 0px 0px 15px 10px #0071ce;  
 } 
  
 .black{ 
