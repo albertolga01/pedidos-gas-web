@@ -175,7 +175,7 @@ function MenuPrincipal(props){
        
         <div className='containerMenuPrincipal' style={{margin: 'auto', width:'100%', height: '100vh', overflowX: 'scroll'}} align="center"> 
            <FadeIn>
-            <div style={{width:'100%', display:'flex', flexDirection:'row', flexWrap:'wrap', backgroundColor:'#0158A0',  borderRadius: '0px 0px 9px 9px', boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px'}}> 
+            <div style={{width:'100%', display:'flex', flexDirection:'row', flexWrap:'wrap', backgroundColor:'#0158A0',  borderRadius: '0px 0px 9px 9px', boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px', position:'fixed'}}> 
                 <div style={{width:'100%', color:'white', fontSize:'20px'}} align="left"> 
                 <br></br>
                 <label style={{margin: '20px', fontWeight: 'bold'}}>Bienvenido (a):</label> <br></br>
@@ -188,6 +188,12 @@ function MenuPrincipal(props){
            </div>
          
            <div hidden style={{width:'100%', color:'white', fontWeight: 'bold', fontSize:'15px'}} align="left" onClick={() => Seleccionar("DetalleSaldo")} saldo={SaldoDisponible}> <h4 style={{margin: '20px'}}>Saldo Disponible: {FormatNumber(SaldoDisponible)}</h4> </div> 
+           <br></br>
+           <br></br>
+           <br></br>
+           <br></br>
+           <br></br>
+           <br></br>
            <br></br>
            </FadeIn> 
             <div style={{width:'80%'}} align="center"> 

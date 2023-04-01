@@ -42,30 +42,33 @@ function Avisoprivacidad(props){
 
 
     return(
+      <div style={{width:'100%'}}>
+        <Navbar titulo="Aviso Privacidad" />
         <div   style={{margin: 'auto', width:'80%', height: '100vh'}} align="center"> 
             <div style={{width:'100%'}} align="center">
-            <Navbar titulo="Aviso Privacidad" /> </div> <br></br><br></br><br></br>
+             </div> <br></br><br></br><br></br>
  
-            <header className="App-header1">
-        <Document file="/sample.pdf" onLoadSuccess={onDocumentLoadSuccess}>
-          <Page height="600" pageNumber={pageNumber} />
-        </Document>
-        <p style={{color:'white'}}> Página {pageNumber} de {numPages}</p>
-        { pageNumber > 1 && 
-        <button className="buttonVerde" style={{width:'35%',}} onClick={changePageBack}>Anterior Página</button>
-        }
-        {
-          pageNumber < numPages &&
-          <button className="buttonVerde" style={{ width:'35%', marginLeft:'15px'}} onClick={changePageNext}>Siguiente Página</button>
-        }
-       
-      </header>
-      <br></br> 
-      <br></br>
-      <button className="buttonVerde" style={{width:'100%', paddingTop:'15px'}} onClick={() => { Seleccionar();}}>Regresar</button>
-            <br></br>
-            <br></br>
-            <br></br>
+                <header className="App-header1">
+            <Document file="/AVISO DE PRIVACIDAD GAS UNIÓN.pdf" onLoadSuccess={onDocumentLoadSuccess}>
+              <Page  width="345" height="600" pageNumber={pageNumber} />
+            </Document>
+            <p style={{color:'white'}}> Página {pageNumber} de {numPages}</p>
+            { pageNumber > 1 && 
+            <button className="buttonVerde" style={{width:'35%',}} onClick={changePageBack}>Anterior Página</button>
+            }
+            {
+              pageNumber < numPages &&
+              <button className="buttonVerde" style={{ width:'35%', marginLeft:'15px'}} onClick={changePageNext}>Siguiente Página</button>
+            }
+          
+          </header>
+          <br></br> 
+          <br></br>
+          <button className="buttonVerde" style={{width:'100%'}} onClick={() => { Seleccionar();}}>Regresar</button>
+                <br></br>
+                <br></br>
+                <br></br>
+        </div>
         </div>
     );
 }
