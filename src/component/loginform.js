@@ -15,6 +15,7 @@ import { fadeIn } from 'react-animations';
 import {ThreeDots } from  'react-loader-spinner';
 import BuscarConsumidor from '../BuscarConsumidor';
 import LogoProp from '../resources/LogoProp.svg';
+import LogoRomboGasLp from '../resources/LogoRomboGasLp.svg'
 import Button from '@mui/material/Button';
 import TextField from "@mui/material/TextField";    
 
@@ -214,7 +215,7 @@ const Login = (isLoggedIna) =>  {
 								
 								<div id="div-form" style={{backgroundColor:'#0171CE'}} >
 								<div align="center"> 
-									 	<img src={LogoProp} style={{width:'250px', height:'250px'}}></img>
+									 	<img src={LogoRomboGasLp} style={{width:'250px', height:'250px'}}></img>
 								</div>
 								 
 									<FadeIn  >

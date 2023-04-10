@@ -139,10 +139,12 @@ body{
 #sidebtn span{
     flex: 1;
 }
-
-#sidepanel div:hover{
-    background-color: #001f6b;
+.menuOption:hover{
+  background-color: #001f6b;
     cursor: pointer;
+}
+#sidepanel div:hover{
+  
 }
 /*
 #sidepanel-logo{ 

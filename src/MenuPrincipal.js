@@ -24,6 +24,7 @@ import PromocionmenuProp from './resources/PromocionProp.svg'
 import PrivacidadProp from './resources/usericon.svg'
 import PedidoProp from './resources/PedidoProp.svg'
 import LogoProp from './resources/LogoProp.svg'
+import LogoRomboGasLp from './resources/LogoRomboGasLp.svg'
 import HistorialProp from './resources/HistorialProp.svg'
 import ConfiguracionProp from './resources/usericon.svg'
 import CerrarProp from './resources/usericon.svg'
@@ -197,7 +198,7 @@ function MenuPrincipal(props){
            <br></br>
            </FadeIn> 
             <div style={{width:'80%'}} align="center"> 
-           <FadeIn>  <img src={LogoProp} style={{width:'50%', height:'50%'}}></img>    
+           <FadeIn>  <img src={LogoRomboGasLp} style={{width:'50%', height:'50%'}}></img>    
            </FadeIn>
             <br></br>
             <br></br>

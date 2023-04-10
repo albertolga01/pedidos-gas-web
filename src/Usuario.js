@@ -298,10 +298,8 @@ function Usuario(props){
                             <input type='tel' class="idInput" onChange={e => setTelDos(e.target.value)} defaultValue={TelefonoDos}></input><br></br>
                          **/}
                             </div>
-                    </div>
-                   
-                    
-                    <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'6&' }}>
+                    </div> 
+                    <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'6%' }}>
                          <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
                             <label class="idLabel">Ciudad*</label>
                             <Input type="text" 

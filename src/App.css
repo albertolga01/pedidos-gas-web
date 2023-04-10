@@ -13,6 +13,17 @@
   }
 }
 
+.inputDisabled:disabled{
+  background-color: #021246;
+  color: white;
+
+}
+.ui.input>input{
+  
+   color: #0071ce;
+}
+ 
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

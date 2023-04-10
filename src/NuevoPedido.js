@@ -10,7 +10,8 @@ import CorrectoImg from './resources/Correcto.svg'
 import FadeIn from 'react-fade-in';
 import ErrorImg from './resources/error.svg'
 import { ModalCarga } from "./component/ModalCarga";
-import { Input } from 'semantic-ui-react'
+import { Input } from 'semantic-ui-react' 
+import { ToastContainer, toast } from 'react-toastify';
  
 
 const customStyles = { 	
@@ -37,6 +38,12 @@ const customStyles = {
 
 
 function NuevoPedido(props){
+
+    const inlineStyle = {
+        input : {
+          backgroundColor: '#0071ce',
+        }
+      };
 
     const[passActual, setPassActual] = useState();
     const[passNueva, setPassNueva] = useState();
@@ -91,6 +98,12 @@ function NuevoPedido(props){
     function Seleccionar(){  
         props.unmount("MenuPrincipal");   
     }
+
+
+    function notify(message){
+        toast(message);
+    }
+  
 
     async function obtenerConsumidor(){    
 		let fd = new FormData()   
@@ -278,6 +291,9 @@ function NuevoPedido(props){
         document.getElementById('FechaPedido').value = fecha_hora;
         console.log(fecha_hora);
     }
+    function disabledInput(){
+        notify("No es posible modificar esta información en este apartado, favor de ingresar a la sección de usuario para actualizar sus datos");
+    }
 
     const[fecha_hora, setHoraFecha] = useState(); 
 
@@ -296,9 +312,9 @@ function NuevoPedido(props){
                       <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'6%' }}>
                          <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
                             <label class="idLabel">Colonia</label>
-                            <Input type="text" 
+                            <Input readOnly={true}  className='input' onClick={() => disabledInput()} type="text" 
 												placeholder='Colonia' 
-												style={{width:'100%'}}
+												style={{width:'100%', inlineStyle}}
                                                 defaultValue={Colonia}
                                                 onChange={e => setColonia(e.target.value)}
 											/>
@@ -308,9 +324,9 @@ function NuevoPedido(props){
                             </div>
                         <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
                            <label class="idLabel">Código Postal</label>
-                           <Input type="text" 
+                           <Input  readOnly={true}  onClick={() => disabledInput()}  type="text" 
 												placeholder='Código Postal'
-												style={{width:'100%'}}
+												style={{width:'100%',  backgroundColor: '#0071ce'}}
                                                 defaultValue={CodigoPostal}
                                                 onChange={e => setCodigoPostal(e.target.value)}
 											/>
@@ -320,7 +336,7 @@ function NuevoPedido(props){
                            </div>
                     </div> 
                     <label class="idLabel">Calle y Número</label> 
-                    <Input type="text" 
+                    <Input readOnly={true}  onClick={() => disabledInput()}  type="text" 
 												placeholder='Calle/Numero' 
 												style={{width:'100%'}}
                                                 defaultValue={CalleNumero}
@@ -430,6 +446,10 @@ function NuevoPedido(props){
 						</div>  
 				</Modal> </FadeIn>
         </div>
+        <ToastContainer 
+              progressClassName="toastProgress"
+              position="top-center"
+              />
         </div>
     );
 }

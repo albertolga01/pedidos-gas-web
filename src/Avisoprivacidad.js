@@ -45,7 +45,7 @@ function Avisoprivacidad(props){
       <div style={{width:'100%'}}>
         <Navbar titulo="Aviso Privacidad" />
         <div   style={{margin: 'auto', width:'80%', height: '100vh'}} align="center"> 
-            <div style={{width:'100%'}} align="center">
+            <div style={{width:'100%'}} align="center">   
              </div> <br></br><br></br><br></br>
  
                 <header className="App-header1">
