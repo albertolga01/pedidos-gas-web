@@ -18,6 +18,9 @@ import LogoProp from '../resources/LogoProp.svg';
 import LogoRomboGasLp from '../resources/LogoRomboGasLp.svg'
 import Button from '@mui/material/Button';
 import TextField from "@mui/material/TextField";    
+import descargarPlaystore from '../resources/descargarPlaystore.png';
+import appgallery from '../resources/appGallery.svg';
+import continuaenlaweb from '../resources/continuaenlaweb.svg';
 
 import { Input } from 'semantic-ui-react'
 
@@ -87,12 +90,24 @@ const Login = (isLoggedIna) =>  {
 
 	const [buscarConsumidor, setBuscarConsumidor] = useState(false); 
 
+	const [modalIsOpenE, setIsOpenE] = React.useState(false);
+
+	function openModalE() { 
+        setIsOpenE(true); 
+    }  
+    
+    function closeModalE() { 
+        setIsOpenE(false); 
+    }
+
+
 	function handleKeyPress  (event) {
 		if(event.key === 'Enter'){ 
 			Login(event);
 		}
 	}
 	useEffect(() => { 
+		continuar();
 			/*if (navigator.geolocation) {
 			  navigator.geolocation.watchPosition(function(position) {
 				console.log("Latitude is :", position.coords.latitude);
@@ -108,6 +123,12 @@ const Login = (isLoggedIna) =>  {
 	   
 	function closeModalLoad() { 
 		setIsOpenLoad(false); 
+	}
+
+	function continuar(){
+		if(!window.Android){
+			openModalE();
+		}
 	}
 	
 	 
@@ -291,6 +312,25 @@ const Login = (isLoggedIna) =>  {
 								</div>
 								
 								<ModalCarga modalIsOpenLoad={modalIsOpenLoad} closeModalLoad={closeModalLoad}/>
+								<FadeIn  >
+								<Modal 
+										isOpen={modalIsOpenE}  
+										onRequestClose={closeModalE}   
+										style={customStyles}> 
+										<div style={{width:'100%'}} align="center">  
+										 
+										<label style={{fontWeight:'bold'}}>Descarga nuestra app</label>
+										<br></br>
+										<a title="Descargar en Google Play PetromarGas" href="https://play.google.com/store/apps/details?id=com.petromar.gaspetro"> <img style={{width:'80%', paddingTop:'25px'}} src={descargarPlaystore}  ></img> </a>
+										<br></br>
+										<a title="Exploralo en AppGallery PetromarGas" href="https://appgallery.huawei.com/app/C108121215"> <img style={{width:'80%', paddingTop:'25px'}} src={appgallery}></img></a>
+										<br></br> 
+										<img style={{width:'80%', paddingTop:'25px'}} onClick={closeModalE} src={continuaenlaweb}></img> 
+										<button hidden style={{fontWeight:'bold', width:'80%', color:'white', backgroundColor:'#008445'}} className="button" onClick={closeModalE}>CONTINUAR EN LA WEB</button>
+										</div>  
+								</Modal>
+								</FadeIn>
+               
 							</div>
 						</>
 					}

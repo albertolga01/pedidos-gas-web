@@ -23,6 +23,7 @@ import PromocionProp from './resources/usericon.svg'
 import PromocionmenuProp from './resources/PromocionProp.svg'
 import PrivacidadProp from './resources/usericon.svg'
 import PedidoProp from './resources/PedidoProp.svg'
+import Pedido from './resources/Pedido.svg'
 import LogoProp from './resources/LogoProp.svg'
 import LogoRomboGasLp from './resources/LogoRomboGasLp.svg'
 import HistorialProp from './resources/HistorialProp.svg'
@@ -203,7 +204,7 @@ function MenuPrincipal(props){
             <br></br>
             <br></br>
             <div style={{boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px',backgroundColor:'white', borderRadius:'5px'}} onClick={() => { Seleccionar("NuevoPedido");}} >
-            <img style={{width:'25%'}} src={PedidoProp} ></img>
+            <img style={{width:'25%', paddingTop:'25px'}} src={Pedido} ></img>
             <br></br>
             <label style={{fontWeight: 'bold'}}>NUEVO PEDIDO</label>
             <br></br>

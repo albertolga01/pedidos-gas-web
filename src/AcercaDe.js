@@ -88,40 +88,35 @@ function AcercaDe(props){
                 {/*
                 <img style={{width:'90%'}} src={acerdadeUno} />*/}
                 <h2>Nuestro servicio Grupo Petromar División Gas</h2>
-                <label  style={{padding: '20px'}} align="justify"> ❯ Máxima seguridad y confianza.</label> <br></br>
-                <label  style={{padding: '5px'}} align="justify"> ❯ Estamos dedicados a brindarte el mejor trato, a través de: </label>  
+                <div style={{width:'100%'}} align="left">
+                <span style={{padding: '15px'}} align="justify">❯ Máxima seguridad y confianza.</span> <br></br>
+                <p style={{padding: '15px'}} align="justify">❯ Estamos dedicados a brindarte el mejor trato,  a través de:</p>
+                
+                </div>
                 <br></br>
                 <br></br>
                     
-                    <div style={{justifyContent: 'space-between', columnGap:'0.875rem', width:'90%', display:'flex', flexDirection:'row'}}> 
-                        <div style={{width:'90%'}} align="center"> 
-                            <h3 align="justify" style={{color: '#0071CE',  height:'40px'}}> ATENCIÓN PERSONALIZADA</h3>
-                        <label  align="justify" style={{color: '#0071CE', height:'180px'}}>Contamos con un área de atención
-                        telefónica exclusiva.</label> <br></br>
+                        <div style={{width:'100%'}} align="left"> 
+                            <label align="justify" style={{color: '#0071CE',  height:'40px', fontSize:'20px', padding: '15px'}}> • ATENCIÓN PERSONALIZADA</label>
+                        <p style={{padding: '15px'}} align="justify">Contamos con un área de atención
+                        telefónica exclusiva.</p>
                         
-                        </div>
-                        <div style={{width:'90%'}} align="center">
                             {/**style={{color: '#0071CE', marginBottom:'40px'}} */}
-                            <h3 align="justify" style={{color: '#0071CE',  height:'40px', verticalAlign: 'middle' }}>PROGRAMACIÓN</h3>
-                        <label  align="justify" style={{color: '#0071CE',  height:'180px'}}>Automática de servicio, nuestro
-                        sistema planifica tu próximo suministro.
-                        </label> <br></br>
-                            
+                            <label align="justify" style={{color: '#0071CE',  height:'40px', fontSize:'20px', padding: '15px' }}> • PROGRAMACIÓN</label>
+                       
+                        <p style={{padding: '15px'}} align="justify">Automática de servicio, nuestro
+                        sistema planifica tu próximo suministro.</p>
                             </div>
-                    </div>
                 <h2  align="justify" style={{marginLeft:'5%'}} > Nuestra Tecnología</h2>
                 <img style={{width:'65%'}} src={acerdadeDos} />
                 <h2 align="justify" style={{marginLeft:'5%'}}>Seguridad Total</h2>
-                <label  style={{padding: '20px'}} align="justify"> ❯ Nuestra máxima prioridad es brindarte seguridad total, a través de:</label> 
-                <br></br>
-                <br></br>
+                <p  style={{padding: '20px'}} align="justify"> ❯ Nuestra máxima prioridad es brindarte seguridad total, a través de:</p> 
                 <img style={{width:'65%'}} src={acerdadeTres} />
                 <br></br>
                 <br></br>
-                <label style={{padding: '5px'}} align="justify"> En Grupo petromar División Gas:  ¡Encontrarás GAS LP al Mejor Costo! <br></br>
+                <p style={{padding: '15px'}} align="justify"> En Grupo petromar División Gas:  ¡Encontrarás GAS LP al Mejor Costo! <br></br>
                     Porque somos tu mejor aliado, te damos la confianza que necesitas. <br></br>
-                    ¡Carga con nosotros y notarás la diferencia!</label> <br></br>
-                    <br></br>
+                    ¡Carga con nosotros y notarás la diferencia!</p>  
 
                 {/**<img style={{width:'90%'}} src={acerdadeCuatro} />
                 <img style={{width:'90%'}} src={acerdadeCinco} />

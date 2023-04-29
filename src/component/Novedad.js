@@ -72,7 +72,7 @@ const Novedad = (isLoggedIna) =>  {
 				<div id="body-content">
  
 					<div id="div-form">
-					<h1>Gas Petromar - Novedades</h1>
+					<h1>Petromar Gas - Novedades</h1>
 						<span>Usuario</span> 
 					 
 					</div>

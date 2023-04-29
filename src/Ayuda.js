@@ -92,7 +92,7 @@ function Ayuda(props){
                 asignado el momento de 
                 terminar su registro.
                 </p> 
-                <p style={{fontWeight:'bold'}}>Los campos marcados con un 
+                <p style={{fontWeight:'bold', padding: '10px'}} align="justify">Los campos marcados con un 
                 * son obligatorios y no pueden 
                 quedar vacíos.</p>
                 <>&nbsp;</>
@@ -134,7 +134,7 @@ function Ayuda(props){
                 actualizar.
                 </p> 
                 <img style={{width:'35%', borderRadius:'5px', boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px' }} src={notificacionActualizar}/> 
-                <p style={{fontWeight:'bold'}}>Los campos marcados con un 
+                <p style={{fontWeight:'bold', padding: '10px'}} align="justify">Los campos marcados con un 
                 * son obligatorios y no pueden 
                 quedar vacíos.</p>
                 <>&nbsp;</>
