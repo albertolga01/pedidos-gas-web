@@ -30,21 +30,22 @@ function Novedades(props){
             <div style={{width:'100%', maxHeight:'500px'}} >
             <Carousel autoPlay >
                 <div>
-                    <img src={process.env.REACT_APP_URL+"/images/imagen1.jpg"} style={{maxWidth:'500px'}} />
+                    <img src={process.env.REACT_APP_URL+"/images/imagen1-webp.webp"} style={{maxWidth:'500px'}} />
                      
                 </div>
                 <div>
-                    <img src={process.env.REACT_APP_URL+"/images/imagen1.jpg"} style={{maxWidth:'500px'}} />
+                    <img src={process.env.REACT_APP_URL+"/images/imagen2-webp.webp"} style={{maxWidth:'500px'}} />
                    
                 </div>
                 <div>
-                    <img src={process.env.REACT_APP_URL+"/images/imagen1.jpg"} style={{maxWidth:'500px'}} />
+                    <img src={process.env.REACT_APP_URL+"/images/imagen3-webp.webp"} style={{maxWidth:'500px'}} />
                    
                 </div>
                 <div>
-                    <img src={process.env.REACT_APP_URL+"/images/imagen1.jpg"} style={{maxWidth:'500px'}} w/>
+                    <img src={process.env.REACT_APP_URL+"/images/imagen4-webp.webp"} style={{maxWidth:'500px'}} w/>
                   
-                </div> 
+                </div>
+               
             </Carousel>
             <button className="buttonVerde" style={{width:'100%', marginBottom: '27px'}} onClick={() => { Seleccionar();}}>Regresar</button>
             <br></br>

@@ -10,7 +10,8 @@ import CorrectoImg from './resources/Correcto.svg'
 import ErrorImg from './resources/error.svg'
 import { ModalCarga } from "./component/ModalCarga";
 import { Input } from 'semantic-ui-react'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const customStylesD = { 	
 	content: {
@@ -49,10 +50,13 @@ function Registro(props){
  
     const [modalIsOpenLoad, setIsOpenLoad] = React.useState(false);
     const [modalIsOpen, setIsOpen] = React.useState(false);
+    const [modalIsOpenConsumidores, setIsOpenConsumidores] = React.useState(false);
     const[Mensaje, setMensaje] = useState(); 
     const[TelefonoNC, setTelefonoNC] = useState(); 
 
     const [modalIsOpenError, setIsOpenLoadError] = React.useState(false);
+
+    const[lista, setlista] = useState([]); 
 
     function openModal() { 
 		setIsOpen(true); 
@@ -61,6 +65,13 @@ function Registro(props){
 	function closeModal() { 
 		setIsOpen(false); 
         Seleccionar();
+	}
+  function openModalConsumidores() { 
+		setIsOpenConsumidores(true); 
+	}  
+	   
+	function closeModalConsumidores() { 
+		setIsOpenConsumidores(false); 
 	}
 
     function openModalLoad() { 
@@ -83,6 +94,14 @@ function Registro(props){
         props.unmount(Mensaje, TelefonoNC);   
     }
 
+    function SeleccionarConsumidorExistente(telefono, noconsumidor){  
+      props.unmount1(telefono, noconsumidor);   
+  }
+    
+	function notify(message){
+    toast(message);
+}
+
     function Validador(NombreV, ApellidoV,Tel1V, CalleNumV){
       
          if(NombreV == "" || NombreV == null ){
@@ -97,6 +116,34 @@ function Registro(props){
             return true;
          }
         
+    }
+
+    async function existeConsumidor(){
+      setlista([]);
+      var valido = Validador(Nombre, Apellido, TelefonoUno, CalleNumero); 
+      if(valido == true){
+        let fd = new FormData()   
+        fd.append("id", "existeConsumidor")   
+        fd.append("telefono", TelefonoUno)  
+        openModalLoad();
+        const res = await axios.post(process.env.REACT_APP_API_URL, fd)
+        .catch(function (error) {
+          if (error.response) {  
+            notify("Error de conexión, vuelva a intentarlo");
+          } else if (error.request) { 
+            notify("Error de conexión, vuelva a intentarlo");
+          } else { 
+            notify("Error de conexión, vuelva a intentarlo");
+          }
+          }); 
+          if(res.data.length == 0){
+            altaConsumidor();
+          }else if(res.data.length > 0){
+            setlista(res.data);
+            openModalConsumidores();
+          } 
+        closeModalLoad();
+      }
     }
 
     async function altaConsumidor(){   
@@ -118,7 +165,16 @@ function Registro(props){
             fd.append("c_latitud", "2314.3201")
             fd.append("c_longitud", "10626.7197")
             openModalLoad();
-            const res = await axios.post(process.env.REACT_APP_API_URL, fd);
+            const res = await axios.post(process.env.REACT_APP_API_URL, fd)
+            .catch(function (error) {
+              if (error.response) {  
+                notify("Error de conexión, vuelva a intentarlo");
+              } else if (error.request) { 
+                notify("Error de conexión, vuelva a intentarlo");
+              } else { 
+                notify("Error de conexión, vuelva a intentarlo");
+              }
+              });
             closeModalLoad();
             
             var json = JSON.parse(JSON.stringify(res.data)); 
@@ -322,12 +378,51 @@ function Registro(props){
                       <button className="buttonVerde" style={{width:'100%', fontWeight: 'bold'}}  onClick={() => { Seleccionar();}}>Regresar</button>
                       </div>
                       <div style={{width:'50%'}} align="center">
-                          <button type='submit' className='button' style={{ fontWeight: 'bold', width:'100%'}} onClick={() => {altaConsumidor();}}>Registrarse</button> 
+                          <button type='submit' className='button' style={{ fontWeight: 'bold', width:'100%'}} onClick={() => {existeConsumidor();}}>Registrarse</button> 
                           </div>
                       </div> 
 
                 <br></br>
               </div>
+              <Modal 
+              isOpen={modalIsOpenConsumidores}  
+              onRequestClose={closeModalConsumidores}   
+              style={customStylesD}> 
+              <div style={{width:'100%'}} align="center">  
+              <div  style={{height:'100%', overflowY: 'scroll', width:'100%'}}>
+              <label style={{fontWeight:'bold', fontSize:'16px'}}>Seleccione un consumidor ó haga click en continuar para registrarse</label><br></br>
+                <table  style={{width:'100%'}}>
+                  <tr>
+                    <th style={{color:'black'}}>Seleccionar</th>
+                    <th style={{color:'black'}}>Nombre</th>
+                    <th style={{color:'black'}}>Apellido</th>
+                    <th style={{color:'black'}}>Dirección</th>  
+                    <th style={{color:'black'}}>No. consumidor</th>  
+                    
+                  </tr>
+
+                  { lista.map(item => ( 
+                  <tr id="tabletr" style={{  fontSize:'15.5px', border: 'px solid #ABB2B9'}}>
+                    <td style={{color:'black', textAlign:'center' }}> <button className="buttonVerde" style={{width:'89px', paddingLeft:'6px'}} onClick={() => SeleccionarConsumidorExistente(item.telefono, item.noconsumidor)}>Seleccionar</button></td> 
+                    <td style={{color:'black', textAlign:'center' }}> {item.nombre}</td>
+                    <td style={{color:'black', textAlign:'center' }}> {item.apellido}</td>
+                    <td style={{color:'black', textAlign:'center' }}> {item.direccion}</td> 
+                    <td style={{color:'black', textAlign:'center' }}> {item.noconsumidor}</td> 
+                  
+                  </tr> 
+                  ))}	
+                </table> 
+                <div style={{justifyContent: 'space-between', columnGap:'0.875rem', width:'100%', display:'flex', flexDirection:'row'}}> 
+                    <div style={{width:'50%'}} align="center"> 
+                    <button className="buttonVerde" style={{width:'100%', fontWeight: 'bold'}} onClick={() => { closeModalConsumidores();}}>Cancelar</button>
+                    </div>
+                    <div style={{width:'50%'}} align="center"> 
+                        <button type='submit' onClick={() => altaConsumidor()} className='button' style={{ fontWeight: 'bold', width:'100%'}}>Continuar</button>
+                        </div>
+                    </div>          
+              </div>
+              </div>  
+          </Modal>
               <Modal 
               isOpen={modalIsOpen}  
               onRequestClose={closeModal}   
@@ -353,6 +448,11 @@ function Registro(props){
               </div>  
           </Modal>
           <ModalCarga modalIsOpenLoad={modalIsOpenLoad} closeModalLoad={closeModalLoad}/>
+
+          <ToastContainer 
+									progressClassName="toastProgress"
+									position="top-center"
+									/>
           </div>
       </div>
     );

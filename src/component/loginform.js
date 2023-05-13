@@ -21,7 +21,8 @@ import TextField from "@mui/material/TextField";
 import descargarPlaystore from '../resources/descargarPlaystore.png';
 import appgallery from '../resources/appGallery.svg';
 import continuaenlaweb from '../resources/continuaenlaweb.svg';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Input } from 'semantic-ui-react'
 
 const customStyles = { 	
@@ -131,22 +132,43 @@ const Login = (isLoggedIna) =>  {
 		}
 	}
 	
-	 
+	function notify(message){
+        toast(message);
+    }
 	 
 	async function Login(e){  
 		e.preventDefault();  
 		
+
  
 		document.body.style.zoom = "100%";
 		var NoConsumidor = document.getElementById("form-usuario").value;
 		var telefono = document.getElementById("form-password").value;  
+		if(telefono == ""){
+			notify("Ingrese su número de teléfono");
+			return;
+		}
+		if(NoConsumidor == ""){
+			notify("Ingrese su número de consumidor");
+			return;
+		}
 		let fd = new FormData()   
 		fd.append("id", "obtenerConsumidor")  
 		fd.append("folioconsumidor", NoConsumidor)
 		fd.append("telefono", telefono) 
 		//setisLoggedIn(false);
 		openModalLoad();
-		const res = await axios.post(process.env.REACT_APP_API_URL, fd);
+		const res = await axios.post(process.env.REACT_APP_API_URL, fd)
+		.catch(function (error) {
+			if (error.response) {  
+			  notify("Error de conexión, vuelva a intentarlo");
+			} else if (error.request) { 
+			  notify("Error de conexión, vuelva a intentarlo");
+			} else { 
+			  notify("Error de conexión, vuelva a intentarlo");
+			}
+		//	console.log(error.config);
+		  });
 		closeModalLoad();
 		console.log(res.data);
 		if(res.data[0].telefono1 === telefono){
@@ -194,6 +216,14 @@ const Login = (isLoggedIna) =>  {
 	console.log("----nocon "+noConsumidor);
 }
 
+function cambiarSelected3(telefono, noConsumidor){  
+	setRegistrarse(false);  
+	//document.getElementById("form-usuario").value = noConsumidor;
+	setNuevoTelefono(telefono);
+	setNuevoConsumidor(noConsumidor);
+	console.log("----nocon "+noConsumidor);
+}
+
 	
 
 	 
@@ -203,7 +233,7 @@ const Login = (isLoggedIna) =>  {
 			<div style={{backgroundColor:'#0171CE', height:'100vmax'}}>
 				{(registrarse) ?
 				<div  class="divPrincipal" align="center" style={{ height: '100vh', width: '100vw', top: '0',  position: 'sticky', display: 'flex', overflowX: 'auto'}}>
-					<Registro unmount={cambiarSelected}/>
+					<Registro unmount={cambiarSelected} unmount1={cambiarSelected3}/>
 							
 				</div>
 				
@@ -330,7 +360,11 @@ const Login = (isLoggedIna) =>  {
 										</div>  
 								</Modal>
 								</FadeIn>
-               
+
+								<ToastContainer 
+									progressClassName="toastProgress"
+									position="top-center"
+									/>
 							</div>
 						</>
 					}

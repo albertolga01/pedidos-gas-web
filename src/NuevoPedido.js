@@ -230,7 +230,16 @@ function NuevoPedido(props){
             fd.append("telefono", "0")
             fd.append("importe", Importe)
             openModalLoad();
-            const res = await axios.post(process.env.REACT_APP_API_URL, fd);
+            const res = await axios.post(process.env.REACT_APP_API_URL, fd)
+            .catch(function (error) {
+                if (error.response) {  
+                  notify("Error de conexión, vuelva a intentarlo");
+                } else if (error.request) { 
+                  notify("Error de conexión, vuelva a intentarlo");
+                } else { 
+                  notify("Error de conexión, vuelva a intentarlo");
+                }
+              });
             closeModalLoad();
             console.log(res.data);
             var json = JSON.parse(JSON.stringify(res.data));
