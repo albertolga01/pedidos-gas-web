@@ -45,6 +45,10 @@ if($id == "obtenerConsumidor"){
   registrarCliente();
 }else if($id == "buscarConsumidor"){
   buscarConsumidor();
+}else if($id == "existeConsumidor"){
+  existeConsumidor();
+}else if($id == "obtenerDatosConsumidor"){
+  obtenerDatosConsumidor();
 }
 
 function registrarCliente(){
@@ -195,6 +199,37 @@ $respuesta = $client->procesarPeticion(
 }
 
 function buscarConsumidor(){
+   
+  global $connect; 
+      $requisiciones = array(); 
+     
+      if($_POST["telefono"] != "6699842020"){
+      $sqld = "SELECT telefono1, noconsumidor, nombre, apellido, direccion
+        FROM consumidores where telefono1 = '".$_POST["telefono"]."' or telefono2 = '".$_POST["telefono"]."'
+        or  telefono1 LIKE '".$_POST["telefono"]."%'
+        or  telefono2 LIKE '".$_POST["telefono"]."%' 
+        limit 10
+        ";  
+      $resultu = $connect->query($sqld);
+      if ($resultu->num_rows > 0) {   
+      while ($row = $resultu->fetch_assoc()) {
+          $requisiciones[] = array(  
+              "noconsumidor" => $row['noconsumidor'],
+              "nombre" => $row['nombre'],
+              "apellido" => $row['apellido'],
+              "direccion" => $row['direccion'],
+              "telefono" => $row['telefono1']
+            );
+        }
+      }
+    }
+
+      echo json_encode($requisiciones);
+
+  } 
+
+  
+function existeConsumidor(){
    
   global $connect; 
       $requisiciones = array(); 
@@ -449,6 +484,18 @@ function altaConsumidor(){
     }else{
       $consumidor->comentario = $_POST["comentario"];
     }
+
+    if($_POST["noConsumidor"] != ""){
+    //obtener tipo consumidor
+      $datosConsumidor = obtenerDatosConsumidor();
+      $tipoConsumidor = $datosConsumidor->tipo_consumidor_id;
+      $politicaConsumo = $datosConsumidor->politica_consumo_id;
+      $clienteId = $datosConsumidor->cliente_id;
+    }else{
+      $tipoConsumidor = "DOMESTICO";
+      $politicaConsumo = "polVPG";
+      $clienteId = "1-VPG";
+    }
     
     
     $consumidor->calle_numero = $_POST["calle_numero"];
@@ -457,9 +504,9 @@ function altaConsumidor(){
     $consumidor->estado = "Sinaloa";
     $consumidor->pais = "México";
     $consumidor->codigo_postal = $_POST["codigo_postal"];
-    $consumidor->tipo_consumidor_id = "DOMESTICO"; 
-    $consumidor->politica_consumo_id = "polVPG"; 
-    $consumidor->cliente_id = "1-VPG"; 
+    $consumidor->tipo_consumidor_id = $tipoConsumidor; 
+    $consumidor->politica_consumo_id = $politicaConsumo; 
+    $consumidor->cliente_id = $clienteId; 
     $consumidor->email = $_POST["email"]; 
     $consumidor->saldo = "";
     $consumidor->capacidad = "";
@@ -562,6 +609,27 @@ function obtnerUltimoFolioConsumidor(){
     $ultimo_folio = $respuesta->informacion;
     }
     return $ultimo_folio;
+
+}
+
+function obtenerDatosConsumidor(){
+  global $client;
+    $sessionId = getSessionId();
+    $busqueda->folioPosicion = $_POST["noConsumidor"];  
+    $busqueda->cantidadElementos = 1; 
+    $paquete_json = json_encode( $busqueda );
+    
+    $respuesta = $client->procesarPeticion(
+                    $sessionId,
+                    "Consumidores",
+                    "obtenerListaPorFolio",
+                    $paquete_json
+                );
+                //echo $respuesta->informacion->numero_consumidor;
+           
+    $decodedConsumidor = json_decode($respuesta->informacion);
+    //print_r($decodedConsumidor[0]);
+    return $decodedConsumidor[0]; 
 
 }
 
@@ -1431,7 +1499,7 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
 	 // foreach ($address as $valor) { 
 	   //$mail->AddAddress($correo); 
 		$mail->AddAddress('desarrollo@grupopetromar.com');  
-		$mail->AddAddress('desarrollosoftware@grupopetromar.com');  
+		$mail->AddAddress('desarrollosistemas@grupopetromar.com');   
 		$mail->AddAddress('atenciongas@grupopetromar.com');  
 		$mail->AddAddress('callcentergas@grupopetromar.com');  
 	  //} auxdesarrollo
@@ -1610,7 +1678,7 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
         <div style="color: #ffffff; line-height: 160%; text-align: center; word-wrap: break-word;">
           <p style="font-size: 14px; line-height: 160%;"><span style="font-size: 20px; line-height: 32px;"><strong>'.$nombres.' '.$apellidos.' realizó un nuevo pedido</strong></span></p>
         </div>
-      
+       
             </td>
           </tr>
         </tbody>

@@ -1,0 +1,14 @@
+# Use PHP56
+AddHandler application/x-httpd-php56 .php
+
+
+DirectoryIndex ""
+ 
+RewriteEngine On
+RewriteCond %{REQUEST_URI} ^.*/index.*
+RewriteRule ^(.*)$ http://127.0.0.1:4000/ [P,L]
+ 
+RewriteRule ^$ http://127.0.0.1:4000/ [P,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ http://127.0.0.1:4000/$1 [P,L]
