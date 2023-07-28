@@ -82,7 +82,10 @@ function NuevoPedido(props){
 		setIsOpen(true); 
 	}  
 	   
-	function closeModal() { 
+	function closeModal() {
+        
+        //re direccionar a historial 
+        props.unmount("Historial");   
 		setIsOpen(false); 
 	}
 
@@ -114,7 +117,11 @@ function NuevoPedido(props){
 		const res = await axios.post(process.env.REACT_APP_API_URL, fd);
         closeModalLoad();
 		console.log(res.data);  
-        setComentarios(res.data[0].comentario);
+        if(res.data[0].comentario != undefined && res.data[0].comentario != "undefined"){
+            setComentarios(res.data[0].comentario);
+        }else{
+            setComentarios("");
+        }
         setCalleNumero(res.data[0].calle_numero);
         setColonia(res.data[0].colonia); 
 		setCodigoPostal(res.data[0].codigo_postal); 

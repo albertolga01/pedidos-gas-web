@@ -97,9 +97,9 @@ function Historial(props){
 
 						 { lista.map(item => ( 
 						<tr id="tabletr" style={{  fontSize:'15.5px', border: 'px solid #ABB2B9'}}>
-							<td style={{color:'white', textAlign:'center' }}>{item.folio}</td> 
-							<td style={{color:'white', textAlign:'center' }}> {formatDate(item.fechahoraservicio)}</td>
-							<td style={{color:'white', textAlign:'center' }}> {FormatNumber(item.litros)}</td>
+							<td style={{color:'white', textAlign:'center' }}>{item.foliopedido}</td>   
+							<td style={{color:'white', textAlign:'center' }}> {formatDate(item.fechahorapedido)}</td>
+							<td style={{color:'white', textAlign:'center' }}> {item.litros + " L"}</td>
 							<td style={{color:'white', textAlign:'center' }}> {FormatNumber(item.monto)}</td>
 							<td style={{color:'white', textAlign:'center' }}> {item.estatus_pedido}</td>
 							<td style={{color:'white', textAlign:'center' }} hidden> <button id="form-btn" className='buttonLogin' style={{margin:'5px', width: '80px', color:'white'}} onClick={() => pagarServicio1(item.monto)}>PAGAR</button>  </td>
