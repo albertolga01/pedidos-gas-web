@@ -248,7 +248,7 @@ function NuevoPedido(props){
                 }
               });
             closeModalLoad();
-            console.log(res.data);
+            //console.log(res.data);
             var json = JSON.parse(JSON.stringify(res.data));
             if (json.folio== undefined){
                 openModalE();
@@ -257,7 +257,7 @@ function NuevoPedido(props){
                 setMensaje("folio: "+json.folio + " cantidad: "+json.cantidad+ " estatus: "+json.estatus);
                 openModal();
             } 
-            //console.log(res.data); 
+            //console.log(json.folio); 
         }
 	}
 

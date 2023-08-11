@@ -11,14 +11,32 @@ import Usuario from "./Usuario";
 import StripeContainer from './component/StripeContainer'; 
 
 import BuscarServicio from './BuscarServicio';
+
+ 
 function Historial(props){
+    
+    useEffect(()=> {
+    
+       checkoutID();
+        
+        const script = document.createElement("script")
+        script.src="https://eu-test.oppwa.com/v1/paymentWidgets.js?checkoutId={checkoutId}";
+        document.body.appendChild(script);
+        
+        return () => {
+        document.body.removeChild(script);
+        };
+    }, []);
+
 
   
-
+    
     useEffect(() => {
-         
-        detalleSaldo();
+
+         detalleSaldo();
 	},[])
+
+    const [idrespuesta, setIdrespuesta] = useState();
     const[SaldoDisponible, setSaldo] = useState();
     const[lista, setlista] = useState([]); 
    // const[Nombre, setNombre] = useState(); 
@@ -27,6 +45,7 @@ function Historial(props){
         
    const[Cantidad, setCantidad] = useState();
    const[nombres, setNombres] = useState();
+
    async function detalleSaldo(){    
     let fd = new FormData()    
     fd.append("id", "historial")   
@@ -35,10 +54,18 @@ function Historial(props){
      //alert(res.trim);
      console.log(res.data);
      setlista(res.data);
-   //  setSaldo(res.data); 
+   //  setSaldo(res.data);  
    
-}
- 
+    } 
+
+   async function checkoutID(){
+        let fd = new FormData()   
+		fd.append("id", "checkoutID")  
+		const res = await axios.post(process.env.REACT_APP_API_URL, fd);
+        //console.log(res.data.id);
+        setIdrespuesta(res.data.id); 
+    }
+
     function Seleccionar(){  
         props.unmount("Abonar");    
     }
@@ -66,13 +93,17 @@ function Historial(props){
     return(
         <div style={{width:'100%'}}>
              <Navbar titulo="Historial" />
+             {idrespuesta}
         <>
         {(pagarServicio) ? 
         	<>
 					 <div  style={{margin: 'auto', width:'80%' , height: '100vh' }} align="center"> 
                      <br></br> <br></br> <br></br>
                             <div style={{ display: 'flex', flexDirection: 'column', width: '100%'}} align="center">
-                             <StripeContainer unmount={props.unmount} cantidad={Cantidad} identificador_externo={props.identificador_externo} nombres={nombres} apellidos={""}/>
+                            <script src="https://eu-test.oppwa.com/v1/paymentWidgets.js?checkoutId={checkoutId}"></script>
+                            <form action="{shopperResultUrl}" class="paymentWidgets" data-brands="VISA MASTER AMEX"></form>
+                             {/*<StripeContainer unmount={props.unmount} cantidad={Cantidad} identificador_externo={props.identificador_externo} nombres={nombres} apellidos={""}/>*/}
+
                              </div>
                         </div> 
 					</>
@@ -91,7 +122,7 @@ function Historial(props){
 							<th style={{color:'white'}}>Litros</th>
 							<th style={{color:'white'}}>Importe</th> 
 							<th style={{color:'white'}}>Estatus</th> 
-							<th style={{color:'white'}} hidden>Pagar</th> 
+							<th style={{color:'white'}} >Pagar</th> 
 							 
 						</tr>
 
@@ -102,7 +133,7 @@ function Historial(props){
 							<td style={{color:'white', textAlign:'center' }}> {item.litros + " L"}</td>
 							<td style={{color:'white', textAlign:'center' }}> {FormatNumber(item.monto)}</td>
 							<td style={{color:'white', textAlign:'center' }}> {item.estatus_pedido}</td>
-							<td style={{color:'white', textAlign:'center' }} hidden> <button id="form-btn" className='buttonLogin' style={{margin:'5px', width: '80px', color:'white'}} onClick={() => pagarServicio1(item.monto)}>PAGAR</button>  </td>
+							<td style={{color:'white', textAlign:'center' }} > <button id="form-btn" className='buttonLogin' style={{margin:'5px', width: '80px', color:'white'}} onClick={() => pagarServicio1(item.monto)}>PAGAR</button>  </td>
 							 
 							  
 						</tr> 
