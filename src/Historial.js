@@ -20,7 +20,7 @@ function Historial(props){
        checkoutID();
         
         const script = document.createElement("script")
-        script.src="https://eu-test.oppwa.com/v1/paymentWidgets.js?checkoutId={checkoutId}";
+        script.src="https://eu-test.oppwa.com/v1/paymentWidgets.js?checkoutId={B6CADF88A556C4758A143FC11C54B045.uat01-vm-tx01}";
         document.body.appendChild(script);
         
         return () => {
@@ -93,14 +93,14 @@ function Historial(props){
     return(
         <div style={{width:'100%'}}>
              <Navbar titulo="Historial" />
-             {idrespuesta}
+             {/*idrespuesta*/}
         <>
         {(pagarServicio) ? 
         	<>
 					 <div  style={{margin: 'auto', width:'80%' , height: '100vh' }} align="center"> 
                      <br></br> <br></br> <br></br>
                             <div style={{ display: 'flex', flexDirection: 'column', width: '100%'}} align="center">
-                            <script src="https://eu-test.oppwa.com/v1/paymentWidgets.js?checkoutId={checkoutId}"></script>
+                            <script src="https://eu-test.oppwa.com/v1/paymentWidgets.js?checkoutId={B6CADF88A556C4758A143FC11C54B045.uat01-vm-tx01}"></script>
                             <form action="{shopperResultUrl}" class="paymentWidgets" data-brands="VISA MASTER AMEX"></form>
                              {/*<StripeContainer unmount={props.unmount} cantidad={Cantidad} identificador_externo={props.identificador_externo} nombres={nombres} apellidos={""}/>*/}
 

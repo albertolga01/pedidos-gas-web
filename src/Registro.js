@@ -24,7 +24,19 @@ const customStylesD = {
 	  transform: 'translate(-50%, -50%)',
 	},
   };
-
+  
+  const customStylesPolitica = { 	
+    content: {
+      width:'95%',
+      height:'85%',
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)', 
+    },
+    };
 
 function Registro(props){
 
@@ -57,6 +69,10 @@ function Registro(props){
     const [modalIsOpenError, setIsOpenLoadError] = React.useState(false);
 
     const[lista, setlista] = useState([]); 
+    const [modalIsOpenPoliticaPrivacidad, setIsOpenPoliticaPrivacidad] = React.useState(false);
+
+    const privacidad = document.getElementById('privacidad');
+
 
     function openModal() { 
 		setIsOpen(true); 
@@ -101,6 +117,14 @@ function Registro(props){
 	function notify(message){
     toast(message);
 }
+ 
+    function openPoliticaPrivacidad() { 
+      setIsOpenPoliticaPrivacidad(true);
+    }
+
+    function closeModalPoliticaPrivacidad() { 
+      setIsOpenPoliticaPrivacidad(false); 
+    }
 
     function Validador(NombreV, ApellidoV,Tel1V, CalleNumV){
       
@@ -145,8 +169,24 @@ function Registro(props){
         closeModalLoad();
       }
     }
+    
 
-    async function altaConsumidor(){   
+    function Privacidad(){
+      switchChange();
+      closeModalPoliticaPrivacidad();
+    }
+
+    function switchChange () { 
+          let privacidadcheck = 0;
+          if(privacidad.checked){
+            privacidadcheck = 1;
+          } 
+          console.log(privacidad.checked) 
+        }
+
+
+    async function altaConsumidor(){
+      
          var valido = Validador(Nombre, Apellido, TelefonoUno, CalleNumero); 
          if(valido == true){
             let fd = new FormData()   
@@ -163,7 +203,7 @@ function Registro(props){
             fd.append("codigo_postal", CodigoPostal)
             fd.append("email", Email)
             fd.append("c_latitud", "2314.3201")
-            fd.append("c_longitud", "10626.7197")
+            fd.append("c_longitud", "10626.7197") 
             openModalLoad();
             const res = await axios.post(process.env.REACT_APP_API_URL, fd)
             .catch(function (error) {
@@ -326,6 +366,12 @@ function Registro(props){
                       <label class="idLabel">Comentarios</label>
                       <textarea class="idInput"  style={{ minHeight:'50px', resize: 'none'}} onChange={e => setComentarios(e.target.value)} rows="5" cols="50"></textarea><br></br>
                       
+                      
+                      <label style={{color:'white', fontWeight: 'bold', fontSize:'20px'}}>
+                        <input style={{marginRight: '15px', height:'15px', width:'15px'}}  type="checkbox" id="privacidad" onClick={openPoliticaPrivacidad} />
+                        He leído y acepto la política de privacidad
+                      </label>
+                    
 
                       <label class="idLabel" hidden >Ubicación</label><br></br>
                       <div style={{width:'100%'}} hidden>
@@ -447,6 +493,93 @@ function Registro(props){
                           <button style={{width:'100%', color:'white', backgroundColor:'#008445'}} className="buttonLogin" onClick={closeModalLoadError}>Ok</button>
               </div>  
           </Modal>
+
+          <Modal 
+              isOpen={modalIsOpenPoliticaPrivacidad}
+              onRequestClose={closeModalPoliticaPrivacidad}   
+              style={customStylesPolitica}> 
+              <div style={{width:'100%',  fontSize:'15px', display:'flex', flexDirection:'row'}} align="center">
+                <div styley={{width:'70%', overflowY:'scroll'}}>
+               
+                      <h3>AVISO DE PRIVACIDAD</h3>
+                      <h4 align="left"> La identidad y domicilio del responsable </h4>
+                      <p style={{padding: '5px'}} align="justify">
+                      GAS UNION DE AMÉRICA, S.A. DE C.V. PETROMAR GAS, con domicilio en
+                      Plaza Santa Fe, Avenida Camarón Sábalo Número 102, local 7, Colonia Lomas
+                      de Mazatlán, código postal 82110, en Mazatlán, Sinaloa, es el responsable del
+                      tratamiento de los datos personales que nos proporcione, los cuales serán
+                      protegidos conforme a lo dispuesto por la Ley General de Protección de Datos
+                      Personales en Posesión de los Particulares y demás normatividad que resulte
+                      aplicable.
+                      </p>
+                      <h4 align="left">Las finalidades del tratamiento de datos</h4> 
+                      <p style={{padding: '5px'}} align="justify">
+                      Los datos personales que recabemos serán utilizados con la finalidad de
+                      prestarle el servicio de suministro gas licuado de petróleo, así como servicios
+                      relacionados.
+                      </p>
+                      <p style={{padding: '2px'}} align="justify">
+                      Para las finalidades antes señaladas se podrán solicitar de manera enunciativa
+                      los siguientes datos personales: nombre completo, domicilio, RFC, usuario,
+                      contraseña, correo electrónico, información societaria, datos de los
+                      representantes o apoderados legales, datos bancarios e información comercial
+                      y financiera diversa indispensable para otorgar el servicio que se solicite.
+                      Todos los Datos Personales proporcionados a PETROMAR GAS, serán
+                      considerados como información confidencial, obligación que subsistirá a pesar
+                      de que el titular de dicha información haya finalizado su relación con la
+                      sociedad. Asimismo, dichos Datos Personales no serán divulgados a terceras
+                      personas sin la autorización de su titular.
+                      </p>
+                      <p style={{padding: '2px'}} align="justify">
+                      Se informa que no se recabarán datos personales sensibles.
+                      Las opciones para limitar el uso o divulgación de los datos
+                      De igual forma, y sólo en caso de que el usuario lo autorice, los datos de
+                      contacto proporcionados se utilizarán para enviar por correo electrónico,
+                      teléfono celular, entre otros.
+                      </p>
+                      <p style={{padding: '2px'}} align="justify">
+                      Los medios para ejercer los derechos ARCO.
+                      El titular por sí o mediante representante legal debidamente acreditado, podrá
+                      ejercer sus derechos ARCO (acceso, rectificación, cancelación y oposición)
+                      sobre sus datos personales, así como de oponerse al tratamiento de los
+                      mismos o revocar el consentimiento que para tal fin nos haya otorgado,
+                      presentando su solicitud a través de escrito dirigido a GAS UNIÓN DE
+                      AMÉRICA, S.A. DE C.V., a la siguiente dirección de correo electrónico:
+                      franciscopina@grupopetromar.com.
+                      </p>
+                      <p style={{padding: '5px'}} align="justify">
+                      Transferencia de datos personales
+                      Se informa que no se realizarán transferencias de datos personales, salvo
+                      aquéllas que están establecidas en ley o sean necesarias para atender
+                      requerimientos de información de una autoridad competente.
+                      </p>
+                      <p style={{padding: '5px'}} align="justify">
+                      <h4 align="left">Cambios al aviso de privacidad</h4>
+                      PETROMAR GAS se reserva el derecho de enmendar o modificar el presente
+                      Aviso de Privacidad como estime conveniente, por ejemplo, para cumplir con
+                      cambios a la legislación sobre protección de datos o para efecto de cumplir
+                      con las disposiciones internas, en dado caso, se le informará y pondrá a su
+                      disposición el Aviso de Privacidad actualizado cuando se le hagan cambios
+                      significativos al mismo, así como cuando se requiera recabar su
+                      consentimiento.
+                      </p>
+                      <br></br>
+                      Fecha última actualización 22 de marzo de 2023 
+                      <br></br>
+                      <br></br>
+                      <div style={{justifyContent: 'space-between', columnGap:'0.875rem', width:'100%', display:'flex', flexDirection:'row'}}> 
+                    <div style={{width:'50%'}} align="center"> 
+                    <button className="buttonVerde" style={{width:'100%', fontWeight: 'bold'}} onClick={() => { closeModalPoliticaPrivacidad();}}>No acepto</button>
+                    </div>
+                    <div style={{width:'50%'}} align="center"> 
+                        <button type='submit'  onClick={() => Privacidad()} className='button' style={{ fontWeight: 'bold', width:'100%'}}>Acepto</button>
+                        </div>
+                    </div>  
+                  </div>
+                  
+                </div>  
+          </Modal>
+
           <ModalCarga modalIsOpenLoad={modalIsOpenLoad} closeModalLoad={closeModalLoad}/>
 
           <ToastContainer 

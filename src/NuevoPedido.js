@@ -382,13 +382,13 @@ function NuevoPedido(props){
                     <fieldset>
                             <legend class="idLabel">Seleccione:</legend>
                             <div >
-                            <input type="radio" id="tipopesos" name="tipopedido"  
+                            <input style={{marginRight: '15px', height:'15px', width:'15px'}} type="radio" id="tipopesos" name="tipopedido"  
                                      onClick={() => tipoPedido()}/>
                             <label class="idLabel" for="pesos">Pesos</label>
                            
                             </div>
                             <div>
-                                 <input type="radio" id="tipolitros" name="tipopedido"    onClick={() => tipoPedido()}/>
+                                 <input style={{marginTop:'5px',marginRight: '15px', height:'15px', width:'15px'}} type="radio" id="tipolitros" name="tipopedido"    onClick={() => tipoPedido()}/>
                             <label class="idLabel" for="litros">Litros</label>
                             </div>
   

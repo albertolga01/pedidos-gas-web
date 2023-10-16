@@ -99,14 +99,15 @@ export default function OpcionesMenu(props) {
                     <label style={{marginLeft:'10px', fontWeight:'bold', fontSize:'15px'}}>Acerca de</label>
                 </div>
                 </IconContext.Provider>
-                
-                <IconContext.Provider value={{ size: "2.5em" }}>
-                <div id="sidebtn" className='menuOption'  style={{width:'65%'}} onClick={() => { Seleccionar("Avisoprivacidad"); }}>
+                {/*
+                <IconContext.Provider   value={{ size: "2.5em" }}>
+                <div  id="sidebtn" className='menuOption'  style={{width:'65%'}} onClick={() => { Seleccionar("Avisoprivacidad"); }}>
                 <img style={{width:'15%'}} src={PrivacidadProp} />
 
                     <label style={{marginLeft:'10px', fontWeight:'bold', fontSize:'15px'}}>Aviso de privacidad</label> 
                 </div>
                 </IconContext.Provider>
+                */}
                 </center>
                 <IconContext.Provider value={{ size: "2.5em" }}>
                 <center>

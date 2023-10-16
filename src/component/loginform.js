@@ -312,6 +312,8 @@ function cambiarSelected3(telefono, noConsumidor){
 										
 									</div>
 									<br></br>
+									<br></br>
+									<br></br> 	
 									<div style={{width:'100%', height:'50px', justifyContent: 'space-between', columnGap:'0.875rem', display:'flex', flexDirection:'row'}} align="center"> 
 										<div style={{width:'100%', display: 'flex', flexDirection:'column'}}>
 											<label>¿Olvidaste el no. de consumidor?</label>
