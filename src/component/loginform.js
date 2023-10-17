@@ -23,7 +23,10 @@ import appgallery from '../resources/appGallery.svg';
 import continuaenlaweb from '../resources/continuaenlaweb.svg';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Input } from 'semantic-ui-react'
+import { Input } from 'semantic-ui-react';
+import {BsWhatsapp } from "react-icons/bs";
+import ReactWhatsappButton from 'react-whatsapp-button';
+
 
 const customStyles = { 	
 	content: {
@@ -35,6 +38,19 @@ const customStyles = {
 	  transform: 'translate(-50%, -50%)',
 	},
   };
+
+  const customStylesPolitica = { 	
+    content: {
+      width:'95%',
+      height:'85%',
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)', 
+    },
+    };
 
 const Login = (isLoggedIna) =>  { 
 	
@@ -93,6 +109,10 @@ const Login = (isLoggedIna) =>  {
 
 	const [modalIsOpenE, setIsOpenE] = React.useState(false);
 
+    const [modalIsOpenPoliticaPrivacidad, setIsOpenPoliticaPrivacidad] = React.useState(false); 
+
+
+
 	function openModalE() { 
         setIsOpenE(true); 
     }  
@@ -139,7 +159,10 @@ const Login = (isLoggedIna) =>  {
 	async function Login(e){  
 		e.preventDefault();  
 		
-
+		if(document.getElementById("privacidad").checked == false){
+			toast("Se requiere aceptar el aviso de privacidad para ingresar");
+			return;
+		  }
  
 		document.body.style.zoom = "100%";
 		var NoConsumidor = document.getElementById("form-usuario").value;
@@ -224,9 +247,26 @@ function cambiarSelected3(telefono, noConsumidor){
 	console.log("----nocon "+noConsumidor);
 }
 
-	
+function openPoliticaPrivacidad(e) { 
+	e.preventDefault();
+	setIsOpenPoliticaPrivacidad(true);
+  }
 
+  function noAcepto() { 
+	document.getElementById("privacidad").checked = false; 
+	setIsOpenPoliticaPrivacidad(false); 
+  }
+
+  function closeModalPoliticaPrivacidad() {  
+	setIsOpenPoliticaPrivacidad(false); 
+  }
+
+  function Privacidad(){
+       
+	document.getElementById('privacidad').checked = true;
 	 
+	closeModalPoliticaPrivacidad();
+  } 
 
     if(isLoggedIn){
 		return( 
@@ -306,12 +346,19 @@ function cambiarSelected3(telefono, noConsumidor){
 											/>
 									{/* <input id="form-usuario" onKeyPress={handleKeyPress} defaultValue={nuevoConsumidor} type="tel" style={{height:'30px', width:'80%'}} placeholder="Número Consumidor"/>*/}
 									</div>
-									<div style={{width:'100%', height:'50px'	}} align="center"> 
+									<div style={{width:'100%', height:'45px'}} align="center">
+									<label style={{color:'white', fontWeight: 'bold', fontSize:'20px'}}>
+										<input style={{marginRight: '15px', height:'15px', width:'15px'}}  type="checkbox" id="privacidad" onClick={(e) => openPoliticaPrivacidad(e)} />
+										He leído y estoy de acuerdo con la política de privacidad
+									</label>
+
+									</div>
+									<div style={{width:'100%', height:'50px'}} align="center"> 
 										
 										<button id="form-btn" className='buttonLogin' style={{backgroundColor:'#0071ce', color:'white'}} onClick={(e) => Login(e)}>INICIAR SESIÓN</button> 
 										
 									</div>
-									<br></br>
+									 
 									<br></br>
 									<br></br> 	
 									<div style={{width:'100%', height:'50px', justifyContent: 'space-between', columnGap:'0.875rem', display:'flex', flexDirection:'row'}} align="center"> 
@@ -330,10 +377,10 @@ function cambiarSelected3(telefono, noConsumidor){
 										</div>
 										<div style={{width:'100%', display: 'flex', flexDirection:'column'}}>
 											<label>¿Necesitas ayuda?</label>
-											<u><a id="link" href="tel:6699842020">LLÁMANOS <br></br>(669) 984-20-20</a></u>
+											<u><a id="link" href="tel:+526699842020">LLÁMANOS <br></br>(669) 984-20-20</a></u>
 											
 										</div>
-										<br></br>
+										 <br></br>
 									<br></br>
 									<br></br>
 									<br></br>	
@@ -341,6 +388,22 @@ function cambiarSelected3(telefono, noConsumidor){
 									</FadeIn> 
 									<br></br>
 									<br></br> 
+									<br></br>
+									<br></br> 
+									<br></br>
+									<br></br> 
+									
+									<ReactWhatsappButton
+									animated
+									message="Hola!, Buen día"
+									countryCode="52"
+									phoneNumber="6699933030"
+									style={{
+										bottom: '5px',
+										left: '10px',
+										right: 'unset'
+									}}
+									/>
 								</div>
 								
 								<ModalCarga modalIsOpenLoad={modalIsOpenLoad} closeModalLoad={closeModalLoad}/>
@@ -362,6 +425,91 @@ function cambiarSelected3(telefono, noConsumidor){
 										</div>  
 								</Modal>
 								</FadeIn>
+								<Modal 
+										isOpen={modalIsOpenPoliticaPrivacidad}
+										onRequestClose={closeModalPoliticaPrivacidad}   
+										style={customStylesPolitica}> 
+										<div style={{width:'100%',  fontSize:'15px', display:'flex', flexDirection:'row'}} align="center">
+											<div styley={{width:'70%', overflowY:'scroll'}}>
+										
+												<h3>AVISO DE PRIVACIDAD</h3>
+												<h4 align="left"> La identidad y domicilio del responsable </h4>
+												<p style={{padding: '5px'}} align="justify">
+												GAS UNION DE AMÉRICA, S.A. DE C.V. PETROMAR GAS, con domicilio en
+												Plaza Santa Fe, Avenida Camarón Sábalo Número 102, local 7, Colonia Lomas
+												de Mazatlán, código postal 82110, en Mazatlán, Sinaloa, es el responsable del
+												tratamiento de los datos personales que nos proporcione, los cuales serán
+												protegidos conforme a lo dispuesto por la Ley General de Protección de Datos
+												Personales en Posesión de los Particulares y demás normatividad que resulte
+												aplicable.
+												</p>
+												<h4 align="left">Las finalidades del tratamiento de datos</h4> 
+												<p style={{padding: '5px'}} align="justify">
+												Los datos personales que recabemos serán utilizados con la finalidad de
+												prestarle el servicio de suministro gas licuado de petróleo, así como servicios
+												relacionados.
+												</p>
+												<p style={{padding: '2px'}} align="justify">
+												Para las finalidades antes señaladas se podrán solicitar de manera enunciativa
+												los siguientes datos personales: nombre completo, domicilio, RFC, usuario,
+												contraseña, correo electrónico, información societaria, datos de los
+												representantes o apoderados legales, datos bancarios e información comercial
+												y financiera diversa indispensable para otorgar el servicio que se solicite.
+												Todos los Datos Personales proporcionados a PETROMAR GAS, serán
+												considerados como información confidencial, obligación que subsistirá a pesar
+												de que el titular de dicha información haya finalizado su relación con la
+												sociedad. Asimismo, dichos Datos Personales no serán divulgados a terceras
+												personas sin la autorización de su titular.
+												</p>
+												<p style={{padding: '2px'}} align="justify">
+												Se informa que no se recabarán datos personales sensibles.
+												Las opciones para limitar el uso o divulgación de los datos
+												De igual forma, y sólo en caso de que el usuario lo autorice, los datos de
+												contacto proporcionados se utilizarán para enviar por correo electrónico,
+												teléfono celular, entre otros.
+												</p>
+												<p style={{padding: '2px'}} align="justify">
+												Los medios para ejercer los derechos ARCO.
+												El titular por sí o mediante representante legal debidamente acreditado, podrá
+												ejercer sus derechos ARCO (acceso, rectificación, cancelación y oposición)
+												sobre sus datos personales, así como de oponerse al tratamiento de los
+												mismos o revocar el consentimiento que para tal fin nos haya otorgado,
+												presentando su solicitud a través de escrito dirigido a GAS UNIÓN DE
+												AMÉRICA, S.A. DE C.V., a la siguiente dirección de correo electrónico:
+												franciscopina@grupopetromar.com.
+												</p>
+												<p style={{padding: '5px'}} align="justify">
+												Transferencia de datos personales
+												Se informa que no se realizarán transferencias de datos personales, salvo
+												aquéllas que están establecidas en ley o sean necesarias para atender
+												requerimientos de información de una autoridad competente.
+												</p>
+												<p style={{padding: '5px'}} align="justify">
+												<h4 align="left">Cambios al aviso de privacidad</h4>
+												PETROMAR GAS se reserva el derecho de enmendar o modificar el presente
+												Aviso de Privacidad como estime conveniente, por ejemplo, para cumplir con
+												cambios a la legislación sobre protección de datos o para efecto de cumplir
+												con las disposiciones internas, en dado caso, se le informará y pondrá a su
+												disposición el Aviso de Privacidad actualizado cuando se le hagan cambios
+												significativos al mismo, así como cuando se requiera recabar su
+												consentimiento.
+												</p>
+												<br></br>
+												Fecha última actualización 22 de marzo de 2023 
+												<br></br>
+												<br></br>
+												<div style={{justifyContent: 'space-between', columnGap:'0.875rem', width:'100%', display:'flex', flexDirection:'row'}}> 
+												<div style={{width:'50%'}} align="center"> 
+												<button className="buttonVerde" style={{width:'100%', fontWeight: 'bold'}} onClick={() => { noAcepto();}}>No acepto</button>
+												</div>
+												<div style={{width:'50%'}} align="center"> 
+													<button type='submit'  onClick={() => Privacidad()} className='button' style={{ fontWeight: 'bold', width:'100%'}}>Acepto</button>
+													</div>
+												</div>  
+											</div>
+											
+											</div>  
+									</Modal>
 
 								<ToastContainer 
 									progressClassName="toastProgress"

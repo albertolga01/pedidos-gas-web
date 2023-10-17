@@ -118,11 +118,17 @@ function Registro(props){
     toast(message);
 }
  
-    function openPoliticaPrivacidad() { 
+    function openPoliticaPrivacidad(e) { 
+      e.preventDefault();
       setIsOpenPoliticaPrivacidad(true);
     }
 
-    function closeModalPoliticaPrivacidad() { 
+    function noAcepto() { 
+      document.getElementById("privacidad").checked = false; 
+      setIsOpenPoliticaPrivacidad(false); 
+    }
+
+    function closeModalPoliticaPrivacidad() {  
       setIsOpenPoliticaPrivacidad(false); 
     }
 
@@ -143,6 +149,7 @@ function Registro(props){
     }
 
     async function existeConsumidor(){
+      
       setlista([]);
       var valido = Validador(Nombre, Apellido, TelefonoUno, CalleNumero); 
       if(valido == true){
@@ -172,7 +179,9 @@ function Registro(props){
     
 
     function Privacidad(){
-      switchChange();
+       
+      document.getElementById('privacidad').checked = true;
+       
       closeModalPoliticaPrivacidad();
     }
 
@@ -186,6 +195,12 @@ function Registro(props){
 
 
     async function altaConsumidor(){
+
+      if(document.getElementById("privacidad").checked == false){
+        toast("Se requiere aceptar el aviso de privacidad");
+        return;
+      }
+      
       
          var valido = Validador(Nombre, Apellido, TelefonoUno, CalleNumero); 
          if(valido == true){
@@ -224,7 +239,7 @@ function Registro(props){
             openModal();
          }else{
             openModalLoadError();
-         }
+         }  
 		//console.log(res.data); 
 	}
 
@@ -368,8 +383,8 @@ function Registro(props){
                       
                       
                       <label style={{color:'white', fontWeight: 'bold', fontSize:'20px'}}>
-                        <input style={{marginRight: '15px', height:'15px', width:'15px'}}  type="checkbox" id="privacidad" onClick={openPoliticaPrivacidad} />
-                        He leído y acepto la política de privacidad
+                        <input style={{marginRight: '15px', height:'15px', width:'15px'}}  type="checkbox" id="privacidad" onClick={(e) => openPoliticaPrivacidad(e)} />
+                        He leído y estoy de acuerdo con la política de privacidad
                       </label>
                     
 
@@ -569,7 +584,7 @@ function Registro(props){
                       <br></br>
                       <div style={{justifyContent: 'space-between', columnGap:'0.875rem', width:'100%', display:'flex', flexDirection:'row'}}> 
                     <div style={{width:'50%'}} align="center"> 
-                    <button className="buttonVerde" style={{width:'100%', fontWeight: 'bold'}} onClick={() => { closeModalPoliticaPrivacidad();}}>No acepto</button>
+                    <button className="buttonVerde" style={{width:'100%', fontWeight: 'bold'}} onClick={() => { noAcepto();}}>No acepto</button>
                     </div>
                     <div style={{width:'50%'}} align="center"> 
                         <button type='submit'  onClick={() => Privacidad()} className='button' style={{ fontWeight: 'bold', width:'100%'}}>Acepto</button>
