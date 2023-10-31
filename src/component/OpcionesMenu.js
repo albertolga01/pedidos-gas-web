@@ -87,6 +87,12 @@ export default function OpcionesMenu(props) {
                 </div>
                 </IconContext.Provider> 
                 <IconContext.Provider value={{ size: "2.5em" }}>
+                <div id="sidebtn" className='menuOption'  style={{width:'65%'}}  onClick={() => { Seleccionar("PreguntasFrecuentes"); }}>
+                <img style={{width:'15%'}} src={Ayuda} />
+                    <label style={{marginLeft:'3px', fontWeight:'bold', fontSize:'15px'}}>Preguntas Frecuentes</label> 
+                </div>
+                </IconContext.Provider> 
+                <IconContext.Provider value={{ size: "2.5em" }}>
                 <div id="sidebtn" className='menuOption'  style={{width:'65%'}} onClick={() => { Seleccionar("Novedades"); }}>
                 <img style={{width:'15%'}} src={PromocionmenuProp} />
 

@@ -31,6 +31,8 @@ import ConfiguracionProp from './resources/usericon.svg'
 import CerrarProp from './resources/usericon.svg'
 import AyudaProp from './resources/usericon.svg'
 import AcercaProp from './resources/usericon.svg'
+import ReactWhatsappButton from 'react-whatsapp-button';
+import WhatsAppButtonGreenLarge from './resources/WhatsAppButtonGreenLarge.svg'
 
 
 const customStylesD = { 	
@@ -281,6 +283,12 @@ function MenuPrincipal(props){
 
                 <ModalCarga modalIsOpenLoad={modalIsOpenLoad} closeModalLoad={closeModalLoad}/>
                 <div style={{width:'80%' }} align="right">  <button style={{boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px'}} className="buttonSalir" onClick={() => {logOut()}} >SALIR</button > </div>
+                <br></br>
+                <div style={{width:'85%'}} align="left">
+						
+						<a href="whatsapp://send?text=Hola!,%20Buen%20d%C3%ADa&phone=+526699933030"> <img style={{width:'60%', paddingBottom:'5px', paddingLeft:'15px'}} alt="Chat on WhatsApp" src={WhatsAppButtonGreenLarge} />  </a>		
+                         
+					</div>
                 <br></br>
                     <br></br>
               

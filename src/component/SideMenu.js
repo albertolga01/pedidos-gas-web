@@ -15,6 +15,8 @@ import BuscarConsumidor from '../BuscarConsumidor';
 import Avisoprivacidad from '../Avisoprivacidad';
 import AcercaDe from '../AcercaDe';
 import Ayuda from '../Ayuda';
+import PreguntasFrecuentes from '../PreguntasFrecuentes';
+import SolicitudTanqueEstacionario from '../SolicitudTanqueEstacionario';
 
 export default function SideMenu(props) {
     window.event = new Event('event');
@@ -95,6 +97,10 @@ export default function SideMenu(props) {
             return <Avisoprivacidad  unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
         }else if (selected === 'AcercaDe') {
             return <AcercaDe  unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
+        }else if (selected === 'PreguntasFrecuentes') {
+            return <PreguntasFrecuentes  unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
+        }else if (selected === 'SolicitudTanqueEstacionario') {
+            return <SolicitudTanqueEstacionario  unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
         }else if (selected === 'Ayuda') {
             return <Ayuda  unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
         }else {
