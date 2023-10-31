@@ -250,7 +250,11 @@ function NuevoPedido(props){
             closeModalLoad();
             //console.log(res.data);
             var json = JSON.parse(JSON.stringify(res.data));
-            if (json.folio== undefined){
+            
+            if(json[0].pedidopendiente != "0"){
+                //abrir el modal para modificar pedido
+                notify("pedido pendiente editar fecha y hora folio: "+json[0].pedidopendiente);
+            }else if (json.folio== undefined){
                 openModalE();
                 setMensajeError("Error");
             }else{ 

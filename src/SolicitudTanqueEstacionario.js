@@ -12,6 +12,7 @@ import ErrorImg from './resources/error.svg'
 import { ModalCarga } from "./component/ModalCarga";
 import { Input } from 'semantic-ui-react' 
 import { ToastContainer, toast } from 'react-toastify';
+import { SliderThumb } from "@mui/material";
  
 
 const customStyles = { 	
@@ -56,6 +57,7 @@ function SolicitudTanqueEstacionario(props){
     const[Colonia, setColonia] = useState();
     const[Cantidad, setCantidad] = useState();
     const[Importe, setImporte] = useState();
+    const[capacidad, setCapacidad] = useState();
     const[CodigoPostal, setCodigoPostal] = useState(); 
     const [fechaHoy, setFechaHoy] = useState("null");
 
@@ -181,32 +183,48 @@ function SolicitudTanqueEstacionario(props){
         }
         
     }
+
+    function Validador(NombreV, ApellidoV,Tel1V, CalleNumV){
+      
+        if(NombreV == "" || NombreV == null ){
+           return false;
+        } else if (ApellidoV == "" || ApellidoV == null){
+           return false;
+        } else if (Tel1V == "" || Tel1V == null){
+           return false;
+        } else if (CalleNumV == "" || CalleNumV == null){
+           return false;
+        } else {
+           return true;
+        }
+       
+   }
  
 
     async function altaSolicitudTanque(){  
            
             
 
-            let pesos = document.getElementById("tipopesos");
-            let litros = document.getElementById("tipolitros"); 
-            var cantidad = 0;
-            if(pesos.checked){ 
-                 cantidad = document.getElementById("inputpesos").value;
-                 cantidad = (cantidad / props.PrecioGas).toFixed(2);
-            }
-            if(litros.checked){
-                cantidad = document.getElementById("inputlitros").value;
-            }
+        var valido = Validador(Nombre, Apellido, TelefonoUno, CalleNumero);   
 
-           // alert(cantidadServicio);
+            //alert(cantidadServicio);
+            if(valido != true){
+                notify("Complete los datos para continuar");
+                return;
+            }
             let fd = new FormData()   
-            fd.append("id", "altaSolicitudTanque")
+            fd.append("id", "altaSolicitudTanque") 
+            fd.append("nombre", Nombre)
+            fd.append("apellidos", Apellido)
+            fd.append("telefono1", TelefonoUno)
+            fd.append("ciudad", Ciudad)
+            fd.append("cp", CodigoPostal)
+            fd.append("colonia", Colonia)
+            fd.append("calle_numero", CalleNumero)
+            fd.append("correo", Email)
             fd.append("comentarios", Comentarios)
-            fd.append("correo", "0")
-            fd.append("nombres", props.nombres)
-            fd.append("apellidos", props.apellidos)
-            fd.append("telefono", "0")
-            //fd.append("importe", Importe)
+            fd.append("capacidad", capacidad)
+            
             openModalLoad();
             const res = await axios.post(process.env.REACT_APP_API_URL, fd)
             .catch(function (error) {
@@ -220,14 +238,14 @@ function SolicitudTanqueEstacionario(props){
               });
             closeModalLoad();
             //console.log(res.data);
-            var json = JSON.parse(JSON.stringify(res.data));
-            if (json.folio== undefined){
+           // var json = JSON.parse(JSON.stringify(res.data));
+             if(res.data == "1"){ 
+                setMensaje("folio: ");
+                openModal();
+            }else{
                 openModalE();
                 setMensajeError("Error");
-            }else{ 
-                setMensaje("folio: "+json.folio + " cantidad: "+json.cantidad+ " estatus: "+json.estatus);
-                openModal();
-            } 
+            }
             //console.log(json.folio); 
 	}
 
@@ -244,9 +262,12 @@ function SolicitudTanqueEstacionario(props){
 
     
 
-    
+    const handleChange = (e) => { 
+        setCapacidad(e.target.value); 
+      };
 
     function tipoPedido(){
+       
         let pesos = document.getElementById("tipopesos");
         let litros = document.getElementById("tipolitros"); 
         document.getElementById("inputlitros").value = "";
@@ -379,44 +400,34 @@ function SolicitudTanqueEstacionario(props){
                                     <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'6%' }}>
                                         <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
                                             <div>
-                                                <input style={{marginRight: '15px', height:'15px', width:'15px'}} type="radio" id="20" name="tipopedido" onClick={() => tipoPedido()}/>
-                                                <label class="idLabel" for="litros">20 LTS</label> 
+                                                    <input style={{marginTop:'5px',marginRight: '15px', height:'15px', width:'15px'}} type="radio" id="180" name="tipopedido"  value="180"  onClick={(e) => handleChange(e)}/>
+                                                    <label class="idLabel" for="litros"> 180 LTS</label>
                                             </div>
                                                 
                                         </div>
                                         <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
-                                            <div>
-                                                    <input style={{marginTop:'5px',marginRight: '15px', height:'15px', width:'15px'}} type="radio" id="180" name="tipopedido"    onClick={() => tipoPedido()}/>
-                                                    <label class="idLabel" for="litros"> 180 LTS</label>
-                                                </div>
+                                             <div>
+                                                <input style={{marginTop:'5px',marginRight: '15px', height:'15px', width:'15px'}} type="radio" id="300" name="tipopedido"  value="300"  onClick={(e) => handleChange(e)}/>
+                                                <label class="idLabel" for="litros"> 300 LTS</label>
+                                            </div>
                                         </div>
                                     </div>
                                     
                                     <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'6%' }}>
                                         <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
                                             <div>
-                                                <input style={{marginTop:'5px',marginRight: '15px', height:'15px', width:'15px'}} type="radio" id="300" name="tipopedido"    onClick={() => tipoPedido()}/>
-                                                <label class="idLabel" for="litros"> 300 LTS</label>
+                                                <input style={{marginTop:'5px',marginRight: '15px', height:'15px', width:'15px'}} type="radio" id="500" name="tipopedido"  value="500"  onClick={(e) => handleChange(e)}/>
+                                                <label class="idLabel" for="litros"> 500 LTS</label>
                                             </div>
                                         </div>
                                         <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
                                             <div>
-                                                <input style={{marginTop:'5px',marginRight: '15px', height:'15px', width:'15px'}} type="radio" id="500" name="tipopedido"    onClick={() => tipoPedido()}/>
-                                                <label class="idLabel" for="litros"> 500 LTS</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                   
-                                    <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'6%' }}>
-                                        <div style={{display:'flex',flexDirection:'column', width:'100%' }}>
-                                            <div>
-                                                <input style={{marginTop:'5px',marginRight: '15px', height:'15px', width:'15px'}} type="radio" id="1000" name="tipopedido"    onClick={() => tipoPedido()}/>
+                                                <input style={{marginTop:'5px',marginRight: '15px', height:'15px', width:'15px'}} type="radio" id="1000" name="tipopedido" value="1000"   onClick={(e) => handleChange(e)}/>
                                                 <label class="idLabel" for="litros"> 1000 LTS</label>
                                             </div>
-                                                
                                         </div>
-                                        
                                     </div>
+                                  
                                     
                                     
                                   
@@ -459,7 +470,7 @@ function SolicitudTanqueEstacionario(props){
                                     <div style={{width:'100%'}} align="center">  
                                     <img src={CorrectoImg}></img>    <br></br>
                                     <label style={{fontWeight:'bold'}}>Mensaje</label><br></br>
-                                    <label>Pedido realizado correctamente</label><br></br>
+                                    <label>Solicitud enviada correctamente</label><br></br>
                                     <label>{Mensaje}</label>
                                     <button style={{width:'100%', color:'white', backgroundColor:'#008445'}} className="buttonLogin" onClick={closeModal}>Ok</button>
                                     </div>  
