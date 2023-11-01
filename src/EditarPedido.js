@@ -37,7 +37,7 @@ const customStyles = {
   };
 
 
-function NuevoPedido(props){
+function EditarPedido(props){
 
     const inlineStyle = {
         input : {
@@ -223,7 +223,7 @@ function NuevoPedido(props){
             }
            // alert(cantidadServicio);
             let fd = new FormData()   
-            fd.append("id", "altaPedido")  
+            fd.append("id", "editarPedido")  
             fd.append("identificadorexterno", props.numero_consumidor) //props.identificador_externo 
             fd.append("fecha", document.getElementById("FechaPedido").value)  
             fd.append("hora", document.getElementById("HoraPedido").value)  
@@ -236,6 +236,7 @@ function NuevoPedido(props){
             fd.append("apellidos", props.apellidos)
             fd.append("telefono", "0")
             fd.append("importe", Importe)
+            fd.append("folio_pedido", props.folio_pedido)
             openModalLoad();
             const res = await axios.post(process.env.REACT_APP_API_URL, fd)
             .catch(function (error) {
@@ -250,25 +251,13 @@ function NuevoPedido(props){
             closeModalLoad();
             //console.log(res.data);
             var json = JSON.parse(JSON.stringify(res.data));
-            //alert(String(json[0].pedidopendiente).length);
             
-            
-             if (json.folio!= undefined){
+            if (json.folio== undefined){
+                openModalE();
+                setMensajeError("Error");
+            }else{ 
                 setMensaje("folio: "+json.folio + " cantidad: "+json.cantidad+ " estatus: "+json.estatus);
                 openModal();
-                
-                
-                
-            }else{ 
-                openModalE();
-                setMensajeError("Error"); 
-                if(String(json[0].pedidopendiente).length > 1){
-                    if(window.confirm("pedido pendiente editar fecha y hora folio: "+json[0].pedidopendiente) == true) {
-                        props.unmount("EditarPedido", json[0].pedidopendiente); 
-                      }  
-                      return;
-                }  
-                
             } 
             //console.log(json.folio); 
         }
@@ -328,7 +317,7 @@ function NuevoPedido(props){
 
     return(
        <div style={{width:'100%'}}>
-         <Navbar titulo="Nuevo Pedido" cambiarSelected={props.unmount} />
+         <Navbar titulo={"Editar Pedido: " + props.folio_pedido} cambiarSelected={props.unmount} />
         <div  style={{margin: 'auto', width:'80%' , height: '100vh', backgroundImage: Backgroundgas}} align="center"> 
 
           <FadeIn>
@@ -440,7 +429,7 @@ function NuevoPedido(props){
                     <button className="buttonVerde" style={{width:'100%', fontWeight: 'bold'}} onClick={() => { Seleccionar();}}>Regresar</button>
                     </div>
                     <div style={{width:'50%'}} align="center"> 
-                        <button type='submit' onClick={() => altaPedido()} className='button' style={{ fontWeight: 'bold', width:'100%'}}>Confirmar Pedido</button>
+                        <button type='submit' onClick={() => altaPedido()} className='button' style={{ fontWeight: 'bold', width:'100%'}}>Editar Pedido</button>
                         </div>
                     </div>                    
                     <br></br>
@@ -457,7 +446,7 @@ function NuevoPedido(props){
 						<div style={{width:'100%'}} align="center">  
 						 <img src={CorrectoImg}></img>    <br></br>
                          <label style={{fontWeight:'bold'}}>Mensaje</label><br></br>
-                         <label>Pedido realizado correctamente</label><br></br>
+                         <label>Pedido actualizado correctamente</label><br></br>
                          <label>{Mensaje}</label>
                          <button style={{width:'100%', color:'white', backgroundColor:'#008445'}} className="buttonLogin" onClick={closeModal}>Ok</button>
 						</div>  
@@ -483,7 +472,7 @@ function NuevoPedido(props){
     );
 }
 
-export default NuevoPedido;
+export default EditarPedido;
 
 /**
  * 

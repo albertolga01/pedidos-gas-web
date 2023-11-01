@@ -33,7 +33,8 @@ import AyudaProp from './resources/usericon.svg'
 import AcercaProp from './resources/usericon.svg'
 import ReactWhatsappButton from 'react-whatsapp-button';
 import WhatsAppButtonGreenLarge from './resources/WhatsAppButtonGreenLarge.svg'
-
+import {Carousel} from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const customStylesD = { 	
 	content: {
@@ -229,13 +230,14 @@ function MenuPrincipal(props){
                 </div>
                 <br></br>
                 <div style={{justifyContent: 'space-between', columnGap:'0.875rem', height: '103px', borderRadius:'5px', width:'100%', display:'flex', flexDirection:'row'}}> 
-                    <div style={{boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px',width:'50%',  height:'100%', backgroundColor:'white', borderRadius:'5px'}} align="center" onClick={() => { Seleccionar("Historial");}}> 
+                    <div style={{boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px',width:'50%', backgroundColor:'white', borderRadius:'5px'}} align="center" onClick={() => { Seleccionar("Historial");}}> 
                     <img style={{width:'25%', paddingTop:'25px'}} src={HistorialProp}  ></img>
-                    <br></br>
-                   
+                    <br></br> 
                     <label style={{ fontWeight:'bold'}}>HISTORIAL</label> 
-                    
-                    <br></br></div>
+                    <br></br>
+                    <br></br>
+                    </div>
+                    <br></br>
                     <div style={{boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px', width:'50%', height:'100%', backgroundColor:'white', borderRadius:'5px'}} align="center"> 
                      <div style={{width:'100%', borderTopLeftRadius: '5px', borderTopRightRadius: '5px', height:'30%', backgroundImage:'linear-gradient(#145e9c, #145e9c)'}}>
                         <label style={{color:'white' , fontSize:'25px'}}>Precio Gas</label>
@@ -244,8 +246,8 @@ function MenuPrincipal(props){
                      <div style={{width:'100%', borderBottomLeftRadius: '5px', borderBottomRightRadius: '5px', height:'70%', backgroundImage:'linear-gradient(#115680, #2590d1)'}}>
                     <br></br>
                      <label id='precioGas' style={{color:'white', fontSize:'40px'}}>${props.PrecioGas}</label>
-                        
                      </div> 
+                     <label style={{color:'black', fontSize:'8px'}}>Precio sujeto a cambios sin previo aviso*</label>
                     </div> 
                  
                 </div>
@@ -256,10 +258,37 @@ function MenuPrincipal(props){
                     <label style={{fontWeight: 'bold'}}>Nivel de Gas Lp</label>
                     <br></br>
                     <br></br>
-                    </div> 
+                    </div>
 
-            </div>  
+                    <div>
+                    <Carousel autoPlay interval="5000" showThumbs={false} >
+                        {/**140px * 305px */}
+                            <div>
+                                <img src={process.env.REACT_APP_URL+"/images/bannerprueba.png"} style={{maxWidth:'650px',  height:'140px'}} />
+                                
+                            </div>
+                            <div>
+                                <img src={process.env.REACT_APP_URL+"/images/bannerprueba.png"} style={{maxWidth:'650px',  height:'140px'}} />
+                            
+                            </div>
+                            <div>
+                                <img src={process.env.REACT_APP_URL+"/images/bannerprueba.png"} style={{maxWidth:'650px',  height:'140px'}} />
+                            
+                            </div>
+                            <div>
+                                <img src={process.env.REACT_APP_URL+"/images/bannerprueba.png"} style={{maxWidth:'650px',  height:'140px'}} />
+                            
+                            </div>
+                            <div>
+                                <img src={process.env.REACT_APP_URL+"/images/bannerprueba.png"} style={{maxWidth:'650px',  height:'140px'}} />
+                            
+                            </div>
+                        
+                    </Carousel>
+                </div><br></br>
 
+            </div>
+            
                 <Modal 
 						isOpen={modalIsOpenE}  
 						onRequestClose={closeModalE}   
@@ -282,6 +311,7 @@ function MenuPrincipal(props){
                
 
                 <ModalCarga modalIsOpenLoad={modalIsOpenLoad} closeModalLoad={closeModalLoad}/>
+               
                 <div style={{width:'80%' }} align="right">  <button style={{boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px'}} className="buttonSalir" onClick={() => {logOut()}} >SALIR</button > </div>
                 <br></br>
                 <div style={{width:'85%'}} align="left">

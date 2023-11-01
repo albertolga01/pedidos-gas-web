@@ -17,6 +17,7 @@ import AcercaDe from '../AcercaDe';
 import Ayuda from '../Ayuda';
 import PreguntasFrecuentes from '../PreguntasFrecuentes';
 import SolicitudTanqueEstacionario from '../SolicitudTanqueEstacionario';
+import EditarPedido from '../EditarPedido';
 
 export default function SideMenu(props) {
     window.event = new Event('event');
@@ -34,6 +35,7 @@ export default function SideMenu(props) {
     const [title, setTitle] = useState("titul"); 
     const [n, setN] = useState(); 
     const [saldo, setSaldo] = useState(); 
+    const [folio_pedido, setFolio_Pedido] = useState(); 
     // console.log(props.selected); 
   
     const[PrecioGas, setPrecioGas] = useState(); 
@@ -67,6 +69,11 @@ export default function SideMenu(props) {
         close(selected);  
     }
 
+    function cambiarSelectedEditar(selected, folio_pedido){ 
+        setFolio_Pedido(folio_pedido);
+        close(selected);  
+    }
+
     function saldoCliente(saldoc){
         setSaldo(saldoc);
     }
@@ -80,7 +87,7 @@ export default function SideMenu(props) {
     const Element = () => {
 
           if (selected === 'NuevoPedido') {
-            return <NuevoPedido PrecioGas={PrecioGas} unmount={cambiarSelected} correo={props.correo} telefono={props.telefono} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo}  />;
+            return <NuevoPedido PrecioGas={PrecioGas} unmount={cambiarSelectedEditar} correo={props.correo} telefono={props.telefono} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo}  />;
         } else if (selected === 'Usuario') {
             return <Usuario unmount={cambiarSelected}  nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
         }else if (selected === 'Novedades') {
@@ -103,6 +110,8 @@ export default function SideMenu(props) {
             return <SolicitudTanqueEstacionario  unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
         }else if (selected === 'Ayuda') {
             return <Ayuda  unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
+        }else if (selected === 'EditarPedido') {
+            return <EditarPedido  folio_pedido={folio_pedido} unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
         }else {
             return (<div style={{ width: '100%', textAlign: 'center', backgroundColor: '', margin: 'auto' }}><h1>Error al Cargar</h1></div>);
         } 

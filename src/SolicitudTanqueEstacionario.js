@@ -240,7 +240,7 @@ function SolicitudTanqueEstacionario(props){
             //console.log(res.data);
            // var json = JSON.parse(JSON.stringify(res.data));
              if(res.data == "1"){ 
-                setMensaje("folio: ");
+                setMensaje("");
                 openModal();
             }else{
                 openModalE();
