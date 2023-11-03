@@ -58,85 +58,63 @@ function PreguntasFrecuentes(props){
                 <div style={{width:'100%', backgroundColor: 'white', borderRadius:'5px', boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px'  }}>
                 <br></br>
 
-                <h3  align="center">Buscar consumidor</h3>
+                <p style={{padding: '10px'}} align="justify">El Gas LP es un combustible muy amigable, se debe manejar siempre con seguridad.  Aquí encontrarás más información que te ayudará a conocerlo mejor y a aclarar tus dudas.</p>
                 
-                <div style={{justifyContent: 'space-between', columnGap:'0.875rem', width:'65%', display:'flex', flexDirection:'row'}}> 
-                        <div style={{width:'90%'}} align="center"> 
-                            <img style={{width:'100%', borderRadius:'5px', boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px' }} src={loginscreen}/>
-                        </div>
-                        <div style={{width:'90%'}} align="center">
-                            <img style={{width:'100%', borderRadius:'5px', boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px' }} src={buscarConsumidor}/>
-                        </div>
-                </div>
-                <p style={{padding: '10px'}} align="justify">Haga clic en <span style={{fontWeight:'bold', textDecoration: 'underline'}} >Buscar</span>, se
-                 mostrará la pantalla donde solo debe ingresar su número teléfonico y seleccionar su consumidor registrado.</p>
+                <h3  align="justify">¿Qué es el Gas LP?</h3>
+
+                <p style={{padding: '10px'}} align="justify">El Gas Licuado de Petróleo, es un hidrocarburo que se deriva del petróleo, es una mezcla de propano y butano.
+                Este se produce en estado vapor, pero es convertido a líquido para que pueda ser transportado hasta las plantas de almacenamiento.  En México su uso es doméstico, comercial, industrial y automotriz.
+                </p>
                
-                <h3  align="center">Registrarse</h3>
+                <h3  align="left">¿Cuáles son las características que tiene el Gas LP?</h3>
 
-                <div style={{justifyContent: 'space-between', columnGap:'0.875rem', width:'65%', display:'flex', flexDirection:'row'}}> 
-                        <div style={{width:'90%'}} align="center"> 
-                            <img style={{width:'100%', borderRadius:'5px', boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px' }} src={loginscreen}/>
-                        </div>
-                        <div style={{width:'90%'}} align="center">
-                            <img style={{width:'100%', borderRadius:'5px', boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px' }} src={registrarse}/>
-                        </div>
-                </div>
                 <p style={{padding: '10px', margin:'0px'}} align="justify">
-                Haga clic en <span style={{fontWeight:'bold', textDecoration: 'underline'}} >Registrate</span>, se 
-                mostrará la pantalla donde 
-                tiene que ingresar todos sus 
-                datos. Una vez concluido el 
-                registro al momento de dar 
-                regístrate se mostrará un 
-                mensaje con su consumidor
-                asignado el momento de 
-                terminar su registro.
+                El Gas LP es incoloro e inoloro en su estado natural.  Es más pesado que el aire, por lo que al momento de escaparse se ubicará en las partes más bajas del área, como pisos o sótanos.
+                Además, es un combustible más limpio que la gasolina o el Diesel.
                 </p> 
-                <p style={{fontWeight:'bold', padding: '10px'}} align="justify">Los campos marcados con un 
-                * son obligatorios y no pueden 
-                quedar vacíos.</p>
+                 
                 <>&nbsp;</>
-                <h3  align="center">Alta Pedido</h3>
-                  <div style={{justifyContent: 'space-between', columnGap:'0.875rem', width:'65%', display:'flex', flexDirection:'row'}}> 
-                          <div style={{width:'90%'}} align="center"> 
-                              <img style={{width:'100%', borderRadius:'5px', boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px' }} src={menuPrincipal}/> 
-                          </div>
-                          <div style={{width:'90%'}} align="center">
-                              <img style={{width:'100%', borderRadius:'5px', boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px' }} src={altaPedido}/>
-                          </div> 
-                  </div>
-                  <img style={{width:'35%', borderRadius:'5px', boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px' }} src={pedidoRealizado}/> 
+                <h3  align="center">Entonces, si el Gas LP es inoloro en su estado natural, ¿por qué huele?</h3>
 
-                              <p style={{padding: '10px', margin:'0px'}} align="justify">
-                                  En el menú principal hacemos clic en <span style={{fontWeight:'bold', textDecoration: 'underline'}} >Nuevo Pedido</span>, se 
-                                  nos cargaran nuestros datos previamente registrados.</p>
-                              <p style={{padding: '10px'}} align="justify">
-                              Seleccionamos la fecha y hora 
-                              para la entrega, además de 
-                              indicar si nuestro pedido es en 
-                              pesos (importe) o litros 
-                              (Cantidad Lts) y dejar un 
-                              comentario en caso de tener 
-                              instrucciones a seguir para 
-                              llegar o entrar al domicilio.
-                              Al confirmar un pedido se 
-                              muestra el siguiente mensaje
-                              </p>
-                <h3  align="center">Actualizar Datos - Usuario</h3>
-                <img style={{width:'35%', borderRadius:'5px', boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px' }} src={actualizarDatos}/>
+                    <p style={{padding: '10px', margin:'0px'}} align="justify">
+                    Como medida de seguridad, para poder detectar alguna fuga al Gas LP se le agrega un odorizante llamado Mercaptano, de esta manera podrás detectar cuando exista alguna fuga.
+                        </p>
+                    
+                <h3  align="center">¿Qué debo de hacer si en mi hogar huele a gas?</h3>
                 <p style={{padding: '10px', margin:'0px'}} align="justify">
-                Al acceder al apartado de usuario 
-                se pueden modificar datos que 
-                estén erróneos y/o mal escritos al 
-                momento de registrarse.
-                Una vez corregidos los datos 
-                hacemos clic en el botón de 
-                actualizar.
+                Es importante que si en tu casa huele a gas sigas las siguientes instrucciones:
+                <br></br>
+                - Cierra la válvula de tu tanque estacionario.
+                <br></br>
+                - No actives ningún interruptor de luz, de ser posible corta la energía eléctrica.
+                <br></br>
+                - Abre puertas y ventanas, mantén el lugar ventilado.
+                <br></br>
+                - Reporta la fuga a nuestros números de atención de Grupo Petromar
+
                 </p> 
-                <img style={{width:'35%', borderRadius:'5px', boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px' }} src={notificacionActualizar}/> 
-                <p style={{fontWeight:'bold', padding: '10px'}} align="justify">Los campos marcados con un 
-                * son obligatorios y no pueden 
-                quedar vacíos.</p>
+                <h3  align="center">¿Cómo sé si mi tanque estacionario ya necesita ser cambiado?</h3>
+                <p style={{padding: '10px', margin:'0px'}} align="justify">
+                Si tienes 10 años o más con tu tanque estacionario es necesario que lo renueves.  Pero si tu tanque estacionario tiene menos años y se encuentra oxidado, solicita una revisión de parte de nuestros técnicos en Petromar GAS LP.
+                Esto es muy común sobre todo en las ciudades en las que existe mucha humedad.
+                </p>  
+                <h3  align="center">¿Cómo sé si mi tanque está bien instalado?</h3>
+                <p style={{padding: '10px', margin:'0px'}} align="justify">
+                Lo principal para saber si tu instalación es segura, es que tu tanque estacionario se encuentre instalado en un área ventilada y fuera de tu casa, es decir en el patio o en la azotea.
+                También es muy importante que la instalación se encuentre hecha con material especialmente diseñado para el manejo de Gas LP, como la tubería de cobre o multicapa.
+                 </p> 
+                 <h3  align="center">¿Puedo solicitar tanque estacionario en Grupo Petromar?</h3>
+                <p style={{padding: '10px', margin:'0px'}} align="justify">
+                Por supuesto, solo debes llámar al <span style={{fontWeight:'bold'}} >669 984 2020</span>, y solicita al operador mayor información.
+                 </p> 
+                 <h3  align="center">¿Puedo pagar con tarjeta bancaria o trasferencia?</h3>
+                <p style={{padding: '10px', margin:'0px'}} align="justify">
+                Contamos con la opción de pago con terminal bancaria o transferencia bancaria, pregunta a la operadora para mayor detalle al hacer tu pedido.
+                 </p> 
+                 <h3  align="center">¿Cómo puedo solicitar GAS LP en Grupo Petromar?</h3>
+                <p style={{padding: '10px', margin:'0px'}} align="justify">
+                Es muy fácil, llámanos al <span style={{fontWeight:'bold'}} >669 984 2020</span>, solicita el servicio o bien prográmalo para otro día. También puedes hacerlo desde nuestra aplicación <span style={{fontWeight:'bold'}} >“Petromar Gas”</span> en Google Play 
+                 </p> 
                 <>&nbsp;</>
                   
                 </div>
