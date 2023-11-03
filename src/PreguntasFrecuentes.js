@@ -60,7 +60,7 @@ function PreguntasFrecuentes(props){
 
                 <p style={{padding: '10px'}} align="justify">El Gas LP es un combustible muy amigable, se debe manejar siempre con seguridad.  Aquí encontrarás más información que te ayudará a conocerlo mejor y a aclarar tus dudas.</p>
                 
-                <h3  align="justify">¿Qué es el Gas LP?</h3>
+                <h3  align="justify">¿Qué es el Gas LP?</h3> 
 
                 <p style={{padding: '10px'}} align="justify">El Gas Licuado de Petróleo, es un hidrocarburo que se deriva del petróleo, es una mezcla de propano y butano.
                 Este se produce en estado vapor, pero es convertido a líquido para que pueda ser transportado hasta las plantas de almacenamiento.  En México su uso es doméstico, comercial, industrial y automotriz.
