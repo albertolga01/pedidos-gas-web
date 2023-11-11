@@ -11,6 +11,7 @@ import Usuario from "./Usuario";
 import StripeContainer from './component/StripeContainer'; 
 
 import BuscarServicio from './BuscarServicio';
+import PasarelaPago from './PasarelaPago';
 
  
 function Historial(props){
@@ -42,6 +43,8 @@ function Historial(props){
    // const[Nombre, setNombre] = useState(); 
  
    const [pagarServicio, setPagarServicio] = useState(false);  
+   const [PasarelaPagos, setPasarelaPagos] = useState(false); 
+
         
    const[Cantidad, setCantidad] = useState();
    const[nombres, setNombres] = useState();
@@ -57,6 +60,11 @@ function Historial(props){
    //  setSaldo(res.data);  
    
     } 
+
+
+    function cambiarSelected4(){   
+        setPasarelaPagos(true);  
+    }
 
    async function checkoutID(){
         let fd = new FormData()   
@@ -90,20 +98,19 @@ function Historial(props){
     return(formatedDate);
 }
 
+
+
     return(
         <div style={{width:'100%'}}>
              <Navbar titulo="Historial" />
              {/*idrespuesta*/}
         <>
-        {(pagarServicio) ? 
+        {(PasarelaPagos) ? 
         	<>
 					 <div  style={{margin: 'auto', width:'80%' , height: '100vh' }} align="center"> 
                      <br></br> <br></br> <br></br>
                             <div style={{ display: 'flex', flexDirection: 'column', width: '100%'}} align="center">
-                            <script src="https://eu-test.oppwa.com/v1/paymentWidgets.js?checkoutId={B6CADF88A556C4758A143FC11C54B045.uat01-vm-tx01}"></script>
-                            <form action="{shopperResultUrl}" class="paymentWidgets" data-brands="VISA MASTER AMEX"></form>
-                             {/*<StripeContainer unmount={props.unmount} cantidad={Cantidad} identificador_externo={props.identificador_externo} nombres={nombres} apellidos={""}/>*/}
-
+                            <PasarelaPago unmount={cambiarSelected4}/>
                              </div>
                         </div> 
 					</>
@@ -122,7 +129,7 @@ function Historial(props){
 							<th style={{color:'white'}}>Litros</th>
 							<th style={{color:'white'}}>Importe</th> 
 							<th style={{color:'white'}}>Estatus</th> 
-							<th style={{color:'white'}} hidden>Pagar</th> 
+							<th style={{color:'white'}} >Pagar</th> 
 							 
 						</tr>
 
@@ -133,7 +140,7 @@ function Historial(props){
 							<td style={{color:'white', textAlign:'center' }}> {item.litros + " L"}</td>
 							<td style={{color:'white', textAlign:'center' }}> {FormatNumber(item.monto)}</td>
 							<td style={{color:'white', textAlign:'center' }}> {item.estatus_pedido}</td>
-							<td style={{color:'white', textAlign:'center' }} hidden> <button id="form-btn" className='buttonLogin' style={{margin:'5px', width: '80px', color:'white'}} onClick={() => pagarServicio1(item.monto)}>PAGAR</button>  </td>
+							<td style={{color:'white', textAlign:'center' }} > <button id="form-btn" className='buttonLogin' style={{margin:'5px', width: '80px', color:'white'}} onClick={() => cambiarSelected4(item.monto)}>PAGAR</button>  </td>
 							 
 							  
 						</tr> 

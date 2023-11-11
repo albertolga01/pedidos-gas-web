@@ -18,6 +18,7 @@ import Ayuda from '../Ayuda';
 import PreguntasFrecuentes from '../PreguntasFrecuentes';
 import SolicitudTanqueEstacionario from '../SolicitudTanqueEstacionario';
 import EditarPedido from '../EditarPedido';
+import PasarelaPago from '../PasarelaPago';
 
 export default function SideMenu(props) {
     window.event = new Event('event');
@@ -112,6 +113,8 @@ export default function SideMenu(props) {
             return <Ayuda  unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
         }else if (selected === 'EditarPedido') {
             return <EditarPedido  folio_pedido={folio_pedido} unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
+        }else if (selected === 'PasarelaPago') {
+            return <PasarelaPago  folio_pedido={folio_pedido} unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
         }else {
             return (<div style={{ width: '100%', textAlign: 'center', backgroundColor: '', margin: 'auto' }}><h1>Error al Cargar</h1></div>);
         } 
