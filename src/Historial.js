@@ -62,8 +62,10 @@ function Historial(props){
     } 
 
 
-    function cambiarSelected4(){   
-        setPasarelaPagos(true);  
+    function cambiarSelected4(monto){   
+        setPasarelaPagos(true); 
+        setCantidad(monto);
+        setNombres(props.nombres);  
     }
 
    async function checkoutID(){

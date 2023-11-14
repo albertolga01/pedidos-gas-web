@@ -74,7 +74,9 @@ function PasarelaPago(props){
 	}  
 	   
 	function closeModal() { 
-		setIsOpen(false); 
+		//re direccionar a historial 
+        props.unmount("Historial");
+        setIsOpen(false); 
 	}
 
     //Error Mensaje
@@ -87,7 +89,7 @@ function PasarelaPago(props){
 	}
 
     function Seleccionar(){  
-        props.unmount("MenuPrincipal");   
+        props.unmount("Historial");   
     }
 
     function loadOpenPay(){
@@ -123,6 +125,7 @@ function PasarelaPago(props){
         alert(token_id);
         //$('#token_id').val(token_id);
         openPay(token_id);
+        openModal();
     };
 
     function Submit(e){
@@ -141,6 +144,7 @@ function PasarelaPago(props){
     alert("ERROR [" + response.status + "] " + desc);
     //$("#pay-button").prop("disabled", false);
     document.getElementById("pay-button").setAttribute("disabled", false);
+    openModalE();
     };
 
      
@@ -151,7 +155,25 @@ function PasarelaPago(props){
          
             
                 <div style={{ display: 'flex', flexDirection: 'column', maxWidth: '100%', }} align="center">
-                    {tokenId}
+                   {/**  {tokenId}
+                   <label style={{fontSize:'14px', fontWeight:'bold'}}>{}</label>*/}
+                    <h1 style={{color:'white'}}>Formulario de pago</h1>
+                    <label style={{color:'white', fontSize:'24px'}}>Solicitud de pago</label>
+                    <br></br>
+                    <label class="idLabel" >Cliente: </label>
+                    <br></br>
+                    <label align="left" style={{color:'white'}}>{props.nombres + " "}</label>
+                    <label style={{color:'white'}}>{props.apellidos}</label>
+                    <br></br>
+                    <label  class="idLabel" >Concepto: </label>
+                    <br></br>
+                    <label align="left" style={{color:'white'}}>Abono gas LP </label>
+                    <br></br>
+                    <label  class="idLabel" >Importe: </label>
+                    <br></br>
+                    <label align="left" style={{color:'white'}}>$ {props.cantidad + " MXN"}</label>
+                    <br></br>
+                    <br></br>
                       <div  style={{alignSelf:'center'}}>
                           <form action="#" method="POST" id="payment-form" class="pymnts">
                               <input type="hidden" name="token_id" id="token_id"/>
@@ -165,7 +187,7 @@ function PasarelaPago(props){
                                           <div class="credit"><h4>Tarjetas de crédito</h4></div>
                                       </div>
                                       <div class="card-expl">
-                                          <div class="debit"><h4>Tarjetas de débito</h4></div>
+                                          <div class="debit" style={{overflow: 'visible'}}><h4>Tarjetas de débito</h4></div>
                                       </div>
 
                                       <div class="sctn-row">
@@ -238,10 +260,10 @@ function PasarelaPago(props){
                     <br></br>
                     <br></br>
                     <div style={{justifyContent: 'space-between', columnGap:'0.875rem', width:'100%', display:'flex', flexDirection:'row'}}> 
-                    <div style={{width:'50%'}} align="center"> 
-                    <button className="buttonVerde" style={{width:'100%', fontWeight: 'bold'}} onClick={() => { Seleccionar();}}>Regresar</button>
+                    <div style={{width:'100%'}} align="center"> 
+                    <button className="buttonVerde" style={{width:'100%', fontWeight: 'bold'}} onClick={() => {  props.unmount("MenuPrincipal")}}>Regresar</button>
                     </div>
-                    <div style={{width:'50%'}} align="center"> 
+                    <div hidden style={{width:'50%'}} align="center"> 
                         <button   className='button' style={{ fontWeight: 'bold', width:'100%'}} onClick={() => Submit()}>Confirmar Abono</button>
                         </div>
                     </div>                    
@@ -266,10 +288,10 @@ function PasarelaPago(props){
 						<div style={{width:'100%'}} align="center">  
 						 <img src={CorrectoImg}></img>    <br></br>
                          <label style={{fontWeight:'bold'}}>Mensaje</label><br></br>
-                         <label>Pedido realizado correctamente</label><br></br>
-                         <label>{Mensaje}</label>
-                         <button style={{width:'100%', color:'white', backgroundColor:'#008445'}} className="buttonLogin" onClick={closeModal}>Ok</button>
-						</div>  
+                         <label>Pago realizado correctamente</label><br></br>
+                         <label>Pago Aceptado</label>
+                         <button style={{width:'100%', color:'white', backgroundColor:'#008445'}} className="buttonLogin" onClick={() => props.unmount("MenuPrincipal")}>Ok</button>
+						</div> 
 				</Modal>
 
                 <Modal 

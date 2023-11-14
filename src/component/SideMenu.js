@@ -37,6 +37,7 @@ export default function SideMenu(props) {
     const [n, setN] = useState(); 
     const [saldo, setSaldo] = useState(); 
     const [folio_pedido, setFolio_Pedido] = useState(); 
+    const [Cantidad, setCantidad] = useState(); 
     // console.log(props.selected); 
   
     const[PrecioGas, setPrecioGas] = useState(); 
@@ -114,7 +115,7 @@ export default function SideMenu(props) {
         }else if (selected === 'EditarPedido') {
             return <EditarPedido  folio_pedido={folio_pedido} unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
         }else if (selected === 'PasarelaPago') {
-            return <PasarelaPago  folio_pedido={folio_pedido} unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
+            return <PasarelaPago cantidad={Cantidad} folio_pedido={folio_pedido} unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
         }else {
             return (<div style={{ width: '100%', textAlign: 'center', backgroundColor: '', margin: 'auto' }}><h1>Error al Cargar</h1></div>);
         } 

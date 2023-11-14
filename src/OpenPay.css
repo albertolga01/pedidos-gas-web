@@ -232,13 +232,14 @@ a.button.disabled {
 .card-expl div.debit {
     background-image: url("../src/resources/cards2.png");
     margin-left: 20px;
-    width: 100%;
+    width: 90%;
+    object-fit: cover; 
 }
 .card-expl div.credit {
     background-image: url("../src/resources/cards1.png");
     border-right: 1px solid #ccc;
     margin-left: 30px;
-    width: 209px;
+    width: 190px;
 }
 .card-expl h4 {
     font-weight: 400;
