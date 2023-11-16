@@ -39,6 +39,7 @@ function PasarelaPago(props){
     const[passActual, setPassActual] = useState();
     const[passNueva, setPassNueva] = useState();
     const[confirmarPass, setConfirmarPass] = useState();
+    const[folioPago, setFolioPago] = useState();
 ////////////////////////////////////////////////// 
     const[Comentarios, setComentarios] = useState();
     const[CalleNumero, setCalleNumero] = useState();
@@ -75,8 +76,9 @@ function PasarelaPago(props){
 	   
 	function closeModal() { 
 		//re direccionar a historial 
-        props.unmount("Historial");
         setIsOpen(false); 
+        props.unmount("Historial");
+        
 	}
 
     //Error Mensaje
@@ -94,8 +96,7 @@ function PasarelaPago(props){
 
     function loadOpenPay(){
         window.OpenPay.setId('mq63xhurcngj88wral19');
-        window.OpenPay.setApiKey('pk_c2209ef4c4f74a6dabc718cf819b0619');
-        
+        window.OpenPay.setApiKey('pk_c2209ef4c4f74a6dabc718cf819b0619'); 
         var deviceSessionId = window.OpenPay.deviceData.setup("payment-form", "deviceIdHiddenFieldName");
         setHiddenId(deviceSessionId);
         window.OpenPay.setSandboxMode(true);
@@ -109,27 +110,33 @@ function PasarelaPago(props){
 		fd.append("phone_number", "6693259307") 
 		fd.append("email", "desarrollo@grupopetromar.com") 
 		fd.append("token_id", token_id) 
-		fd.append("amount", "1.00") 
+		fd.append("amount", props.importe) 
 		fd.append("description", "Compra Gas LP") 
 		fd.append("deviceIdHiddenFieldName", hiddenId) 
         openModalLoad();
 		const res = await axios.post(process.env.REACT_APP_API_URL, fd);
         closeModalLoad();
-		console.log(res.data);   
+        if(res.data.status == "completed"){
+            setFolioPago(res.data.authorization);
+            openModal();
+        }else{
+            setMensajeError("Error al procesar la transacción intente nuevamente");
+            openModalE();
+        }
+		//console.log(res.data);   
 		//console.log(res.data); 
 	}
 
     var success_callbak = function(response) {
         var token_id = response.data.id;
-        setTokenId(token_id);
-        alert(token_id);
+        setTokenId(token_id); 
         //$('#token_id').val(token_id);
         openPay(token_id);
-        openModal();
+        
     };
 
     function Submit(e){
-        alert("submit");
+       
         e.preventDefault();
         document.getElementById("pay-button").setAttribute("disabled", true);
         //$("#pay-button").prop( "disabled", true);
@@ -152,34 +159,31 @@ function PasarelaPago(props){
     return(
         <div   style={{margin: 'auto', width:'100%' , height: '100vh', backgroundImage: Backgroundgas}} align="center"> 
 
-         
-            
-                <div style={{ display: 'flex', flexDirection: 'column', maxWidth: '100%', }} align="center">
+              <div style={{ display: 'flex', flexDirection: 'column', maxWidth: '100%', }} align="center">
                    {/**  {tokenId}
                    <label style={{fontSize:'14px', fontWeight:'bold'}}>{}</label>*/}
-                    <h1 style={{color:'white'}}>Formulario de pago</h1>
                     <label style={{color:'white', fontSize:'24px'}}>Solicitud de pago</label>
-                    <br></br>
-                    <label class="idLabel" >Cliente: </label>
-                    <br></br>
-                    <label align="left" style={{color:'white'}}>{props.nombres + " "}</label>
-                    <label style={{color:'white'}}>{props.apellidos}</label>
-                    <br></br>
-                    <label  class="idLabel" >Concepto: </label>
-                    <br></br>
-                    <label align="left" style={{color:'white'}}>Abono gas LP </label>
-                    <br></br>
-                    <label  class="idLabel" >Importe: </label>
-                    <br></br>
-                    <label align="left" style={{color:'white'}}>$ {props.cantidad + " MXN"}</label>
-                    <br></br>
-                    <br></br>
+                     <table style={{color:'white'}}>
+                        <tr>
+                            <td>Cliente:</td>
+                            <td>{props.nombres + " " + props.apellidos}</td>
+                        </tr>
+                        <tr>
+                            <td>Concepto:</td>
+                            <td>GAS LP</td>
+                        </tr>
+                        <tr>
+                            <td>Importe:</td>
+                            <td>{props.importe + " MXN"}</td>
+                        </tr>
+                     </table>
+                     
                       <div  style={{alignSelf:'center'}}>
                           <form action="#" method="POST" id="payment-form" class="pymnts">
                               <input type="hidden" name="token_id" id="token_id"/>
                               <div class="pymnt-itm card active">
                                     
-                                  <div class="pymnt-cntnt" style={{width:'344px', height:'950px'}}>
+                                  <div class="pymnt-cntnt" style={{width:'344px', height:'730px'}}>
                                   <div class="card-expl">
                                         <h2 style={{width:'344px'}}>Tarjeta de crédito o débito</h2>
                                     </div>
@@ -192,20 +196,20 @@ function PasarelaPago(props){
 
                                       <div class="sctn-row">
                                           <div class="sctn-col l">
-                                              <label>Nombre del titular</label><input type="text" placeholder="Como aparece en la tarjeta" autocomplete="off" data-openpay-card="holder_name"/>
+                                              <h4>Nombre del titular</h4><input type="text" placeholder="Como aparece en la tarjeta" autocomplete="off" data-openpay-card="holder_name"/>
                                             </div>
                                        </div>
 
                                        <div class="sctn-row">
                                           <div class="sctn-col l">
-                                          <label>Número de tarjeta</label><input type="text" autocomplete="off" data-openpay-card="card_number"/>                                               
+                                          <h4>Número de tarjeta</h4><input type="text" autocomplete="off" data-openpay-card="card_number"/>                                               
                                           </div>
                                         </div>
 
 
                                         <div class="sctn-row">
                                           <div class="sctn-col l">
-                                          <label>Fecha de expiración</label>
+                                          <h4>Fecha de expiración&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4>
                                                         <div class="sctn-col half l"><input type="text" placeholder="Mes" data-openpay-card="expiration_month"/></div>
                                                         <div class="sctn-col half l"><input type="text" placeholder="Año" data-openpay-card="expiration_year"/></div>
                                           </div>
@@ -214,7 +218,7 @@ function PasarelaPago(props){
 
                                         <div class="sctn-row">
                                           <div class="sctn-col l">
-                                          <div class="sctn-col cvv"><label>Código de seguridad</label>
+                                          <div class="sctn-col cvv"><h4>Código de seguridad&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4>
                                                         <div class="sctn-col half l"><input type="text" placeholder="3 dígitos" autocomplete="off" data-openpay-card="cvv2"/></div>
                                                     </div>
 
@@ -222,24 +226,21 @@ function PasarelaPago(props){
                                         </div>
 
                                         
-
-                                        <div class="sctn-row">
-                                            <div class="sctn-col l">
+ 
+                                           
                                                 <div class="sctn-row">
                                                   <div class="openpay">
                                                     <div class="logo">Transacciones realizadas vía:</div>
                                                  </div>
-                                            </div>
-                                        </div>
                                         </div>
 
-                                        <div class="sctn-row">
+                                      
                                             <div class="sctn-col l">
                                                 <div class="sctn-row">
-                                                     <div class="shield">Tus pagos se realizan de forma segura con encriptación de 256 bits</div>
+                                                     <div class="shield" style={{fontSize:'10px'}}>Tus pagos se realizan de forma segura con encriptación de 256 bits</div>
                                                 </div>
                                             </div>
-                                        </div>
+                                      
                                    
                                         <div class="sctn-row">
                                             <div class="sctn-col l">
@@ -261,7 +262,14 @@ function PasarelaPago(props){
                     <br></br>
                     <div style={{justifyContent: 'space-between', columnGap:'0.875rem', width:'100%', display:'flex', flexDirection:'row'}}> 
                     <div style={{width:'100%'}} align="center"> 
-                    <button className="buttonVerde" style={{width:'100%', fontWeight: 'bold'}} onClick={() => {  props.unmount("MenuPrincipal")}}>Regresar</button>
+                    <br></br>
+                    <br></br>
+
+                    <button className="buttonVerde" style={{width:'100%', fontWeight: 'bold'}} onClick={ () => props.unmountPasarela()}>Regresar</button>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+
                     </div>
                     <div hidden style={{width:'50%'}} align="center"> 
                         <button   className='button' style={{ fontWeight: 'bold', width:'100%'}} onClick={() => Submit()}>Confirmar Abono</button>
@@ -289,8 +297,8 @@ function PasarelaPago(props){
 						 <img src={CorrectoImg}></img>    <br></br>
                          <label style={{fontWeight:'bold'}}>Mensaje</label><br></br>
                          <label>Pago realizado correctamente</label><br></br>
-                         <label>Pago Aceptado</label>
-                         <button style={{width:'100%', color:'white', backgroundColor:'#008445'}} className="buttonLogin" onClick={() => props.unmount("MenuPrincipal")}>Ok</button>
+                         <label>Pago Aceptado Folio: {folioPago}</label>
+                         <button style={{width:'100%', color:'white', backgroundColor:'#008445'}} className="buttonLogin" onClick={() => props.unmountPasarela()}>Ok</button>
 						</div> 
 				</Modal>
 

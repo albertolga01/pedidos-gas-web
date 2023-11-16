@@ -101,6 +101,11 @@ function Historial(props){
 }
 
 
+function unmountPasarela(){
+    setPasarelaPagos(false);
+}
+
+
 
     return(
         <div style={{width:'100%'}}>
@@ -110,9 +115,9 @@ function Historial(props){
         {(PasarelaPagos) ? 
         	<>
 					 <div  style={{margin: 'auto', width:'80%' , height: '100vh' }} align="center"> 
-                     <br></br> <br></br> <br></br>
+                     <br></br> 
                             <div style={{ display: 'flex', flexDirection: 'column', width: '100%'}} align="center">
-                            <PasarelaPago unmount={cambiarSelected4}/>
+                            <PasarelaPago unmountPasarela={unmountPasarela} nombres={props.nombres} importe={"1.00"} apellidos={props.apellidos}/>
                              </div>
                         </div> 
 					</>
@@ -131,7 +136,7 @@ function Historial(props){
 							<th style={{color:'white'}}>Litros</th>
 							<th style={{color:'white'}}>Importe</th> 
 							<th style={{color:'white'}}>Estatus</th> 
-							<th style={{color:'white'}} >Pagar</th> 
+							<th style={{color:'white'}} hidden>Pagar</th> 
 							 
 						</tr>
 
@@ -142,7 +147,7 @@ function Historial(props){
 							<td style={{color:'white', textAlign:'center' }}> {item.litros + " L"}</td>
 							<td style={{color:'white', textAlign:'center' }}> {FormatNumber(item.monto)}</td>
 							<td style={{color:'white', textAlign:'center' }}> {item.estatus_pedido}</td>
-							<td style={{color:'white', textAlign:'center' }} > <button id="form-btn" className='buttonLogin' style={{margin:'5px', width: '80px', color:'white'}} onClick={() => cambiarSelected4(item.monto)}>PAGAR</button>  </td>
+							<td style={{color:'white', textAlign:'center' }} hidden> <button id="form-btn" className='buttonLogin' style={{margin:'5px', width: '80px', color:'white'}} onClick={() => cambiarSelected4(item.monto)}>PAGAR</button>  </td>
 							 
 							  
 						</tr> 
