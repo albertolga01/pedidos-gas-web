@@ -200,6 +200,23 @@ const Login = (isLoggedIna) =>  {
 			if (window.Android){
 		    window.Android.showToast(telefono, NoConsumidor, res.data[0].nombres, res.data[0].apellidos, res.data[0].email, res.data[0].identificador_externo, "1");
 			}
+			try {
+				var my_json = {tel: telefono, noconsumidor: NoConsumidor};
+				var jsonStr = '{"datos":[{"telefono":"'+telefono+'","noConsumidor":"'+NoConsumidor+'"},{"nombres":"'+res.data[0].nombres+'","apellidos":"'+res.data[0].apellidos+'"},{"email":"'+res.data[0].email+'","identificador_externo":"'+res.data[0].identificador_externo+'"},{"loggeado":"1"}]}';
+
+				var obj = JSON.parse(jsonStr);
+
+				window.webkit.messageHandlers.callbackHandler.postMessage(obj);
+				window.webkit.messageHandlers.callbackHandlerNoConsumidor.postMessage(NoConsumidor);
+				window.webkit.messageHandlers.callbackHandlerNombres.postMessage(res.data[0].nombres);
+				window.webkit.messageHandlers.callbackHandlerApellidos.postMessage(res.data[0].apellidos);
+				window.webkit.messageHandlers.callbackHandlerEmail.postMessage(res.data[0].email);
+				window.webkit.messageHandlers.callbackHandlerIdentificadorExterno.postMessage(res.data[0].identificador_externo);
+				window.webkit.messageHandlers.tipo.postMessage("");
+			} catch (error) {
+				
+			}
+			 
 			
 			setnombres(res.data[0].nombres);
 			setapellidos(res.data[0].apellidos);
@@ -270,11 +287,41 @@ function openPoliticaPrivacidad(e) {
 	document.getElementById('privacidad').checked = true;
 	 
 	closeModalPoliticaPrivacidad();
-  } 
+  }
+
+  function test1(x){
+	setNuevoConsumidor(x);
+
+  }
+
+  window.reactFunction1 = (defTelefono, defConsumidor, defNombres, defApellidos, defEmail, defIdentificador_externo) => {
+    		setnombres(defNombres);
+			setapellidos(defApellidos);
+			setCorreo(defEmail);
+			setTelefono(defTelefono);
+			setnumero_consumidor(defConsumidor);
+			setidentificador_externo(defIdentificador_externo);
+			setisLoggedIn(false); 
+			 
+			setNuevoTelefono(defTelefono);
+			setNuevoConsumidor(defConsumidor);
+			 
+  }
+  
+  
+  function test(){
+	window.webkit.messageHandlers.callbackHandler.postMessage("asdfgbnm");
+  }
 
     if(isLoggedIn){
 		return( 
 			<div style={{backgroundColor:'#0171CE', height:'100vmax'}}>
+ 			 <script
+          dangerouslySetInnerHTML={{ __html:
+            'function test1(){setNuevoConsumidor(hola);}'
+          }}
+        />
+ 
 				{(registrarse) ?
 						<div  class="divPrincipal" align="center" style={{ height: '100vh', width: '100vw', top: '0',  position: 'sticky', display: 'flex', overflowX: 'auto'}}>
 							<Registro unmount={cambiarSelected} unmount1={cambiarSelected3}/> 
@@ -398,7 +445,8 @@ function openPoliticaPrivacidad(e) {
 											<br></br>	
 											</div>
 
-											<div style={{width:'100%', height:'50px' }} align="center"> 
+											<div style={{width:'100%', height:'50px' }} align="center">
+											<button id="testbtn" onClick={()=>test()}>test</button> 
 												<button id="form-btn" className='buttonLogin' style={{backgroundColor:'#0071ce', color:'white', fontSize:'12px'}} onClick={() => setTanqueEstacionario(true)}>SOLICITA TU TANQUE ESTACIONARIO AQUÍ</button> 
 											</div>
 
