@@ -201,7 +201,7 @@ const Login = (isLoggedIna) =>  {
 		    window.Android.showToast(telefono, NoConsumidor, res.data[0].nombres, res.data[0].apellidos, res.data[0].email, res.data[0].identificador_externo, "1");
 			}
 			try {
-				var my_json = {tel: telefono, noconsumidor: NoConsumidor};
+				//var my_json = {tel: telefono, noconsumidor: NoConsumidor};
 				//var jsonStr = '{"datos":[{"telefono":"'+telefono+'","noConsumidor":"'+NoConsumidor+'"},{"nombres":"'+res.data[0].nombres+'","apellidos":"'+res.data[0].apellidos+'"},{"email":"'+res.data[0].email+'","identificador_externo":"'+res.data[0].identificador_externo+'"},{"loggeado":"1"}]}';
 				//var obj = JSON.parse(jsonStr);
 
