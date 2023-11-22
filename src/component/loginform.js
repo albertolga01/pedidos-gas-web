@@ -202,11 +202,12 @@ const Login = (isLoggedIna) =>  {
 			}
 			try {
 				var my_json = {tel: telefono, noconsumidor: NoConsumidor};
-				var jsonStr = '{"datos":[{"telefono":"'+telefono+'","noConsumidor":"'+NoConsumidor+'"},{"nombres":"'+res.data[0].nombres+'","apellidos":"'+res.data[0].apellidos+'"},{"email":"'+res.data[0].email+'","identificador_externo":"'+res.data[0].identificador_externo+'"},{"loggeado":"1"}]}';
+				//var jsonStr = '{"datos":[{"telefono":"'+telefono+'","noConsumidor":"'+NoConsumidor+'"},{"nombres":"'+res.data[0].nombres+'","apellidos":"'+res.data[0].apellidos+'"},{"email":"'+res.data[0].email+'","identificador_externo":"'+res.data[0].identificador_externo+'"},{"loggeado":"1"}]}';
+				//var obj = JSON.parse(jsonStr);
 
-				var obj = JSON.parse(jsonStr);
+				var jsonStr = '{"telefono":"'+telefono+'","noConsumidor":"'+NoConsumidor+'","nombres":"'+res.data[0].nombres+'","apellidos":"'+res.data[0].apellidos+'","email":"'+res.data[0].email+'","identificador_externo":"'+res.data[0].identificador_externo+'","loggeado":"1", "tipo":"1"}';
 
-				window.webkit.messageHandlers.callbackHandler.postMessage(obj);
+				window.webkit.messageHandlers.callbackHandler.postMessage(jsonStr);
 				window.webkit.messageHandlers.callbackHandlerNoConsumidor.postMessage(NoConsumidor);
 				window.webkit.messageHandlers.callbackHandlerNombres.postMessage(res.data[0].nombres);
 				window.webkit.messageHandlers.callbackHandlerApellidos.postMessage(res.data[0].apellidos);
