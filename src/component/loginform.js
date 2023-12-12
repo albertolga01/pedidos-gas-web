@@ -311,7 +311,7 @@ function openPoliticaPrivacidad(e) {
   
   
   function test(){
-	window.webkit.messageHandlers.callbackHandler.postMessage("asdfgbnm");
+	window.webkit.messageHandlers.instagram.postMessage("asdfgbnm");
   }
 
     if(isLoggedIn){
@@ -447,7 +447,7 @@ function openPoliticaPrivacidad(e) {
 											</div>
 
 											<div style={{width:'100%', height:'50px' }} align="center">
-											<button id="testbtn" onClick={()=>test()}>test</button> 
+											<button hidden id="testbtn" onClick={()=>test()}>test</button> 
 												<button id="form-btn" className='buttonLogin' style={{backgroundColor:'#0071ce', color:'white', fontSize:'12px'}} onClick={() => setTanqueEstacionario(true)}>SOLICITA TU TANQUE ESTACIONARIO AQUÍ</button> 
 											</div>
 

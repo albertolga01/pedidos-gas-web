@@ -17,6 +17,7 @@ import { FiLogOut } from "react-icons/fi";
 import {RiWhatsappFill, RiFacebookFill, RiInstagramFill } from "react-icons/ri";
 import { IconContext } from "react-icons";
 import { push as Menu } from 'react-burger-menu'
+import { toast } from 'react-toastify';
 
 export default function OpcionesMenu(props) {
 
@@ -33,6 +34,20 @@ export default function OpcionesMenu(props) {
         props.unmount(elemento);   
     }
 
+    function instagram(){
+        //toast("asdfg");
+        window.webkit.messageHandlers.instagram.postMessage("");
+      }
+
+      function facebook(){
+        //toast("asdfg");
+        window.webkit.messageHandlers.facebook.postMessage("");
+      }
+
+      function whatsapp(){
+        //toast("asdfg");
+        window.webkit.messageHandlers.whatsapp.postMessage("");
+      }
 
 
     var isMenuOpen = function(state) {
@@ -126,10 +141,11 @@ export default function OpcionesMenu(props) {
                 </center>
                 <IconContext.Provider value={{ size: "2.5em" }}>
                 <center>
+                    <button hidden onClick={()=>instagram()}>instagram</button>
                 <div  style={{position:'absolute', marginLeft:'25%', bottom: '80px', width:'50%', display:'flex', flexDirection:'row', justifyContent:'space-between'}}  >
-                    <a id="link2" className='menuOption' href='https://www.facebook.com/grupopetromar' target="_blank"> <RiFacebookFill/></a>
-                    <a id="link2" className='menuOption' href='https://instagram.com/grupopetromar' target="_blank"><RiInstagramFill/></a>
-                    <a id="link2"  className='menuOption' href='https://api.whatsapp.com/send/?phone=526699933030&text=Hola%21+Buen+d%C3%ADa&type=phone_number&app_absent=0' target="_blank"><RiWhatsappFill/></a>
+                    <a id="link2" className='menuOption' href='https://www.facebook.com/grupopetromar' target="_blank" onClick={()=>facebook()}> <RiFacebookFill/></a>
+                    <a id="link2" className='menuOption' href='https://instagram.com/grupopetromar' target="_blank" onClick={()=>instagram()}><RiInstagramFill/></a>
+                    <a id="link2"  className='menuOption' href='https://api.whatsapp.com/send/?phone=526699933030&text=Hola%21+Buen+d%C3%ADa&type=phone_number&app_absent=0' target="_blank" onClick={()=>whatsapp()}><RiWhatsappFill/></a>
                     
                 </div>
                 </center>

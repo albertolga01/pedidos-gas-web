@@ -172,7 +172,7 @@ function BuscarConsumidor(props){
             <ModalCarga modalIsOpenLoad={modalIsOpenLoad} closeModalLoad={closeModalLoad}/>
             <ToastContainer 
               progressClassName="toastProgress"
-              position="top-center"
+              position="top-right"
               />
             </div>
               
