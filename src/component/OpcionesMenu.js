@@ -7,6 +7,7 @@ import AcercaDe from '../resources/AcercaProp.svg'
 import PromocionmenuProp from '../resources/PromocionmenuProp.svg'
 import Ayuda from '../resources/AyudaProp.svg'
 import UsuarioProp from '../resources/UsuarioProp.svg'
+import Tank from '../resources/Tank.svg'
 import PrivacidadProp from '../resources/PrivacidadProp.svg'
 import { TfiHelpAlt, TfiFile } from "react-icons/tfi";
 import { CiDiscount1, CiCircleInfo } from "react-icons/ci";
@@ -127,6 +128,12 @@ export default function OpcionesMenu(props) {
                 <div id="sidebtn"  className='menuOption' style={{width:'65%'}} onClick={() => { Seleccionar("AcercaDe"); }}>
                 <img style={{width:'15%'}} src={AcercaDe} />
                     <label style={{marginLeft:'10px', fontWeight:'bold', fontSize:'15px'}}>Acerca de</label>
+                </div>
+                </IconContext.Provider>
+                <IconContext.Provider value={{ size: "2.5em" }}>
+                <div id="sidebtn"  className='menuOption' style={{width:'65%'}} onClick={() => { Seleccionar("SolicitudTanqueEstacionario"); }}>
+                <img style={{width:'15%'}} src={Tank} />
+                    <label style={{marginLeft:'10px', fontWeight:'bold', fontSize:'15px'}}>Solicita tu tanque estacionario aquí</label>
                 </div>
                 </IconContext.Provider>
                 {/*

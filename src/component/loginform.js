@@ -382,6 +382,7 @@ function openPoliticaPrivacidad(e) {
 											</div>
 											<Input type="tel"
 														icon={{ name: 'call',   link: false }}
+														pattern="[0-9]{10}"
 														placeholder='Teléfono'
 														id="form-password"
 														style={{width:'80%'}}

@@ -263,10 +263,12 @@ function MenuPrincipal(props){
                     <div>
                     <Carousel autoPlay interval="5000" showThumbs={false} >
                         {/**140px * 305px */}
-                            <div>
+                           {/*
+                            <div  >
                                 <img src={process.env.REACT_APP_URL+"/images/Anuncios-Aplicacion-01.png"} style={{maxWidth:'650px'}} />
                                 
                             </div>
+                            */}
                             <div>
                                 <img src={process.env.REACT_APP_URL+"/images/Anuncios-Aplicacion-02.png"} style={{maxWidth:'650px'}} />
                             
