@@ -109,7 +109,7 @@ export default function SideMenu(props) {
         }else if (selected === 'PreguntasFrecuentes') {
             return <PreguntasFrecuentes  unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
         }else if (selected === 'SolicitudTanqueEstacionario') {
-            return <SolicitudTanqueEstacionario  unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
+            return <SolicitudTanqueEstacionario  unmount={()=>SolicitudTanqueEstacionario>cambiarSelected('MenuPrincipal')} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
         }else if (selected === 'Ayuda') {
             return <Ayuda  unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
         }else if (selected === 'EditarPedido') {

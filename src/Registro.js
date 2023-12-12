@@ -193,7 +193,7 @@ function Registro(props){
           console.log(privacidad.checked) 
         }
 
-
+      
     async function altaConsumidor(){
 
       if(document.getElementById("privacidad").checked == false){
@@ -203,6 +203,17 @@ function Registro(props){
       
       
          var valido = Validador(Nombre, Apellido, TelefonoUno, CalleNumero); 
+
+          let correoValido = Email.match(
+            /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          ); 
+
+          if(correoValido == null){
+            notify("Correo invalido");
+            return;
+          }
+
+
          if(valido == true){
             let fd = new FormData()   
             fd.append("id", "altaConsumidor")  
@@ -234,6 +245,10 @@ function Registro(props){
             
             var json = JSON.parse(JSON.stringify(res.data)); 
            console.log(json.numero_consumidor);
+           if(json.numero_consumidor == undefined){
+            notify(res.data);
+            return;
+           }
             setMensaje(json.numero_consumidor);
             setTelefonoNC(json.telefono1);
             openModal();
@@ -296,9 +311,16 @@ function Registro(props){
                       <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'6%' }}>
                             <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
                                 <label class="idLabel">Telefono1*</label>
-                      <Input type="text" 
+                      <Input type="tel" 
                             placeholder='Teléfono uno'
+                            pattern="[0-9]{3}"
                             style={{width:'100%'}}
+                            maxLength="10"
+                            onKeyPress={(event) => {
+                              if (!/[0-9]/.test(event.key)) {
+                                event.preventDefault();
+                              }
+                            }}
                             onChange={e => setTelUno(e.target.value)}
 											/>
                                 {/**
@@ -307,9 +329,16 @@ function Registro(props){
                                 </div>
                             <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
                                 <label class="idLabel">Telefono2</label>
-                      <Input type="text" 
+                      <Input type="tel" 
                             placeholder='Teléfono dos'
+                            pattern="[0-9]{10}"
                             style={{width:'100%'}}
+                            maxLength="10"
+                            onKeyPress={(event) => {
+                              if (!/[0-9]/.test(event.key)) {
+                                event.preventDefault();
+                              }
+                            }}
                             onChange={e => setTelDos(e.target.value)}
 											/>
                       {/**

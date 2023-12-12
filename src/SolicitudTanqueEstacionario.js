@@ -95,8 +95,7 @@ function SolicitudTanqueEstacionario(props){
 	   
 	function closeModal() {
         
-        //re direccionar a historial 
-        props.unmount("Historial");   
+        //re direccionar a historial   
 		setIsOpen(false); 
 	}
 
@@ -109,9 +108,6 @@ function SolicitudTanqueEstacionario(props){
 		setIsOpenE(false); 
 	}
 
-    function Seleccionar(){  
-        props.unmount("MenuPrincipal");   
-    }
 
 
     function notify(message){
@@ -306,7 +302,7 @@ function SolicitudTanqueEstacionario(props){
 
     return(
        <div style={{width:'100%'}}>
-         <Navbar titulo="Solicitud de tanque estacionario" cambiarSelected={props.unmount} />
+         <Navbar titulo="Solicitud de tanque estacionario"  />
         <div  style={{margin: 'auto', width:'80%' , height: '100vh', backgroundImage: Backgroundgas}} align="center"> 
 
           <FadeIn>

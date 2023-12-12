@@ -201,7 +201,7 @@ const Login = (isLoggedIna) =>  {
 		    window.Android.showToast(telefono, NoConsumidor, res.data[0].nombres, res.data[0].apellidos, res.data[0].email, res.data[0].identificador_externo, "1");
 			}
 			try {
-				var my_json = {tel: telefono, noconsumidor: NoConsumidor};
+				//var my_json = {tel: telefono, noconsumidor: NoConsumidor};
 				//var jsonStr = '{"datos":[{"telefono":"'+telefono+'","noConsumidor":"'+NoConsumidor+'"},{"nombres":"'+res.data[0].nombres+'","apellidos":"'+res.data[0].apellidos+'"},{"email":"'+res.data[0].email+'","identificador_externo":"'+res.data[0].identificador_externo+'"},{"loggeado":"1"}]}';
 				//var obj = JSON.parse(jsonStr);
 
@@ -382,6 +382,7 @@ function openPoliticaPrivacidad(e) {
 											</div>
 											<Input type="tel"
 														icon={{ name: 'call',   link: false }}
+														pattern="[0-9]{10}"
 														placeholder='Teléfono'
 														id="form-password"
 														style={{width:'80%'}}
@@ -447,7 +448,7 @@ function openPoliticaPrivacidad(e) {
 											</div>
 
 											<div style={{width:'100%', height:'50px' }} align="center">
-											<button id="testbtn" onClick={()=>test()}>test</button> 
+											<button hidden id="testbtn" onClick={()=>test()}>test</button> 
 												<button id="form-btn" className='buttonLogin' style={{backgroundColor:'#0071ce', color:'white', fontSize:'12px'}} onClick={() => setTanqueEstacionario(true)}>SOLICITA TU TANQUE ESTACIONARIO AQUÍ</button> 
 											</div>
 
