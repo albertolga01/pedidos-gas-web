@@ -230,6 +230,17 @@ textarea,
   background-image: linear-gradient(#08b35a, #006a38); 
 }
 
+.buttonRojo{
+  height: 40px;
+  width: 80px;
+  font-weight: bold;
+  color: white;
+  border: none;
+  border-radius: 5px; 
+  padding-left: 15px;
+  background-image: linear-gradient(#b30816, #6a0000); 
+}
+
 #tabletr:hover{
   
   background: rgba(77, 128, 169, 0.411);

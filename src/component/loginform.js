@@ -114,7 +114,37 @@ const Login = (isLoggedIna) =>  {
     const [modalIsOpenPoliticaPrivacidad, setIsOpenPoliticaPrivacidad] = React.useState(false); 
 
 
+	/**
+ * Determine the mobile operating system.
+ * This function returns one of 'iOS', 'Android', 'Windows Phone', or 'unknown'.
+ *
+ * @returns {String}
+ */
+function getMobileOperatingSystem() {
+    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
+    // Windows Phone must come first because its UA also contains "Android"
+    if (/windows phone/i.test(userAgent)) {
+		console.log("Windows");
+        //return "Windows Phone";
+		
+    }
+
+    if (/android/i.test(userAgent)) {
+		console.log("Android");
+		closeModalE();
+        //return "Android";
+    }
+
+    // iOS detection from: http://stackoverflow.com/a/9039885/177710
+    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+		console.log("iOS");
+		closeModalE();
+        //return "iOS";
+    }
+
+    return "unknown";
+}
 	function openModalE() { 
         setIsOpenE(true); 
     }  
@@ -131,6 +161,7 @@ const Login = (isLoggedIna) =>  {
 	}
 	useEffect(() => { 
 		continuar();
+		getMobileOperatingSystem();
 			/*if (navigator.geolocation) {
 			  navigator.geolocation.watchPosition(function(position) {
 				console.log("Latitude is :", position.coords.latitude);
@@ -228,7 +259,9 @@ const Login = (isLoggedIna) =>  {
 			
 			setisLoggedIn(false); 
 
-		} else {
+		} else if(res.data.trim() == "Consumidor eliminado"){
+			alert("Usuario eliminado, si desea recuperar su acceso llámanos al (669) 984-20-20");
+		}else{
 			alert("Datos de acceso incorrectos");
 		} 
 		//console.log(res.data); 

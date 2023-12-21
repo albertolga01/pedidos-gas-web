@@ -15,8 +15,36 @@ import CorrectoImg from './resources/Correcto.svg'
 import ErrorImg from './resources/error.svg'
 
 import { ModalCarga } from "./component/ModalCarga";
-import { Input } from 'semantic-ui-react'
+import { Input } from 'semantic-ui-react' 
+import LogoRomboGasLp from '../src/resources/LogoRomboGasLp.svg'
 
+
+
+const customStylesPolitica = { 	
+    content: {
+      width:'35%',
+      height:'40%',
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)', 
+    },
+    };
+
+    const customStylesEliminarCuenta = { 	
+        content: {
+          width:'35%',
+          height:'85%',
+          top: '50%',
+          left: '50%',
+          right: 'auto',
+          bottom: 'auto',
+          marginRight: '-50%',
+          transform: 'translate(-50%, -50%)', 
+        },
+        };
 
 const customStylesD = { 	
 	content: {
@@ -68,6 +96,10 @@ function Usuario(props){
 
     const [modalIsOpenLoad, setIsOpenLoad] = React.useState(false);
     const [modalIsOpenError, setIsOpenLoadError] = React.useState(false);
+
+    const [modalIsOpenPoliticaPrivacidad, setIsOpenPoliticaPrivacidad] = React.useState(false); 
+    const [modalIsOpenEliminarCuenta, setIsOpenEliminarCuenta] = React.useState(false); 
+
 
     async function postChangePass(postbody){
         const rese = await axios.post('https://compras.grupopetromar.com/apirest/', postbody);
@@ -237,7 +269,61 @@ function Usuario(props){
        
    }
 
-  
+
+   async function eliminarCuenta(){
+    let fd = new FormData()   
+    fd.append("id", "bajaConsumidor")  
+    fd.append("noConsumidor", props.numero_consumidor)  
+    openModalLoad();
+    const res = await axios.post(process.env.REACT_APP_API_URL, fd);
+    closeModalLoad();
+    if ( res.data == '1'){
+
+        notify("Eliminado correctamente"); 
+        if (window.Android){
+            window.Android.showToast("", "", "", "", "", "", "0");
+            //alert(res);
+        }else{
+            window.location.reload();
+        }
+    }else{
+
+        notify("No se pudo eliminar usuario"); 
+    } 
+
+    closeModalEliminarCuenta();
+   }
+
+   function closeModalEliminarCuenta() {  
+	setIsOpenEliminarCuenta(false); 
+    closeModalPoliticaPrivacidad();
+  }
+
+  function openEliminarCuenta( ) {  
+	setIsOpenEliminarCuenta(true);
+  }
+
+   function openPoliticaPrivacidad(e) { 
+	e.preventDefault();
+	setIsOpenPoliticaPrivacidad(true);
+  }
+
+  function noAcepto() { 
+	document.getElementById("privacidad").checked = false; 
+	setIsOpenPoliticaPrivacidad(false); 
+  }
+
+  function closeModalPoliticaPrivacidad() {  
+	setIsOpenPoliticaPrivacidad(false); 
+  }
+
+  function Privacidad(){
+       
+	document.getElementById('privacidad').checked = true;
+	 
+	closeModalPoliticaPrivacidad();
+  }
+
 
     return(
         <div style={{width:'100%'}}>
@@ -420,7 +506,15 @@ function Usuario(props){
                         </div>
                     </div>                    
                     <br></br>
+                    <br></br> 
                     <br></br>
+                    <div style={{width:'100%', height:'45px'}} >
+						<label style={{color:'white', fontWeight: 'bold', fontSize:'20px'}}>Eliminar Cuenta</label>
+                    <br></br>
+						<button type='submit' style={{width:'25%', fontWeight: 'bold'}} id="privacidad"  className='buttonRojo' onClick={(e) => openPoliticaPrivacidad(e)}>
+                        Eliminar definitivamente mi cuenta
+                        </button>
+											</div>
                     <br></br>
                     <br></br>
             </div>
@@ -431,6 +525,60 @@ function Usuario(props){
 				/>
 
                 <ModalCarga modalIsOpenLoad={modalIsOpenLoad} closeModalLoad={closeModalLoad}/>
+
+
+                <Modal 
+					isOpen={modalIsOpenPoliticaPrivacidad}
+					onRequestClose={closeModalPoliticaPrivacidad}   
+					style={customStylesPolitica}> 
+							<div style={{width:'100%',  fontSize:'15px', display:'flex', flexDirection:'row'}} align="center">
+								<div styley={{width:'70%', overflowY:'scroll'}}> 
+										<h4 align="left"> ¿Seguro que quieres borrar tu cuenta? </h4>
+														<p style={{padding: '5px'}} align="justify">
+														Si eliminas tu cuenta, perderas tu perfil, los pedidos realizados para siempre.
+                                                        </p>
+                                                        <p style={{padding: '5px'}} align="justify">
+                                                        Si eliminas tu cuenta, esta acción no se puede deshacer. 
+														</p> 
+														<br></br>
+														<div style={{justifyContent: 'space-between', columnGap:'0.875rem', width:'100%', display:'flex', flexDirection:'row'}}> 
+														<div style={{width:'50%'}} align="center"> 
+														<button className="buttonVerde" style={{width:'100%', fontWeight: 'bold'}} onClick={() => { noAcepto();}}>Cancelar</button>
+														</div>
+														<div style={{width:'50%'}} align="center"> 
+															<button type='submit'  onClick={() => openEliminarCuenta()} className='buttonRojo' style={{ fontWeight: 'bold', width:'100%'}}>Eliminar mi cuenta</button>
+															</div>
+														</div>  
+													</div>
+													
+													</div>  
+											</Modal>
+                    <Modal 
+					isOpen={modalIsOpenEliminarCuenta}
+					onRequestClose={closeModalEliminarCuenta}   
+					style={customStylesEliminarCuenta}> 
+							<div style={{width:'100%',  fontSize:'15px', display:'flex', flexDirection:'row'}} align="center">
+								<div styley={{width:'70%', overflowY:'scroll'}}>
+
+                                        <div align="center"> 
+												<img src={LogoRomboGasLp} style={{width:'250px', height:'250px'}}></img>
+										</div>
+									<h3>ELIMINAR TU CUENTA</h3> 
+														<p style={{padding: '5px'}} align="justify">
+														¿Estás seguro de eliminar tu cuenta de Petromar Gas?
+                                                        </p>
+                                                        <p style={{padding: '5px'}} align="justify">
+                                                        Si eliminas tu cuenta, esta acción no se puede deshacer. 
+														</p> 
+														<br></br>
+														 
+														<div style={{width:'100%'}} align="center"> 
+															<button type='submit'  onClick={() => eliminarCuenta()} className='buttonRojo' style={{ fontWeight: 'bold', width:'100%'}}>Sí, eliminar mi cuenta</button>
+															</div>
+														</div>   
+													
+													</div>  
+											</Modal>
 
                 <Modal 
 						isOpen={modalIsOpenError}
