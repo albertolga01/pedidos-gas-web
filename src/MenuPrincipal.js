@@ -163,14 +163,30 @@ function MenuPrincipal(props){
 
  
     function logOut() {
-        if (window.Android){
+        /*if (window.Android){
             window.Android.showToast("", "", "", "", "", "", "0");
             //alert(res);
         }else{
             window.location.reload();
         }
 		    
-			
+		*/
+        if (window.Android){
+            window.Android.showToast("", "", "", "", "", "", "0");
+            //alert(res);
+        }else{
+        
+        try { 
+
+                var jsonStr = '{"telefono":"","noConsumidor":"","nombres":"","apellidos":"","email":"","identificador_externo":"","loggeado":"", "tipo":"0"}';
+
+                window.webkit.messageHandlers.callbackHandler.postMessage(jsonStr); 
+            } catch (error) {
+                
+            }
+            window.location.reload();
+        }
+		    	
 
         
     }
