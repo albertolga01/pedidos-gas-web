@@ -34,7 +34,7 @@ import AcercaProp from './resources/usericon.svg'
 import ReactWhatsappButton from 'react-whatsapp-button';
 import WhatsAppButtonGreenLarge from './resources/WhatsAppButtonGreenLarge.svg'
 import {Carousel} from 'react-responsive-carousel';
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; 
 
 const customStylesD = { 	
 	content: {
@@ -317,11 +317,23 @@ function MenuPrincipal(props){
                
                 <div style={{width:'80%' }} align="right">  <button style={{boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px'}} className="buttonSalir" onClick={() => {logOut()}} >SALIR</button > </div>
                 <br></br>
-                <div style={{width:'85%'}} align="left">
+                <div hidden style={{width:'85%'}} align="left">
 						
 						<a href="whatsapp://send?text=Hola!,%20Buen%20d%C3%ADa&phone=+526699933030"> <img style={{width:'60%', paddingBottom:'5px', paddingLeft:'15px'}} alt="Chat on WhatsApp" src={WhatsAppButtonGreenLarge} />  </a>		
                          
 					</div>
+
+                    <ReactWhatsappButton
+											animated
+											message="Hola!, Buen día"
+											countryCode="52"
+											phoneNumber="6699933030"
+											style={{
+												bottom: '5px',
+												left: '10px',
+												right: 'unset'
+											}}
+											/>
                 <br></br>
                     <br></br>
               
