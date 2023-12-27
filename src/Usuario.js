@@ -22,7 +22,7 @@ import LogoRomboGasLp from '../src/resources/LogoRomboGasLp.svg'
 
 const customStylesPolitica = { 	
     content: {
-      width:'35%',
+      width:'85%',
       height:'40%',
       top: '50%',
       left: '50%',
@@ -35,8 +35,8 @@ const customStylesPolitica = {
 
     const customStylesEliminarCuenta = { 	
         content: {
-          width:'35%',
-          height:'85%',
+          width:'75%',
+          height:'80%',
           top: '50%',
           left: '50%',
           right: 'auto',
@@ -48,7 +48,7 @@ const customStylesPolitica = {
 
 const customStylesD = { 	
 	content: {
-        width:'80%',
+      width:'80%',
 	  top: '50%',
 	  left: '50%',
 	  right: 'auto',
@@ -511,7 +511,7 @@ function Usuario(props){
                     <div style={{width:'100%', height:'45px'}} >
 						<label style={{color:'white', fontWeight: 'bold', fontSize:'20px'}}>Eliminar Cuenta</label>
                     <br></br>
-						<button type='submit' style={{width:'25%', fontWeight: 'bold'}} id="privacidad"  className='buttonRojo' onClick={(e) => openPoliticaPrivacidad(e)}>
+						<button type='submit' style={{width:'100%', fontWeight: 'bold'}} id="privacidad"  className='buttonRojo' onClick={(e) => openPoliticaPrivacidad(e)}>
                         Eliminar definitivamente mi cuenta
                         </button>
 											</div>
@@ -531,7 +531,7 @@ function Usuario(props){
 					isOpen={modalIsOpenPoliticaPrivacidad}
 					onRequestClose={closeModalPoliticaPrivacidad}   
 					style={customStylesPolitica}> 
-							<div style={{width:'100%',  fontSize:'15px', display:'flex', flexDirection:'row'}} align="center">
+							<div style={{width:'100%',  fontSize:'15px', display:'flex', flexDirection:'column'}} align="center">
 								<div styley={{width:'70%', overflowY:'scroll'}}> 
 										<h4 align="left"> ¿Seguro que quieres borrar tu cuenta? </h4>
 														<p style={{padding: '5px'}} align="justify">
@@ -557,7 +557,7 @@ function Usuario(props){
 					isOpen={modalIsOpenEliminarCuenta}
 					onRequestClose={closeModalEliminarCuenta}   
 					style={customStylesEliminarCuenta}> 
-							<div style={{width:'100%',  fontSize:'15px', display:'flex', flexDirection:'row'}} align="center">
+							<div style={{width:'100%',  fontSize:'15px', display:'flex', flexDirection:'column'}} align="center">
 								<div styley={{width:'70%', overflowY:'scroll'}}>
 
                                         <div align="center"> 
