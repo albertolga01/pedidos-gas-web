@@ -20,6 +20,7 @@ import Button from '@mui/material/Button';
 import TextField from "@mui/material/TextField";    
 import descargarPlaystore from '../resources/descargarPlaystore.png';
 import appgallery from '../resources/appGallery.svg';
+import DownloadAppStore from '../resources/DownloadAppStore.svg';
 import continuaenlaweb from '../resources/continuaenlaweb.svg';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -520,7 +521,9 @@ function openPoliticaPrivacidad(e) {
 												<br></br>
 												<a title="Exploralo en AppGallery PetromarGas" href="https://appgallery.huawei.com/app/C108121215"> <img style={{width:'80%', paddingTop:'25px'}} src={appgallery}></img></a>
 												<br></br> 
-												<img style={{width:'80%', paddingTop:'25px'}} onClick={closeModalE} src={continuaenlaweb}></img> 
+												<a title="Descargálo en el AppStore PetromarGas" href="https://apps.apple.com/mx/app/petromar-gas/id6474216604"> <img style={{width:'80%', paddingTop:'25px'}} src={DownloadAppStore}></img></a>
+												
+												<img hidden style={{width:'80%', paddingTop:'25px'}} onClick={closeModalE} src={continuaenlaweb}></img> 
 												<button hidden style={{fontWeight:'bold', width:'80%', color:'white', backgroundColor:'#008445'}} className="button" onClick={closeModalE}>CONTINUAR EN LA WEB</button>
 												</div>  
 										</Modal>

@@ -49,7 +49,12 @@ export default function OpcionesMenu(props) {
 
       function whatsapp(){
         //toast("asdfg");
-        window.webkit.messageHandlers.whatsapp.postMessage("");
+        if (!window.Android){
+            window.webkit.messageHandlers.whatsapp.postMessage("");
+        }
+        
+        
+        
       }
 
 

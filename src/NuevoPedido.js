@@ -211,7 +211,7 @@ function NuevoPedido(props){
             if(pesos.checked){ 
                  cantidad = document.getElementById("inputpesos").value;
                  cantidad = (cantidad / props.PrecioGas).toFixed(2);
-            }
+                            }
             if(litros.checked){
                 cantidad = document.getElementById("inputlitros").value;
             }
@@ -221,8 +221,8 @@ function NuevoPedido(props){
             }else{ 
                 cantidadServicio = cantidad;
             }
-           // alert(cantidadServicio);
-            let fd = new FormData()   
+             // alert(cantidadServicio);
+           let fd = new FormData()   
             fd.append("id", "altaPedido")  
             fd.append("identificadorexterno", props.numero_consumidor) //props.identificador_externo 
             fd.append("fecha", document.getElementById("FechaPedido").value)  
@@ -328,7 +328,7 @@ function NuevoPedido(props){
 
     return(
        <div style={{width:'100%'}}>
-         <Navbar titulo="Nuevo Pedido" cambiarSelected={props.unmount} />
+         <Navbar titulo="Nuevo Pedido" cambiarSelected={props.unmount} /> 
         <div  style={{margin: 'auto', width:'80%' , height: '100vh', backgroundImage: Backgroundgas}} align="center"> 
 
           <FadeIn>
@@ -410,7 +410,7 @@ function NuevoPedido(props){
                         <div style={{display:'flex',flexDirection:'column', width:'47%' }} >
                          <div  id="divlitros" style={{display: 'none'}}>
                             <label class="idLabel">Cantidad (Lts)</label>
-                            <Input type="text" 
+                            <Input type="number" 
 												placeholder='Cantidad' 
 												style={{width:'100%'}}
                                                 id="inputlitros"  
@@ -419,7 +419,7 @@ function NuevoPedido(props){
                          </div>
                          <div  id="divpesos">
                               <label class="idLabel">Importe</label> 
-                              <Input type="text" 
+                              <Input type="number" 
 												placeholder='Importe' 
 												style={{width:'100%'}}
                                                 id="inputpesos"  
