@@ -52,7 +52,7 @@ function Registro(props){
     const[Comentarios, setComentarios] = useState();
     const[CalleNumero, setCalleNumero] = useState();
     const[Colonia, setColonia] = useState();
-    const[Ciudad, setCiudad] = useState();
+    const[Ciudad, setCiudad] = useState("MAZATLÁN");
     const[CodigoPostal, setCodigoPostal] = useState();
     const[Email, setEmail] = useState();
     const[lat, setLat] = useState();
@@ -291,7 +291,7 @@ function Registro(props){
               
 
               <div style={{display:'flex', flexDirection:'column',   width: '80%'}} align="center">
-              <br></br>
+              <br></br> 
                       <label class="idLabel">Nombre (s)*</label>
                       <Input type="text" 
                             placeholder='Nombre(s)'
@@ -358,7 +358,7 @@ function Registro(props){
                                   style={{ width: '100%' }}
                                   value={Ciudad}
                                   onChange={e => setCiudad(e.target.value)}
-                                >
+                                > 
                                   <option value="MAZATLÁN">MAZATLÁN</option>
                                   <option value="VILLA UNIÓN">VILLA UNIÓN </option>
                                   <option value="AGUA VERDE">AGUA VERDE</option>
