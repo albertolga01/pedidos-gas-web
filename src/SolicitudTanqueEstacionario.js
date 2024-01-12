@@ -180,7 +180,7 @@ function SolicitudTanqueEstacionario(props){
         
     }
 
-    function Validador(NombreV, ApellidoV,Tel1V, CalleNumV){
+    function Validador(NombreV, ApellidoV,Tel1V, CalleNumV, ColoniaV, CiudadV){
       
         if(NombreV == "" || NombreV == null ){
            return false;
@@ -190,6 +190,10 @@ function SolicitudTanqueEstacionario(props){
            return false;
         } else if (CalleNumV == "" || CalleNumV == null){
            return false;
+        } else if (ColoniaV == "" || ColoniaV == null){
+            return false;
+        } else if (CiudadV == "" || CiudadV == null){
+            return false;
         } else {
            return true;
         }
@@ -201,8 +205,10 @@ function SolicitudTanqueEstacionario(props){
            
             
 
-        var valido = Validador(Nombre, Apellido, TelefonoUno, CalleNumero);   
+        var valido = Validador(Nombre, Apellido, TelefonoUno, CalleNumero, Colonia, Ciudad);   
 
+           
+        
             //alert(cantidadServicio);
             if(valido != true){
                 notify("Complete los datos para continuar");
@@ -345,11 +351,18 @@ function SolicitudTanqueEstacionario(props){
                                 <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'6%' }}>
                                     <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
                                         <label class="idLabel">Ciudad</label>
-                                            <Input type="text" 
-                                                placeholder='Ciudad'
-                                                style={{width:'100%'}}
-                                                onChange={e => setCiudad(e.target.value)}
-                                                                />
+                                        <select
+                                            id="form-tanque"
+                                            style={{ width: '100%' }}
+                                            value={Ciudad}
+                                            onChange={e => setCiudad(e.target.value)}
+                                        >
+                                            <option value="" disabled selected hidden>Ciudad</option>
+                                            <option value="MAZATLÁN">MAZATLÁN</option>
+                                            <option value="VILLA UNIÓN">VILLA UNIÓN </option>
+                                            <option value="AGUA VERDE">AGUA VERDE</option>
+                                            <option value="AGUA CALIENTE DE GÁRATE">AGUA CALIENTE DE GÁRATE</option>
+                                        </select>
                                             
                                         </div>
                                     <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
