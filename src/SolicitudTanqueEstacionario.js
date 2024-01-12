@@ -180,7 +180,7 @@ function SolicitudTanqueEstacionario(props){
         
     }
 
-    function Validador(NombreV, ApellidoV,Tel1V, CalleNumV, ColoniaV, CiudadV){
+    function Validador(NombreV, ApellidoV,Tel1V, CalleNumV, ColoniaV){
       
         if(NombreV == "" || NombreV == null ){
            return false;
@@ -191,8 +191,6 @@ function SolicitudTanqueEstacionario(props){
         } else if (CalleNumV == "" || CalleNumV == null){
            return false;
         } else if (ColoniaV == "" || ColoniaV == null){
-            return false;
-        } else if (CiudadV == "" || CiudadV == null){
             return false;
         } else {
            return true;
@@ -205,7 +203,7 @@ function SolicitudTanqueEstacionario(props){
            
             
 
-        var valido = Validador(Nombre, Apellido, TelefonoUno, CalleNumero, Colonia, Ciudad);   
+        var valido = Validador(Nombre, Apellido, TelefonoUno, CalleNumero, Colonia);   
 
            
         
@@ -357,7 +355,6 @@ function SolicitudTanqueEstacionario(props){
                                             value={Ciudad}
                                             onChange={e => setCiudad(e.target.value)}
                                         >
-                                            <option value="" disabled selected hidden>Ciudad</option>
                                             <option value="MAZATLÁN">MAZATLÁN</option>
                                             <option value="VILLA UNIÓN">VILLA UNIÓN </option>
                                             <option value="AGUA VERDE">AGUA VERDE</option>
