@@ -15,6 +15,8 @@ import altaPedido from './resources/altaPedido.png';
 import pedidoRealizado from './resources/pedidoRealizado.png';
 import actualizarDatos from './resources/actualizarDatos.png';
 import notificacionActualizar from './resources/notificacionActualizar.png';
+import solicitudTanque from './resources/solicitudTanque.png';
+import menuLateral from './resources/menuLateral.png';
 
 function Ayuda(props){
 
@@ -85,12 +87,12 @@ function Ayuda(props){
                 Haga clic en <span style={{fontWeight:'bold', textDecoration: 'underline'}} >Registrate</span>, se 
                 mostrará la pantalla donde 
                 tiene que ingresar todos sus 
-                datos. Una vez concluido el 
-                registro al momento de dar 
+                datos y aceptar la política de privacidad.
+                Una vez concluido el 
+                llenado de los datos al momento de dar 
                 regístrate se mostrará un 
                 mensaje con su consumidor
-                asignado el momento de 
-                terminar su registro.
+                asignado en ese momento.
                 </p> 
                 <p style={{fontWeight:'bold', padding: '10px'}} align="justify">Los campos marcados con un 
                 * son obligatorios y no pueden 
@@ -137,8 +139,23 @@ function Ayuda(props){
                 <p style={{fontWeight:'bold', padding: '10px'}} align="justify">Los campos marcados con un 
                 * son obligatorios y no pueden 
                 quedar vacíos.</p>
-                <>&nbsp;</>
                   
+                <h3  align="center">Solicitud de tanque estacionario</h3>
+                <div style={{justifyContent: 'space-between', columnGap:'0.875rem', width:'65%', display:'flex', flexDirection:'row'}}> 
+                        <div style={{width:'90%'}} align="center"> 
+                            <img style={{width:'100%', borderRadius:'5px', boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px' }} src={menuLateral}/>
+                        </div>
+                        <div style={{width:'90%'}} align="center">
+                            <img style={{width:'100%', borderRadius:'5px', boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px' }} src={solicitudTanque}/>
+                        </div>
+                </div>
+                <p style={{padding: '10px', margin:'0px'}} align="justify">
+                En el caso de solicitar información para la compra de un tanque estacionario, 
+                tenemos que rellenar el siguiente formulario, 
+                y seleccionar una capacidad de tanque de nuestra preferencia.
+                Una vez enviada nuestra solicitud el personal de callcenter se pondrá en contacto con nosotros.
+                </p> 
+                <>&nbsp;</>
                 </div>
                 <br></br>
                 <br></br> 
