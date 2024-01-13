@@ -441,7 +441,7 @@ function openPoliticaPrivacidad(e) {
 													/>
 											{/* <input id="form-usuario" onKeyPress={handleKeyPress} defaultValue={nuevoConsumidor} type="tel" style={{height:'30px', width:'80%'}} placeholder="Número Consumidor"/>*/}
 											</div>
-											<div style={{width:'100%', height:'45px'}} align="center">
+											<div style={{width:'80%', height:'45px', margin: '2vmax auto 0'}} align="center">
 											<label style={{color:'white', fontWeight: 'bold', fontSize:'20px'}}>
 												<input style={{marginRight: '15px', height:'15px', width:'15px'}}  type="checkbox" id="privacidad" onClick={(e) => openPoliticaPrivacidad(e)} />
 												He leído y estoy de acuerdo con la política de privacidad
