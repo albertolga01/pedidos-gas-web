@@ -37,7 +37,7 @@ const customStyles = {
   };
 
 
-function NuevoPedido(props){
+function Direcciones(props){
 
     const inlineStyle = {
         input : {
@@ -66,7 +66,7 @@ function NuevoPedido(props){
  
 	useEffect(() => {
         obtenerConsumidor();
-        currentDate();
+        //currentDate();
 	},[])
   
 
@@ -127,7 +127,7 @@ function NuevoPedido(props){
 		setCodigoPostal(res.data[0].codigo_postal); 
 		//console.log(res.data); 
 	}
-
+/*
     function validarDia(fecha){
         var hoy = new Date()
         var fechaHoy = hoy.getFullYear() + '-' + ('0' + (hoy.getMonth() + 1)).slice(-2) + '-' + ('0' + hoy.getDate()).slice(-2) ;
@@ -143,7 +143,7 @@ function NuevoPedido(props){
         }else{
             return false;
         }
-    }
+    }*/
     function validarHorarioAtencion(hora){
         if(hora>= "06:00" && hora <= "19:00" ){
             return true;
@@ -172,8 +172,13 @@ function NuevoPedido(props){
         }
         
     }
+    async function altaDireccion(){
+        let fd = new FormData()   
+        fd.append("id", "altaDireccion")  
+        fd.append("identificadorexterno", props.numero_consumidor) //props.identificador_externo 
+    }
  
-
+/*
     async function altaPedido(){  
         var fechaValida = validarDia(document.getElementById("FechaPedido").value);
         var horaAtencion = validarHorarioAtencion(document.getElementById("HoraPedido").value);
@@ -273,7 +278,8 @@ function NuevoPedido(props){
             //console.log(json.folio); 
         }
 	}
-
+    */
+/*
     function currentDate(){ 
         var hoy = new Date()
         hoy.setMinutes ( hoy.getMinutes() + 30 ); 
@@ -284,7 +290,7 @@ function NuevoPedido(props){
         document.getElementById("HoraPedido").value = hora; 
 
 	}
-
+*/
     
 
     
@@ -320,40 +326,46 @@ function NuevoPedido(props){
         document.getElementById('FechaPedido').value = fecha_hora;
         console.log(fecha_hora);
     }
+    /*
     function disabledInput(){
         notify("No es posible modificar esta información en este apartado, favor de ingresar a la sección de usuario para actualizar sus datos");
     }
+    */
 
-    const[fecha_hora, setHoraFecha] = useState(); 
+   //const[fecha_hora, setHoraFecha] = useState(); 
 
     return(
        <div style={{width:'100%'}}>
-         <Navbar titulo="Nuevo Pedido" cambiarSelected={props.unmount} /> 
+        {props.numero_consumidor}
+         <Navbar titulo="Direcciones" cambiarSelected={props.unmount} /> 
         <div  style={{margin: 'auto', width:'80%' , height: '100vh', backgroundImage: Backgroundgas}} align="center"> 
 
           <FadeIn>
             
                 <div style={{ display: 'flex', flexDirection: 'column', width: '100%'}} align="center">
-
+                <br></br>
+                <div>
+                      <h3 class="idLabel">Dirección actual</h3>
+                      <label  class="idLabel" style={{textAlign:'left'}}>{Colonia}</label>
+                      <br></br>
+                      </div>
                
-                <br></br>
-                <br></br>
+                <br></br> 
                       <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'6%' }}>
+                
                          <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
                             <label class="idLabel">Colonia</label>
-                            <Input readOnly={true}  className='input' onClick={() => disabledInput()} type="text" 
+                            <Input className='input' type="text" 
 												placeholder='Colonia' 
 												style={{width:'100%', inlineStyle}}
                                                 defaultValue={Colonia}
                                                 onChange={e => setColonia(e.target.value)}
 											/>
-                            {/*
-                            <input type='text' class="idInput" onChange={e => setColonia(e.target.value)} defaultValue={Colonia}></input><br></br>
-                            */}
-                            </div>
+                            
+                        </div>
                         <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
                            <label class="idLabel">Código Postal</label>
-                           <Input  readOnly={true}  onClick={() => disabledInput()}  type="text" 
+                           <Input type="text" 
 												placeholder='Código Postal'
 												style={{width:'100%',  backgroundColor: '#0071ce'}}
                                                 defaultValue={CodigoPostal}
@@ -365,82 +377,25 @@ function NuevoPedido(props){
                            </div>
                     </div> 
                     <label class="idLabel">Calle y Número</label> 
-                    <Input readOnly={true}  onClick={() => disabledInput()}  type="text" 
+                    <Input type="text" 
 												placeholder='Calle/Numero' 
 												style={{width:'100%'}}
                                                 defaultValue={CalleNumero}
                                                 onChange={e => setCalleNumero(e.target.value)}
 											/>
-                {/*    <input type='text' class="idInput" onChange={e => setCalleNumero(e.target.value)} defaultValue={CalleNumero}></input><br></br>
+                
                     
-                    */}<div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'20px' }}>
-                         <div style={{display:'flex',flexDirection:'column', width:'50%' }}>
-                            <label class="idLabel">Fecha:</label>
-	                        <input id="FechaPedido" class="idInput"   style={{width:'100%', marginTop:'5px'}} type="date"/><br></br>
-                         </div>
-                         <div style={{display:'flex',flexDirection:'column', width:'50%' }}>
-                              <label class="idLabel">Hora:</label>
-	                        <input id="HoraPedido" class="idInput"  style={{width:'100%', marginTop:'5px'}} type="time"/><br></br>
-                         </div>
-                    </div>
-
-                    <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'20px' }}>
-                    
-
-                    </div>
-                    
-                    <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'6%' }}>
-                   
-                    <div style={{display:'flex',flexDirection:'column', width:'47%' }}  >
-                    <fieldset>
-                            <legend class="idLabel">Seleccione:</legend>
-                            <div >
-                            <input style={{marginRight: '15px', height:'15px', width:'15px'}} type="radio" id="tipopesos" name="tipopedido"  
-                                     onClick={() => tipoPedido()}/>
-                            <label class="idLabel" for="pesos">Pesos</label>
-                           
-                            </div>
-                            <div>
-                                 <input style={{marginTop:'5px',marginRight: '15px', height:'15px', width:'15px'}} type="radio" id="tipolitros" name="tipopedido"    onClick={() => tipoPedido()}/>
-                            <label class="idLabel" for="litros">Litros</label>
-                            </div>
-  
-                        </fieldset>
-                        </div>
-                        <div style={{display:'flex',flexDirection:'column', width:'47%' }} >
-                         <div  id="divlitros" style={{display: 'none'}}>
-                            <label class="idLabel">Cantidad (Lts)</label>
-                            <Input type="number" 
-												placeholder='Cantidad' 
-												style={{width:'100%'}}
-                                                id="inputlitros"  
-											/>
-                           {/** <input type='text' class="idInput" id="inputlitros"  ></input>  */}
-                         </div>
-                         <div  id="divpesos">
-                              <label class="idLabel">Importe</label> 
-                              <Input type="number" 
-												placeholder='Importe' 
-												style={{width:'100%'}}
-                                                id="inputpesos"  
-											/>
-                             {/**
-	                          <input type='text' id="inputpesos" class="idInput"    ></input> */}<br></br>
-                         </div>
-                         </div>
-                    </div>
-                   
                     <br></br>
-	   
-                    <label class="idLabel">Comentarios</label>
-                    <textarea class="idInput" onChange={e => setComentarios(e.target.value)} rows="15" cols="50" defaultValue={Comentarios} style={{minHeight:'90px', resize: 'none'}}></textarea><br></br>
+                    <br></br>
+                    <label class="idLabel">Calle y Número</label> 
+                    <br></br>
                     <br></br>
                     <div style={{justifyContent: 'space-between', columnGap:'0.875rem', width:'100%', display:'flex', flexDirection:'row'}}> 
                     <div style={{width:'50%'}} align="center"> 
                     <button className="buttonVerde" style={{width:'100%', fontWeight: 'bold'}} onClick={() => { Seleccionar();}}>Regresar</button>
                     </div>
                     <div style={{width:'50%'}} align="center"> 
-                        <button type='submit' onClick={() => altaPedido()} className='button' style={{ fontWeight: 'bold', width:'100%'}}>Confirmar Pedido</button>
+                        <button type='submit' onClick={() => altaDireccion()} className='button' style={{ fontWeight: 'bold', width:'100%'}}>Añadir dirección</button>
                         </div>
                     </div>                    
                     <br></br>
@@ -483,7 +438,7 @@ function NuevoPedido(props){
     );
 }
 
-export default NuevoPedido;
+export default Direcciones;
 
 /**
  * 

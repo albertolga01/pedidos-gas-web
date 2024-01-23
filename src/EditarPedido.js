@@ -145,7 +145,7 @@ function EditarPedido(props){
         }
     }
     function validarHorarioAtencion(hora){
-        if(hora>= "06:00" && hora <= "18:30" ){
+        if(hora>= "06:00" && hora <= "19:00" ){
             return true;
         }else{
             return false;

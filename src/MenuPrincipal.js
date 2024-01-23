@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import axios from "axios";
 import './App.css'; 
 import Modal from 'react-modal';
@@ -35,7 +35,11 @@ import ReactWhatsappButton from 'react-whatsapp-button';
 import WhatsAppButtonGreenLarge from './resources/WhatsAppButtonGreenLarge.svg'
 import {Carousel} from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; 
+import ImageViewer from "react-simple-image-viewer";
 
+import QuickPinchZoom, { make3dTransformValue } from "react-quick-pinch-zoom";
+
+import Zoom from "react-img-zoom-gdn";
 const customStylesD = { 	
 	content: {
         width:'30%',
@@ -99,7 +103,31 @@ function MenuPrincipal(props){
     function openModal() { 
 		setIsOpen(true); 
 	}  
-	   
+	
+
+    const [currentImage, setCurrentImage] = useState(0); 
+    const [isViewerOpen, setIsViewerOpen] = useState(false); 
+    const closeImageViewer = () => { 
+        setCurrentImage(0); 
+        setIsViewerOpen(false); 
+    }; 
+    const images = [ 
+        process.env.REACT_APP_URL+"/images/Anuncios-Aplicacion-02.png", 
+        process.env.REACT_APP_URL+"/images/Anuncios-Aplicacion-02.png", 
+        process.env.REACT_APP_URL+"/images/Anuncios-Aplicacion-04.png" 
+    ];
+
+    const imgRef = useRef();
+
+    const onUpdate = useCallback(({ x, y, scale }) => {
+        const { current: img } = imgRef; 
+    
+        if (img) {
+          const value = make3dTransformValue({ x, y, scale });
+    
+          img.style.setProperty("transform", value);
+        } 
+      }, []);
      
     const[Mensaje, setMensaje] = useState(); 
     const[MensajeError, setMensajeError] = useState(); 	  
@@ -285,16 +313,23 @@ function MenuPrincipal(props){
                                 
                             </div>
                             */}
-                            <div>
-                                <img src={process.env.REACT_APP_URL+"/images/Anuncios-Aplicacion-02.png"} style={{maxWidth:'650px'}} />
+                            <div   >
+                           
+                            <img src={process.env.REACT_APP_URL+"/images/Anuncios-Aplicacion-02.png"} style={{maxWidth:'700px'}} />
+                           
+                            </div>
+                            {/** 
+                            <div > 
+                                <img ref={imgRef}  src={process.env.REACT_APP_URL+"/images/Anuncios-Aplicacion-02.png"} style={{maxWidth:'700px'}} />
+                              
+                            </div>
+                            */}
+                            <div onClick={() => setIsViewerOpen(true)} >
+                                <img src={process.env.REACT_APP_URL+"/images/Anuncios-Aplicacion-03.png"} style={{maxWidth:'700px'}} />
                             
                             </div>
                             <div>
-                                <img src={process.env.REACT_APP_URL+"/images/Anuncios-Aplicacion-03.png"} style={{maxWidth:'650px'}} />
-                            
-                            </div>
-                            <div>
-                                <img src={process.env.REACT_APP_URL+"/images/Anuncios-Aplicacion-04.png"} style={{maxWidth:'650px'}} />
+                                <img src={process.env.REACT_APP_URL+"/images/Anuncios-Aplicacion-04.png"} style={{maxWidth:'700px'}} />
                             
                             </div>
                             {/*
@@ -304,6 +339,19 @@ function MenuPrincipal(props){
                             </div> */}
                         
                     </Carousel>
+                    
+{isViewerOpen && ( 
+                        <ImageViewer 
+                        src={images} 
+                        currentIndex={0} 
+                        onClose={closeImageViewer} 
+                        disableScroll={false} 
+                        backgroundStyle={{ 
+                            backgroundColor: "rgba(0,0,0,0.9)" 
+                        }} 
+                        closeOnClickOutside={true} 
+                        /> 
+                    )}
                 </div><br></br>
 
             </div>
