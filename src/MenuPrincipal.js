@@ -36,6 +36,8 @@ import WhatsAppButtonGreenLarge from './resources/WhatsAppButtonGreenLarge.svg'
 import {Carousel} from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; 
 import ImageViewer from "react-simple-image-viewer";
+import Lightbox from 'react-image-lightbox';
+import 'react-image-lightbox/style.css';
 
 import QuickPinchZoom, { make3dTransformValue } from "react-quick-pinch-zoom";
 
@@ -219,6 +221,46 @@ function MenuPrincipal(props){
         
     }
 
+    const ImageCarousel = () => {
+        const [lightboxIndex, setLightboxIndex] = useState(0);
+        const [isViewerOpen, setIsViewerOpen] = useState(false);
+      
+        const images = [
+          process.env.REACT_APP_URL + '/images/Anuncios-Aplicacion-02.png',
+          process.env.REACT_APP_URL + '/images/Anuncios-Aplicacion-03.png',
+          process.env.REACT_APP_URL + '/images/Anuncios-Aplicacion-04.png',
+          // Add more image URLs as needed
+        ];
+      
+        const openLightbox = (index) => {
+          setLightboxIndex(index);
+          setIsViewerOpen(true);
+        };
+      
+        return (
+          <>
+            <Carousel autoPlay interval="5000" showThumbs={false}>
+              {images.map((imageUrl, index) => (
+                <div key={index} onClick={() => openLightbox(index)}>
+                  <img src={imageUrl} style={{ maxWidth: '700px' }} alt={`Image ${index + 1}`} />
+                </div>
+              ))}
+            </Carousel>
+      
+            {isViewerOpen && (
+              <Lightbox
+                mainSrc={images[lightboxIndex]}
+                nextSrc={images[(lightboxIndex + 1) % images.length]}
+                prevSrc={images[(lightboxIndex + images.length - 1) % images.length]}
+                onCloseRequest={() => setIsViewerOpen(false)}
+                onMovePrevRequest={() => setLightboxIndex((lightboxIndex + images.length - 1) % images.length)}
+                onMoveNextRequest={() => setLightboxIndex((lightboxIndex + 1) % images.length)}
+              />
+            )}
+          </>
+        );
+      };
+      
    
     return(
        
@@ -305,40 +347,23 @@ function MenuPrincipal(props){
                     </div>
 
                     <div>
-                    <Carousel autoPlay interval="5000" showThumbs={false} >
-                        {/**140px * 305px */}
-                           {/*
-                            <div  >
-                                <img src={process.env.REACT_APP_URL+"/images/Anuncios-Aplicacion-01.png"} style={{maxWidth:'650px'}} />
-                                
-                            </div>
-                            */}
-                            <div   >
-                           
-                            <img src={process.env.REACT_APP_URL+"/images/Anuncios-Aplicacion-02.png"} style={{maxWidth:'700px'}} />
-                           
-                            </div>
-                            {/** 
-                            <div > 
-                                <img ref={imgRef}  src={process.env.REACT_APP_URL+"/images/Anuncios-Aplicacion-02.png"} style={{maxWidth:'700px'}} />
-                              
-                            </div>
-                            */}
-                            <div onClick={() => setIsViewerOpen(true)} >
-                                <img src={process.env.REACT_APP_URL+"/images/Anuncios-Aplicacion-03.png"} style={{maxWidth:'700px'}} />
-                            
-                            </div>
-                            <div>
-                                <img src={process.env.REACT_APP_URL+"/images/Anuncios-Aplicacion-04.png"} style={{maxWidth:'700px'}} />
-                            
-                            </div>
-                            {/*
-                            <div>
-                                <img src={process.env.REACT_APP_URL+"/images/bannerprueba.png"} style={{maxWidth:'650px',  height:'140px'}} />
-                            
-                            </div> */}
-                        
-                    </Carousel>
+                    <Carousel autoPlay interval={5000} showThumbs={false}>
+                    {images.map((imageUrl, index) => (
+                        <div key={index} onClick={() => setIsViewerOpen(true)}>
+                            <img src={imageUrl} style={{ maxWidth: '700px', cursor: 'pointer' }} alt={`Image ${index + 1}`} />
+                        </div>
+                    ))}
+                </Carousel>
+                
+    {/*<ImageViewer
+        src={images}
+        currentIndex={currentImage}
+        onClose={() => setIsViewerOpen(false)}
+        backgroundStyle={{
+            backgroundColor: "rgba(0, 0, 0, 0.9)"
+        }}
+    />
+    */} 
                     
 {isViewerOpen && ( 
                         <ImageViewer 

@@ -50,11 +50,9 @@ function Direcciones(props){
     const[confirmarPass, setConfirmarPass] = useState();
 ////////////////////////////////////////////////// 
     const[Comentarios, setComentarios] = useState();
-    const[CalleNumero, setCalleNumero] = useState();
+    const[direcciones, setDirecciones] = useState([]);
     const[Colonia, setColonia] = useState();
-    const[Ciudad, setCiudad] = useState("MAZATLÁN");
-    const[Cantidad, setCantidad] = useState();
-    const[Importe, setImporte] = useState();
+    const[Ciudad, setCiudad] = useState("MAZATLÁN"); 
     const[CodigoPostal, setCodigoPostal] = useState(); 
     const [fechaHoy, setFechaHoy] = useState("null");
 
@@ -66,7 +64,7 @@ function Direcciones(props){
     const[MensajeError, setMensajeError] = useState(); 
  
 	useEffect(() => {
-        obtenerConsumidor();
+        obtenerDirecciones();
         //currentDate();
 	},[])
   
@@ -109,24 +107,17 @@ function Direcciones(props){
     }
   
 
-    async function obtenerConsumidor(){    
+    async function obtenerDirecciones(){    
 		let fd = new FormData()   
-		fd.append("id", "obtenerConsumidor")  
-		fd.append("folioconsumidor", props.numero_consumidor) 
+		fd.append("id", "obtenerDirecciones")  
+		fd.append("noconsumidor", props.numero_consumidor) 
 		//setisLoggedIn(false);
         openModalLoad();
 		const res = await axios.post(process.env.REACT_APP_API_URL, fd);
         closeModalLoad();
 		console.log(res.data);  
-        if(res.data[0].comentario != undefined && res.data[0].comentario != "undefined"){
-            setComentarios(res.data[0].comentario);
-        }else{
-            setComentarios("");
-        }
-        setCalleNumero(res.data[0].calle_numero);
-        setColonia(res.data[0].colonia); 
-		setCodigoPostal(res.data[0].codigo_postal); 
-		//console.log(res.data); 
+        
+        setDirecciones(res.data); 
 	}
 /*
     function validarDia(fecha){
@@ -336,9 +327,8 @@ function Direcciones(props){
    //const[fecha_hora, setHoraFecha] = useState(); 
 
     return(
-       <div style={{width:'100%'}}>
-        {props.numero_consumidor}
-         <Navbar titulo="Direcciones" cambiarSelected={props.unmount} /> 
+       <div style={{width:'100%'}}> 
+         <Navbar titulo="Libreta de Direcciones" cambiarSelected={props.unmount} /> 
         <div  style={{margin: 'auto', width:'80%' , height: '100vh', backgroundImage: Backgroundgas}} align="center"> 
 
           <FadeIn>
@@ -352,37 +342,21 @@ function Direcciones(props){
                       </div>
                
                 <br></br> 
-                      <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'6%' }}>
-                
-                         <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
-                            <label class="idLabel">Colonia</label>
-                            <Input className='input' type="text" 
-												placeholder='Colonia' 
-												style={{width:'100%', inlineStyle}}
-                                                defaultValue={Colonia}
-                                                onChange={e => setColonia(e.target.value)}
-											/>
-                            
-                        </div>
-                        <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
-                           <label class="idLabel">Código Postal</label>
-                           <Input type="text" 
-												placeholder='Código Postal'
-												style={{width:'100%',  backgroundColor: '#0071ce'}}
-                                                defaultValue={CodigoPostal}
-                                                onChange={e => setCodigoPostal(e.target.value)}
-											/>
-                                            {/**
-                           <input type='text' class="idInput" onChange={e => setCodigoPostal(e.target.value)} defaultValue={CodigoPostal}></input><br></br>
-                        */}
-                           </div>
-                    </div> 
+                { direcciones.map(item => ( 
+                     <div style={{ border: '1px solid black', backgroundColor: 'rgba(255, 255, 255, 0.5)', fontSize: '20px', display: 'flex', padding: '20px 0 20px 20px', flexDirection:'column',
+                     textAlign: 'left'}}>
+                         <span style={{ margin:'0 0 8px 0'}}>{item.calle_numero}</span> 
+                         <span style={{ margin:'0 0 8px 0'}}>{item.colonia}</span> 
+                         <span style={{ margin:'0 0 8px 0'}}>{item.codigop}</span> 
+                         <span style={{ margin:'0 0 8px 0'}}>{item.ciudad}</span> 
+                     </div> 
+                 
+                  ))}	
+                     
                     <label class="idLabel">Calle y Número</label> 
                     <Input type="text" 
 												placeholder='Calle/Numero' 
-												style={{width:'100%'}}
-                                                defaultValue={CalleNumero}
-                                                onChange={e => setCalleNumero(e.target.value)}
+												style={{width:'100%'}} 
 											/>
                     <div style={{display:'flex',flexDirection:'column' }}>
                                 <label class="idLabel">Ciudad</label>

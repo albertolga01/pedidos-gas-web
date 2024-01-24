@@ -20,6 +20,7 @@ import SolicitudTanqueEstacionario from '../SolicitudTanqueEstacionario';
 import EditarPedido from '../EditarPedido';
 import PasarelaPago from '../PasarelaPago';
 import Direcciones from '../Direcciones';
+import LibretaDirecciones from '../LibretaDirecciones';
 
 export default function SideMenu(props) {
     window.event = new Event('event');
@@ -119,6 +120,8 @@ export default function SideMenu(props) {
             return <PasarelaPago cantidad={Cantidad} folio_pedido={folio_pedido} unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
         }else if (selected === 'Direcciones') {
             return <Direcciones unmount={cambiarSelected} correo={props.correo} telefono={props.telefono} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo}  />;
+        }else if (selected === 'LibretaDirecciones') {
+            return <LibretaDirecciones unmount={cambiarSelected} correo={props.correo} telefono={props.telefono} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo}  />;
         }else {
             return (<div style={{ width: '100%', textAlign: 'center', backgroundColor: '', margin: 'auto' }}><h1>Error al Cargar</h1></div>);
         } 
