@@ -43,6 +43,7 @@ export default function SideMenu(props) {
     // console.log(props.selected); 
   
     const[PrecioGas, setPrecioGas] = useState(); 
+    const[idDireccion, setIdDireccion] = useState(); 
 
     function close(selected){
         setSelect(selected);
@@ -68,8 +69,8 @@ export default function SideMenu(props) {
 
     
 
-    function cambiarSelected(selected){ 
-          
+    function cambiarSelected(selected, iddireccion){ 
+        setIdDireccion(iddireccion)
         close(selected);  
     }
 
@@ -119,9 +120,9 @@ export default function SideMenu(props) {
         }else if (selected === 'PasarelaPago') {
             return <PasarelaPago cantidad={Cantidad} folio_pedido={folio_pedido} unmount={cambiarSelected} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
         }else if (selected === 'Direcciones') {
-            return <Direcciones unmount={cambiarSelected} correo={props.correo} telefono={props.telefono} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo}  />;
+            return <Direcciones  iddireccion={idDireccion}  unmount={cambiarSelected} correo={props.correo} telefono={props.telefono} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo}  />;
         }else if (selected === 'LibretaDirecciones') {
-            return <LibretaDirecciones unmount={cambiarSelected} correo={props.correo} telefono={props.telefono} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo}  />;
+            return <LibretaDirecciones iddireccion={idDireccion} unmount={cambiarSelected} correo={props.correo} telefono={props.telefono} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo}  />;
         }else {
             return (<div style={{ width: '100%', textAlign: 'center', backgroundColor: '', margin: 'auto' }}><h1>Error al Cargar</h1></div>);
         } 

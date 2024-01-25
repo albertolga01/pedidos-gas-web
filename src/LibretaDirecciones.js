@@ -12,6 +12,7 @@ import ErrorImg from './resources/error.svg'
 import { ModalCarga } from "./component/ModalCarga";
 import { Input } from 'semantic-ui-react' 
 import { ToastContainer, toast } from 'react-toastify';
+
  
 
 const customStyles = { 	
@@ -37,7 +38,7 @@ const customStyles = {
   };
 
 
-function Direcciones(props){
+function LibretaDirecciones(props){
 
     const inlineStyle = {
         input : {
@@ -45,16 +46,9 @@ function Direcciones(props){
         }
       };
 
-    const[passActual, setPassActual] = useState();
-    const[passNueva, setPassNueva] = useState();
-    const[confirmarPass, setConfirmarPass] = useState();
 ////////////////////////////////////////////////// 
-    const[Comentarios, setComentarios] = useState();
     const[direcciones, setDirecciones] = useState([]);
     const[Colonia, setColonia] = useState();
-    const[Ciudad, setCiudad] = useState("MAZATLÁN"); 
-    const[CodigoPostal, setCodigoPostal] = useState(); 
-    const [fechaHoy, setFechaHoy] = useState("null");
 
     const [modalIsOpenLoad, setIsOpenLoad] = React.useState(false);
 
@@ -62,6 +56,7 @@ function Direcciones(props){
     const [modalIsOpenE, setIsOpenE] = React.useState(false);
     const[Mensaje, setMensaje] = useState(); 
     const[MensajeError, setMensajeError] = useState(); 
+
  
 	useEffect(() => {
         obtenerDirecciones();
@@ -100,11 +95,6 @@ function Direcciones(props){
     function Seleccionar(){  
         props.unmount("MenuPrincipal");   
     }
-
-
-    function notify(message){
-        toast(message);
-    }
   
 
     async function obtenerDirecciones(){    
@@ -119,212 +109,32 @@ function Direcciones(props){
         
         setDirecciones(res.data); 
 	}
-/*
-    function validarDia(fecha){
-        var hoy = new Date()
-        var fechaHoy = hoy.getFullYear() + '-' + ('0' + (hoy.getMonth() + 1)).slice(-2) + '-' + ('0' + hoy.getDate()).slice(-2) ;
-        if(fecha==fechaHoy){
-            var horaValida = validarHora(document.getElementById("HoraPedido").value);
-            if(horaValida == true){
-                return true;
-            }else{
-                return false;
-            } 
-        }else if(fecha>fechaHoy){ 
-            return true;
-        }else{
-            return false;
-        }
-    }*/
-    function validarHorarioAtencion(hora){
-        if(hora>= "06:00" && hora <= "19:00" ){
-            return true;
-        }else{
-            return false;
-        }
+
+  async function bajaDireccion(idDireccionToDelete) {
+    try {
+      let fd = new FormData();
+      fd.append("id", "bajaDireccion");
+      fd.append("iddireccion", idDireccionToDelete);
+      fd.append("noconsumidor", props.numero_consumidor);
+  
+      openModalLoad();
+      const res = await axios.post(process.env.REACT_APP_API_URL, fd);
+      closeModalLoad();
+      console.log(res.data);
+      notify("Eliminado correctamente");
+  
+      // After successful deletion, update the state to trigger a re-render
+      obtenerDirecciones();
+    } catch (error) {
+      console.error("Error:", error);
+      closeModalLoad();
+      notify("Error al eliminar");
     }
+  }
 
-    function validarHora(hora){
-        var hoy = new Date()
-        var horaActual = ('0' + (hoy.getHours())).slice(-2) + ':' + ('0' + hoy.getMinutes()).slice(-2);
-       //  alert(hora + " " + horaActual);
-        if(hora>horaActual){ 
-            return true;
-        }else{  
-            return false;
-        } 
-    }
-    function validarDomingo(fecha){
-        let day = new Date(fecha);
-        console.log(day.getDay());
-        if(day.getDay() == 6){
-            return true;
-        }else{
-            return false;
-        }
-        
-    }
-    async function altaDireccion(){
-        let fd = new FormData()   
-        fd.append("id", "altaDireccion")  
-        fd.append("identificadorexterno", props.numero_consumidor) //props.identificador_externo 
-    }
- 
-/*
-    async function altaPedido(){  
-        var fechaValida = validarDia(document.getElementById("FechaPedido").value);
-        var horaAtencion = validarHorarioAtencion(document.getElementById("HoraPedido").value);
-        var domingo = validarDomingo(document.getElementById("FechaPedido").value);
-
-        if(fechaValida == false){
-            //alert("fecha invalida o anterior a la hora actual para el mismo dia");
-            //modal fecha invalida
-            setMensajeError("No se puede programar pedido para un día y/o hora anterior al actual");
-            openModalE();
-            
-            
-        }
-        if(horaAtencion == false){
-            //alert("fuera del horario de atencion");
-            setMensajeError("No se puede programar pedido fuera del horario de atención");
-            openModalE();
-            //modal hora fuera del horario de atencion
-        }
-
-        if(domingo == true){
-            //alert("fuera del horario de atencion");
-            setMensajeError("No se puede programar pedido para día domingo");
-            openModalE();
-            //modal hora fuera del horario de atencion
-        }
-
-        if(fechaValida == true && horaAtencion == true && domingo == false){ 
-            let cantidadServicio = 1;
-            
-
-            let pesos = document.getElementById("tipopesos");
-            let litros = document.getElementById("tipolitros"); 
-            var cantidad = 0;
-            if(pesos.checked){ 
-                 cantidad = document.getElementById("inputpesos").value;
-                 cantidad = (cantidad / props.PrecioGas).toFixed(2);
-                            }
-            if(litros.checked){
-                cantidad = document.getElementById("inputlitros").value;
-            }
-
-            if(cantidad == "" || cantidad == undefined){
-                
-            }else{ 
-                cantidadServicio = cantidad;
-            }
-             // alert(cantidadServicio);
-           let fd = new FormData()   
-            fd.append("id", "altaPedido")  
-            fd.append("identificadorexterno", props.numero_consumidor) //props.identificador_externo 
-            fd.append("fecha", document.getElementById("FechaPedido").value)  
-            fd.append("hora", document.getElementById("HoraPedido").value)  
-            fd.append("comentarios", Comentarios)  
-            fd.append("cantidad", cantidadServicio)  
-            fd.append("consumidor_id", props.numero_consumidor)  
-            fd.append("rutaid", "0")
-            fd.append("correo", "0")
-            fd.append("nombres", props.nombres)
-            fd.append("apellidos", props.apellidos)
-            fd.append("telefono", "0")
-            fd.append("importe", Importe)
-            openModalLoad();
-            const res = await axios.post(process.env.REACT_APP_API_URL, fd)
-            .catch(function (error) {
-                if (error.response) {  
-                  notify("Error de conexión, vuelva a intentarlo");
-                } else if (error.request) { 
-                  notify("Error de conexión, vuelva a intentarlo");
-                } else { 
-                  notify("Error de conexión, vuelva a intentarlo");
-                }
-              });
-            closeModalLoad();
-            //console.log(res.data);
-            var json = JSON.parse(JSON.stringify(res.data));
-            //alert(String(json[0].pedidopendiente).length);
-            
-            
-             if (json.folio!= undefined){
-                setMensaje("folio: "+json.folio + " cantidad: "+json.cantidad+ " estatus: "+json.estatus);
-                openModal();
-                
-                
-                
-            }else{ 
-                openModalE();
-                setMensajeError("Error"); 
-                if(String(json[0].pedidopendiente).length > 1){
-                    if(window.confirm("pedido pendiente editar fecha y hora folio: "+json[0].pedidopendiente) == true) {
-                        props.unmount("EditarPedido", json[0].pedidopendiente); 
-                      }  
-                      return;
-                }  
-                
-            } 
-            //console.log(json.folio); 
-        }
-	}
-    */
-/*
-    function currentDate(){ 
-        var hoy = new Date()
-        hoy.setMinutes ( hoy.getMinutes() + 30 ); 
-        var fecha = hoy.getFullYear() + '-' + ('0' + (hoy.getMonth() + 1)).slice(-2) + '-' + ('0' + hoy.getDate()).slice(-2) ;
-         var hora = ('0' + (hoy.getHours())).slice(-2) + ':' + ('0' + (hoy.getMinutes())).slice(-2);
-      // console.log(hora);
-        document.getElementById("FechaPedido").value = fecha;
-        document.getElementById("HoraPedido").value = hora; 
-
-	}
-*/
-    
-
-    
-
-    function tipoPedido(){
-        let pesos = document.getElementById("tipopesos");
-        let litros = document.getElementById("tipolitros"); 
-        document.getElementById("inputlitros").value = "";
-        document.getElementById("inputpesos").value = "";
-        if(pesos.checked){
-            //mostrar inut pesos
-       
-            document.getElementById("divpesos").style.display = "block";
-            document.getElementById("divlitros").style.display = "none";
-            
-             
-
-        }
-        if(litros.checked){
-            //mostrar el de litros  
-            document.getElementById("divpesos").style.display = "none";
-            document.getElementById("divlitros").style.display = "block";
-        }
-    }
-
-
-    function HoraFecha(){
-        var hoy = new Date()
-        var fecha = hoy.getFullYear() + '-' + ('0' + (hoy.getMonth() + 1)).slice(-2) + '-' + ('0' + hoy.getDate()).slice(-2) ;
-        var hora = ('0' + hoy.getHours()).slice(-2) + ':' + ('0' + hoy.getMinutes()).slice(-2);
-
-        var fecha_hora = fecha +':'+ hora;
-        document.getElementById('FechaPedido').value = fecha_hora;
-        console.log(fecha_hora);
-    }
-    /*
-    function disabledInput(){
-        notify("No es posible modificar esta información en este apartado, favor de ingresar a la sección de usuario para actualizar sus datos");
-    }
-    */
-
-   //const[fecha_hora, setHoraFecha] = useState(); 
+  function notify(message){
+    toast(message);
+}
 
     return(
        <div style={{width:'100%'}}> 
@@ -343,48 +153,26 @@ function Direcciones(props){
                
                 <br></br> 
                 { direcciones.map(item => ( 
-                     <div style={{ border: '1px solid black', backgroundColor: 'rgba(255, 255, 255, 0.5)', fontSize: '20px', display: 'flex', padding: '20px 0 20px 20px', flexDirection:'column',
-                     textAlign: 'left'}}>
+                     <div style={{ border: '1px solid black', backgroundColor: 'rgba(255, 255, 255, 0.5)', fontSize: '20px', display: 'flex', padding: '20px', flexDirection:'column',
+                     textAlign: 'left', margin: '0 0 12px 0'}} > 
                          <span style={{ margin:'0 0 8px 0'}}>{item.calle_numero}</span> 
                          <span style={{ margin:'0 0 8px 0'}}>{item.colonia}</span> 
                          <span style={{ margin:'0 0 8px 0'}}>{item.codigop}</span> 
-                         <span style={{ margin:'0 0 8px 0'}}>{item.ciudad}</span> 
+                         <span style={{ margin:'0 0 8px 0'}}>{item.ciudad}</span>
+                         <div style={{ display: 'flex', justifyContent: 'flex-end', columnGap: '18px', margin: '10px 0 0' }}>
+                          <span style={{ margin:'0 0 8px 0', textAlign: 'right', fontSize: '18px'}} onClick={() => {  props.unmount("Direcciones", item.id)}}>Editar</span>
+                          <span style={{ margin:'0 0 8px 0', textAlign: 'right', fontSize: '18px'}} onClick={() => bajaDireccion(item.id)}>Eliminar</span>
+                         </div>  
                      </div> 
                  
                   ))}	
-                     
-                    <label class="idLabel">Calle y Número</label> 
-                    <Input type="text" 
-												placeholder='Calle/Numero' 
-												style={{width:'100%'}} 
-											/>
-                    <div style={{display:'flex',flexDirection:'column' }}>
-                                <label class="idLabel">Ciudad</label>
-                                <select
-                                  id="form-tanque"
-                                  style={{ width: '100%' }}
-                                  value={Ciudad}
-                                  onChange={e => setCiudad(e.target.value)}
-                                > 
-                                  <option value="MAZATLÁN">MAZATLÁN</option>
-                                  <option value="VILLA UNIÓN">VILLA UNIÓN </option>
-                                  <option value="AGUA VERDE">AGUA VERDE</option>
-                                  <option value="AGUA CALIENTE DE GÁRATE">AGUA CALIENTE DE GÁRATE</option>
-                                </select>
-                                </div>
-                
-                    
-                    <br></br>
-                    <br></br>
-                    <label class="idLabel">Calle y Número</label> 
-                    <br></br>
-                    <br></br>
+             
                     <div style={{justifyContent: 'space-between', columnGap:'0.875rem', width:'100%', display:'flex', flexDirection:'row'}}> 
                     <div style={{width:'50%'}} align="center"> 
                     <button className="buttonVerde" style={{width:'100%', fontWeight: 'bold'}} onClick={() => { Seleccionar();}}>Regresar</button>
                     </div>
                     <div style={{width:'50%'}} align="center"> 
-                        <button type='submit' onClick={() => altaDireccion()} className='button' style={{ fontWeight: 'bold', width:'100%'}}>Añadir dirección</button>
+                        <button type='submit' onClick={() => {  props.unmount("Direcciones")}} className='button' style={{ fontWeight: 'bold', width:'100%'}}>Añadir dirección</button>
                         </div>
                     </div>                    
                     <br></br>
@@ -427,9 +215,4 @@ function Direcciones(props){
     );
 }
 
-export default Direcciones;
-
-/**
- * 
- * <label style={{TextColor:'red'}}>*</label>
-*/
+export default LibretaDirecciones;

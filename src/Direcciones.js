@@ -50,12 +50,11 @@ function Direcciones(props){
     const[confirmarPass, setConfirmarPass] = useState();
 ////////////////////////////////////////////////// 
     const[Comentarios, setComentarios] = useState();
-    const[CalleNumero, setCalleNumero] = useState();
-    const[Colonia, setColonia] = useState();
-    const[Ciudad, setCiudad] = useState("MAZATLÁN");
-    const[Cantidad, setCantidad] = useState();
-    const[Importe, setImporte] = useState();
-    const[CodigoPostal, setCodigoPostal] = useState(); 
+    const[direcciones, setDirecciones] = useState([props.iddireccion]);
+    const[calleNumero, setCalleNumero] = useState("");
+    const[colonia, setColonia] = useState("");
+    const [ciudad, setCiudad] = useState(props.iddireccion ? "" : "MAZATLAN");
+    const[codigoPostal, setCodigoPostal] = useState(""); 
     const [fechaHoy, setFechaHoy] = useState("null");
 
     const [modalIsOpenLoad, setIsOpenLoad] = React.useState(false);
@@ -64,12 +63,101 @@ function Direcciones(props){
     const [modalIsOpenE, setIsOpenE] = React.useState(false);
     const[Mensaje, setMensaje] = useState(); 
     const[MensajeError, setMensajeError] = useState(); 
+    const [modalIsOpenError, setIsOpenLoadError] = React.useState(false);
  
 	useEffect(() => {
-        obtenerConsumidor();
-        //currentDate();
-	},[])
+        obtenerDirecciones()
+    }, []);
   
+    function openModalLoadError() { 
+		setIsOpenLoadError(true); 
+	}  
+
+    async function obtenerDirecciones() {
+        try {
+          let fd = new FormData();
+          fd.append("id", "obtenerDirecciones");
+          fd.append("noconsumidor", props.numero_consumidor);
+      
+          openModalLoad();
+          const res = await axios.post(process.env.REACT_APP_API_URL, fd);
+          closeModalLoad();
+      
+          console.log("test", res.data);
+      
+         
+          const selectedObject = res.data.find(item => item.id === props.iddireccion);
+      
+          if (selectedObject) {
+            setColonia(selectedObject.colonia);
+            setCalleNumero(selectedObject.calle_numero);
+            setCiudad(selectedObject.ciudad);
+            setCodigoPostal(selectedObject.codigop);
+          } else {
+            console.log(`Object with id ${props.iddireccion} not found`);
+          }
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      }
+
+      async function actualizarDirecciones(){    
+        var valido = Validador(calleNumero, colonia, codigoPostal); 
+        if(valido == true){
+		let fd = new FormData()   
+		fd.append("id", "actualizarDirecciones")  
+        fd.append("iddireccion", props.iddireccion) 
+		fd.append("noconsumidor", props.numero_consumidor) 
+		fd.append("calle_numero", calleNumero)
+		fd.append("colonia", colonia) 
+		fd.append("ciudad", ciudad)
+		fd.append("codigop", codigoPostal)
+        openModalLoad();
+		const res = await axios.post(process.env.REACT_APP_API_URL, fd);
+        closeModalLoad();
+		console.log(res.data); 
+        notify("Actualizado correctamente");
+		//console.log(res.data); 
+        }else{
+            openModalLoadError();
+        }
+	}
+
+    async function addDirecciones(){    
+        var valido = Validador(calleNumero, colonia, codigoPostal); 
+        if(valido == true){
+		let fd = new FormData()   
+		fd.append("id", "addDirecciones")  
+		fd.append("noconsumidor", props.numero_consumidor) 
+		fd.append("calle_numero", calleNumero)
+		fd.append("colonia", colonia) 
+		fd.append("ciudad", ciudad)
+		fd.append("codigop", codigoPostal)
+        //setisLoggedIn(false);
+        openModalLoad();
+		const res = await axios.post(process.env.REACT_APP_API_URL, fd);
+        closeModalLoad();
+		console.log(res.data); 
+        notify("Agregado correctamente");
+		//console.log(res.data); 
+        }else{
+            openModalLoadError();
+        }
+	}
+
+    function Validador(CalleNumV, ColoniaV, CodigoV ){
+      
+        if(CalleNumV == "" || CalleNumV == null ){
+           return false;
+        } else if (ColoniaV == "" || ColoniaV == null){
+           return false;
+        } else if (CodigoV == "" || CodigoV == null){
+           return false;
+        }  else {
+           return true;
+        }
+       
+   }
 
     function openModalLoad() { 
 		setIsOpenLoad(true); 
@@ -109,42 +197,6 @@ function Direcciones(props){
     }
   
 
-    async function obtenerConsumidor(){    
-		let fd = new FormData()   
-		fd.append("id", "obtenerConsumidor")  
-		fd.append("folioconsumidor", props.numero_consumidor) 
-		//setisLoggedIn(false);
-        openModalLoad();
-		const res = await axios.post(process.env.REACT_APP_API_URL, fd);
-        closeModalLoad();
-		console.log(res.data);  
-        if(res.data[0].comentario != undefined && res.data[0].comentario != "undefined"){
-            setComentarios(res.data[0].comentario);
-        }else{
-            setComentarios("");
-        }
-        setCalleNumero(res.data[0].calle_numero);
-        setColonia(res.data[0].colonia); 
-		setCodigoPostal(res.data[0].codigo_postal); 
-		//console.log(res.data); 
-	}
-/*
-    function validarDia(fecha){
-        var hoy = new Date()
-        var fechaHoy = hoy.getFullYear() + '-' + ('0' + (hoy.getMonth() + 1)).slice(-2) + '-' + ('0' + hoy.getDate()).slice(-2) ;
-        if(fecha==fechaHoy){
-            var horaValida = validarHora(document.getElementById("HoraPedido").value);
-            if(horaValida == true){
-                return true;
-            }else{
-                return false;
-            } 
-        }else if(fecha>fechaHoy){ 
-            return true;
-        }else{
-            return false;
-        }
-    }*/
     function validarHorarioAtencion(hora){
         if(hora>= "06:00" && hora <= "19:00" ){
             return true;
@@ -178,123 +230,7 @@ function Direcciones(props){
         fd.append("id", "altaDireccion")  
         fd.append("identificadorexterno", props.numero_consumidor) //props.identificador_externo 
     }
- 
-/*
-    async function altaPedido(){  
-        var fechaValida = validarDia(document.getElementById("FechaPedido").value);
-        var horaAtencion = validarHorarioAtencion(document.getElementById("HoraPedido").value);
-        var domingo = validarDomingo(document.getElementById("FechaPedido").value);
-
-        if(fechaValida == false){
-            //alert("fecha invalida o anterior a la hora actual para el mismo dia");
-            //modal fecha invalida
-            setMensajeError("No se puede programar pedido para un día y/o hora anterior al actual");
-            openModalE();
-            
-            
-        }
-        if(horaAtencion == false){
-            //alert("fuera del horario de atencion");
-            setMensajeError("No se puede programar pedido fuera del horario de atención");
-            openModalE();
-            //modal hora fuera del horario de atencion
-        }
-
-        if(domingo == true){
-            //alert("fuera del horario de atencion");
-            setMensajeError("No se puede programar pedido para día domingo");
-            openModalE();
-            //modal hora fuera del horario de atencion
-        }
-
-        if(fechaValida == true && horaAtencion == true && domingo == false){ 
-            let cantidadServicio = 1;
-            
-
-            let pesos = document.getElementById("tipopesos");
-            let litros = document.getElementById("tipolitros"); 
-            var cantidad = 0;
-            if(pesos.checked){ 
-                 cantidad = document.getElementById("inputpesos").value;
-                 cantidad = (cantidad / props.PrecioGas).toFixed(2);
-                            }
-            if(litros.checked){
-                cantidad = document.getElementById("inputlitros").value;
-            }
-
-            if(cantidad == "" || cantidad == undefined){
-                
-            }else{ 
-                cantidadServicio = cantidad;
-            }
-             // alert(cantidadServicio);
-           let fd = new FormData()   
-            fd.append("id", "altaPedido")  
-            fd.append("identificadorexterno", props.numero_consumidor) //props.identificador_externo 
-            fd.append("fecha", document.getElementById("FechaPedido").value)  
-            fd.append("hora", document.getElementById("HoraPedido").value)  
-            fd.append("comentarios", Comentarios)  
-            fd.append("cantidad", cantidadServicio)  
-            fd.append("consumidor_id", props.numero_consumidor)  
-            fd.append("rutaid", "0")
-            fd.append("correo", "0")
-            fd.append("nombres", props.nombres)
-            fd.append("apellidos", props.apellidos)
-            fd.append("telefono", "0")
-            fd.append("importe", Importe)
-            openModalLoad();
-            const res = await axios.post(process.env.REACT_APP_API_URL, fd)
-            .catch(function (error) {
-                if (error.response) {  
-                  notify("Error de conexión, vuelva a intentarlo");
-                } else if (error.request) { 
-                  notify("Error de conexión, vuelva a intentarlo");
-                } else { 
-                  notify("Error de conexión, vuelva a intentarlo");
-                }
-              });
-            closeModalLoad();
-            //console.log(res.data);
-            var json = JSON.parse(JSON.stringify(res.data));
-            //alert(String(json[0].pedidopendiente).length);
-            
-            
-             if (json.folio!= undefined){
-                setMensaje("folio: "+json.folio + " cantidad: "+json.cantidad+ " estatus: "+json.estatus);
-                openModal();
-                
-                
-                
-            }else{ 
-                openModalE();
-                setMensajeError("Error"); 
-                if(String(json[0].pedidopendiente).length > 1){
-                    if(window.confirm("pedido pendiente editar fecha y hora folio: "+json[0].pedidopendiente) == true) {
-                        props.unmount("EditarPedido", json[0].pedidopendiente); 
-                      }  
-                      return;
-                }  
-                
-            } 
-            //console.log(json.folio); 
-        }
-	}
-    */
-/*
-    function currentDate(){ 
-        var hoy = new Date()
-        hoy.setMinutes ( hoy.getMinutes() + 30 ); 
-        var fecha = hoy.getFullYear() + '-' + ('0' + (hoy.getMonth() + 1)).slice(-2) + '-' + ('0' + hoy.getDate()).slice(-2) ;
-         var hora = ('0' + (hoy.getHours())).slice(-2) + ':' + ('0' + (hoy.getMinutes())).slice(-2);
-      // console.log(hora);
-        document.getElementById("FechaPedido").value = fecha;
-        document.getElementById("HoraPedido").value = hora; 
-
-	}
-*/
-    
-
-    
+     
 
     function tipoPedido(){
         let pesos = document.getElementById("tipopesos");
@@ -327,18 +263,16 @@ function Direcciones(props){
         document.getElementById('FechaPedido').value = fecha_hora;
         console.log(fecha_hora);
     }
-    /*
-    function disabledInput(){
-        notify("No es posible modificar esta información en este apartado, favor de ingresar a la sección de usuario para actualizar sus datos");
-    }
-    */
-
-   //const[fecha_hora, setHoraFecha] = useState(); 
 
     return(
+        
        <div style={{width:'100%'}}>
-        {props.numero_consumidor}
-         <Navbar titulo="Direcciones" cambiarSelected={props.unmount} /> 
+        {(props.iddireccion)?
+         <Navbar titulo="Editar dirección" cambiarSelected={props.unmount} />
+         :
+         <Navbar titulo="Nueva dirección" cambiarSelected={props.unmount} />
+         }
+        
         <div  style={{margin: 'auto', width:'80%' , height: '100vh', backgroundImage: Backgroundgas}} align="center"> 
 
           <FadeIn>
@@ -347,7 +281,7 @@ function Direcciones(props){
                 <br></br>
                 <div>
                       <h3 class="idLabel">Dirección actual</h3>
-                      <label  class="idLabel" style={{textAlign:'left'}}>{Colonia}</label>
+                      <label  class="idLabel" style={{textAlign:'left'}}>{colonia}</label>
                       <br></br>
                       </div>
                
@@ -359,7 +293,7 @@ function Direcciones(props){
                             <Input className='input' type="text" 
 												placeholder='Colonia' 
 												style={{width:'100%', inlineStyle}}
-                                                defaultValue={Colonia}
+                                                defaultValue={colonia}
                                                 onChange={e => setColonia(e.target.value)}
 											/>
                             
@@ -369,7 +303,7 @@ function Direcciones(props){
                            <Input type="text" 
 												placeholder='Código Postal'
 												style={{width:'100%',  backgroundColor: '#0071ce'}}
-                                                defaultValue={CodigoPostal}
+                                                defaultValue={codigoPostal}
                                                 onChange={e => setCodigoPostal(e.target.value)}
 											/>
                                             {/**
@@ -381,7 +315,7 @@ function Direcciones(props){
                     <Input type="text" 
 												placeholder='Calle/Numero' 
 												style={{width:'100%'}}
-                                                defaultValue={CalleNumero}
+                                                defaultValue={calleNumero}
                                                 onChange={e => setCalleNumero(e.target.value)}
 											/>
                     <div style={{display:'flex',flexDirection:'column' }}>
@@ -389,35 +323,37 @@ function Direcciones(props){
                                 <select
                                   id="form-tanque"
                                   style={{ width: '100%' }}
-                                  value={Ciudad}
+                                  value={ciudad}
                                   onChange={e => setCiudad(e.target.value)}
                                 > 
                                   <option value="MAZATLÁN">MAZATLÁN</option>
                                   <option value="VILLA UNIÓN">VILLA UNIÓN </option>
                                   <option value="AGUA VERDE">AGUA VERDE</option>
                                   <option value="AGUA CALIENTE DE GÁRATE">AGUA CALIENTE DE GÁRATE</option>
+                                  <option value="ROSARIO">ROSARIO</option>
                                 </select>
                                 </div>
                 
                     
                     <br></br>
                     <br></br>
-                    <label class="idLabel">Calle y Número</label> 
-                    <br></br>
-                    <br></br>
                     <div style={{justifyContent: 'space-between', columnGap:'0.875rem', width:'100%', display:'flex', flexDirection:'row'}}> 
                     <div style={{width:'50%'}} align="center"> 
-                    <button className="buttonVerde" style={{width:'100%', fontWeight: 'bold'}} onClick={() => { Seleccionar();}}>Regresar</button>
+                    <button className="buttonVerde" style={{width:'100%', fontWeight: 'bold'}} onClick={() => {  props.unmount("LibretaDirecciones");}}>Regresar</button>
                     </div>
-                    <div style={{width:'50%'}} align="center"> 
-                        <button type='submit' onClick={() => altaDireccion()} className='button' style={{ fontWeight: 'bold', width:'100%'}}>Añadir dirección</button>
+                    <div style={{width:'50%'}} align="center">
+                    {(props.iddireccion)?
+                        <button type='submit' onClick={() => actualizarDirecciones()} className='button' style={{ fontWeight: 'bold', width:'100%'}}>Actualizar</button>
+                            :
+                        <button type='submit' onClick={() => addDirecciones()} className='button' style={{ fontWeight: 'bold', width:'100%'}}>Agregar</button>
+                    } 
                         </div>
                     </div>                    
                     <br></br>
   
               
             </div>
-
+            
             <ModalCarga modalIsOpenLoad={modalIsOpenLoad} closeModalLoad={closeModalLoad}/>
 
                 <Modal 
@@ -454,8 +390,3 @@ function Direcciones(props){
 }
 
 export default Direcciones;
-
-/**
- * 
- * <label style={{TextColor:'red'}}>*</label>
-*/
