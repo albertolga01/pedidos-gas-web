@@ -44,6 +44,8 @@ export default function SideMenu(props) {
   
     const[PrecioGas, setPrecioGas] = useState(); 
     const[idDireccion, setIdDireccion] = useState(); 
+    const [idTest, setTest] = useState([]);
+    const [direccion, setDireccion] = useState([]);
 
     function close(selected){
         setSelect(selected);
@@ -69,9 +71,12 @@ export default function SideMenu(props) {
 
     
 
-    function cambiarSelected(selected, iddireccion){ 
+    function cambiarSelected(selected, iddireccion, test, direccion){ 
         setIdDireccion(iddireccion)
+        setTest(test)
         close(selected);  
+        setDireccion(direccion);  
+
     }
 
     function cambiarSelectedEditar(selected, folio_pedido){ 
@@ -92,7 +97,7 @@ export default function SideMenu(props) {
     const Element = () => {
 
           if (selected === 'NuevoPedido') {
-            return <NuevoPedido PrecioGas={PrecioGas} unmount={cambiarSelectedEditar} correo={props.correo} telefono={props.telefono} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo}  />;
+            return <NuevoPedido direccion={direccion} PrecioGas={PrecioGas} unmount={cambiarSelectedEditar} unmount1={cambiarSelected} correo={props.correo} telefono={props.telefono} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo}  />;
         } else if (selected === 'Usuario') {
             return <Usuario unmount={cambiarSelected}  nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo} />;
         }else if (selected === 'Novedades') {
@@ -122,7 +127,7 @@ export default function SideMenu(props) {
         }else if (selected === 'Direcciones') {
             return <Direcciones  iddireccion={idDireccion}  unmount={cambiarSelected} correo={props.correo} telefono={props.telefono} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo}  />;
         }else if (selected === 'LibretaDirecciones') {
-            return <LibretaDirecciones iddireccion={idDireccion} unmount={cambiarSelected} correo={props.correo} telefono={props.telefono} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo}  />;
+            return <LibretaDirecciones test={idTest} unmount={cambiarSelected} correo={props.correo} telefono={props.telefono} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo}  />;
         }else {
             return (<div style={{ width: '100%', textAlign: 'center', backgroundColor: '', margin: 'auto' }}><h1>Error al Cargar</h1></div>);
         } 

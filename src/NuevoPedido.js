@@ -63,11 +63,17 @@ function NuevoPedido(props){
     const [modalIsOpenE, setIsOpenE] = React.useState(false);
     const[Mensaje, setMensaje] = useState(); 
     const[MensajeError, setMensajeError] = useState(); 
+    const [selectedDireccionInfo, setSelectedDireccionInfo] = useState({
+        Colonia: "",
+        CodigoPostal: "",
+        CalleNumero: "",
+      });
  
 	useEffect(() => {
         obtenerConsumidor();
         currentDate();
-	},[])
+        console.log(props.direccion)
+    }, []);
   
 
     function openModalLoad() { 
@@ -108,25 +114,31 @@ function NuevoPedido(props){
     }
   
 
-    async function obtenerConsumidor(){    
-		let fd = new FormData()   
-		fd.append("id", "obtenerConsumidor")  
-		fd.append("folioconsumidor", props.numero_consumidor) 
-		//setisLoggedIn(false);
-        openModalLoad();
-		const res = await axios.post(process.env.REACT_APP_API_URL, fd);
-        closeModalLoad();
-		console.log(res.data);  
-        if(res.data[0].comentario != undefined && res.data[0].comentario != "undefined"){
+    async function obtenerConsumidor() {
+        if (props.direccion != undefined) {
+      
+          setColonia(props.direccion.Colonia);
+          setCalleNumero(props.direccion.CalleNumero);
+          setCodigoPostal(props.direccion.CodigoPostal);
+        } else {
+          // Fetch data from the server if address information is not available
+          let fd = new FormData();
+          fd.append("id", "obtenerConsumidor");
+          fd.append("folioconsumidor", props.numero_consumidor);
+          openModalLoad();
+          const res = await axios.post(process.env.REACT_APP_API_URL, fd);
+          closeModalLoad();
+          console.log(res.data);
+          if (res.data[0].comentario !== undefined && res.data[0].comentario !== "undefined") {
             setComentarios(res.data[0].comentario);
-        }else{
+          } else {
             setComentarios("");
+          }
+          setCalleNumero(res.data[0].calle_numero);
+          setColonia(res.data[0].colonia);
+          setCodigoPostal(res.data[0].codigo_postal);
         }
-        setCalleNumero(res.data[0].calle_numero);
-        setColonia(res.data[0].colonia); 
-		setCodigoPostal(res.data[0].codigo_postal); 
-		//console.log(res.data); 
-	}
+      }
 
     function validarDia(fecha){
         var hoy = new Date()
@@ -338,14 +350,17 @@ function NuevoPedido(props){
                
                 <br></br>
                 <br></br>
+                <div style={{display:'flex', justifyContent: 'flex-end'}}>
+                    <span style={{ margin:'0 0 8px 0', textAlign: 'right', fontSize: '18px', color: 'white'}} onClick={() => {  props.unmount1("LibretaDirecciones", "", "1")}}>Cambiar Direccion</span>
+                </div>
                       <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'6%' }}>
                          <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
                             <label class="idLabel">Colonia</label>
                             <Input readOnly={true}  className='input' onClick={() => disabledInput()} type="text" 
 												placeholder='Colonia' 
 												style={{width:'100%', inlineStyle}}
-                                                defaultValue={Colonia}
-                                                onChange={e => setColonia(e.target.value)}
+                                                value={Colonia}
+                                                onChange={(e) => setSelectedDireccionInfo((prev) => ({ ...prev, Colonia: e.target.value }))}  
 											/>
                             {/*
                             <input type='text' class="idInput" onChange={e => setColonia(e.target.value)} defaultValue={Colonia}></input><br></br>

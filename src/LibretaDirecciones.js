@@ -49,20 +49,57 @@ function LibretaDirecciones(props){
 ////////////////////////////////////////////////// 
     const[direcciones, setDirecciones] = useState([]);
     const[Colonia, setColonia] = useState();
+    const[Ciudad, setCiudad] = useState();
+    const[CodigoPostal, setCodigoPostal] = useState(); 
+    const[CalleNumero, setCalleNumero] = useState();
 
     const [modalIsOpenLoad, setIsOpenLoad] = React.useState(false);
 
     const [modalIsOpen, setIsOpen] = React.useState(false);
     const [modalIsOpenE, setIsOpenE] = React.useState(false);
     const[Mensaje, setMensaje] = useState(); 
-    const[MensajeError, setMensajeError] = useState(); 
+    const[MensajeError, setMensajeError] = useState();
+    const [selectedDireccion, setSelectedDireccion] = useState({
+      id: null,
+      type: null,
+    });
+   
+    const selectMainDireccion = () => {
+      console.log("Selecting main address");
+      setSelectedDireccion({
+        id: null, 
+        type: "main",
+      });
+    };
+
+    const selectSecondaryDireccion = (direccionId) => {
+      console.log("Selecting secondary address", direccionId);
+      setSelectedDireccion({
+        id: direccionId,
+        type: "secondary",
+      });
+    };
 
  
-	useEffect(() => {
-        obtenerDirecciones();
-        //currentDate();
-	},[])
-  
+
+ 
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          openModalLoad();
+    
+          await obtenerConsumidor();
+          await obtenerDirecciones();
+    
+        } catch (error) {
+          console.error("Error:", error);
+        } finally {
+          closeModalLoad();
+        }
+      };
+    
+      fetchData();
+    }, []);
 
     function openModalLoad() { 
 		setIsOpenLoad(true); 
@@ -92,8 +129,24 @@ function LibretaDirecciones(props){
 		setIsOpenE(false); 
 	}
 
-    function Seleccionar(){  
+    function Regresar(){  
         props.unmount("MenuPrincipal");   
+    }
+
+
+    async function obtenerConsumidor(){    
+      let fd = new FormData()   
+      fd.append("id", "obtenerConsumidor")  
+      fd.append("folioconsumidor", props.numero_consumidor) 
+      //setisLoggedIn(false);
+          openModalLoad();
+      const res = await axios.post(process.env.REACT_APP_API_URL, fd);
+          closeModalLoad();
+      console.log(res.data);
+          setCalleNumero(res.data[0].calle_numero);
+          setColonia(res.data[0].colonia);
+          setCiudad(res.data[0].ciudad);
+          setCodigoPostal(res.data[0].codigo_postal);
     }
   
 
@@ -136,44 +189,120 @@ function LibretaDirecciones(props){
     toast(message);
 }
 
+function Seleccionar(elemento){  
+  props.unmount(elemento);   
+}
+
+function Choose() {
+  let selectedDireccionInfo;
+
+  if (selectedDireccion.id === null) {
+    selectedDireccionInfo = {
+      Colonia: Colonia,
+      CodigoPostal: CodigoPostal,
+      CalleNumero: CalleNumero,
+    };
+  } else {
+    let direccion = direcciones.find(item => item.id === selectedDireccion.id);
+    selectedDireccionInfo = {
+      Colonia: direccion.colonia,
+      CodigoPostal: direccion.codigop,
+      CalleNumero: direccion.calle_numero,
+    };
+  }
+
+  console.log("Selected Address Info:", selectedDireccionInfo);
+  props.unmount("NuevoPedido", "", "", selectedDireccionInfo);
+}
+
+
+
+
+
+
     return(
        <div style={{width:'100%'}}> 
          <Navbar titulo="Libreta de Direcciones" cambiarSelected={props.unmount} /> 
         <div  style={{margin: 'auto', width:'80%' , height: '100vh', backgroundImage: Backgroundgas}} align="center"> 
 
           <FadeIn>
-            
+         
                 <div style={{ display: 'flex', flexDirection: 'column', width: '100%'}} align="center">
                 <br></br>
                 <div>
-                      <h3 class="idLabel">Dirección actual</h3>
-                      <label  class="idLabel" style={{textAlign:'left'}}>{Colonia}</label>
-                      <br></br>
+                      <h3 class="idLabel">Dirección principal</h3>
+                      <label style={{ ...(props.test ? { cursor: 'pointer'} : { }) }}>
+                      <div style={{ border: '1px solid black', backgroundColor: 'rgba(255, 255, 255, 0.5)', fontSize: '20px',
+                      display: 'flex', padding: '20px', justifyContent: 'space-between', margin: '0 0 12px 0',
+                      ...(props.test ? { flexDirection: 'row-reverse', alignItems: 'center', } : { flexDirection: 'column' })}}>
+                      {(props.test &&
+                        <input type="radio" checked={selectedDireccion.type === "main"} onChange={selectMainDireccion} />
+                      )}
+                      <div style={{ textAlign: 'left', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                        <span style={{ margin: '0 0 8px 0' }}>{CalleNumero}</span>
+                        <span style={{ margin: '0 0 8px 0' }}>{Colonia}</span>
+                        <span style={{ margin: '0 0 8px 0' }}>{CodigoPostal}</span>
+                        <span style={{ margin: '0 0 8px 0' }}>{Ciudad}</span>
                       </div>
-               
-                <br></br> 
+                      {(!props.test &&
+                        <div style={{ display: 'flex', justifyContent: 'flex-end', columnGap: '18px', margin: '10px 0 0' }}>
+                          <span style={{ margin: '0 0 8px 0', textAlign: 'right', fontSize: '18px' }} onClick={() => { Seleccionar("Usuario") }}>Editar</span>
+                          <span style={{ margin: '0 0 8px 0', textAlign: 'right', fontSize: '18px' }} onClick={() => bajaDireccion()}>Eliminar</span>
+                        </div>
+                      )}
+                    </div>
+                    </label>
+                      </div>
+
+                <h4 class="idLabel">Direcciónes secundarias</h4>
                 { direcciones.map(item => ( 
-                     <div style={{ border: '1px solid black', backgroundColor: 'rgba(255, 255, 255, 0.5)', fontSize: '20px', display: 'flex', padding: '20px', flexDirection:'column',
-                     textAlign: 'left', margin: '0 0 12px 0'}} > 
+                  <label key={item.id} style={{ ...(props.test ? { cursor: 'pointer'} : { }) }}>
+                     <div key={item.id} style={{ border: '1px solid black', backgroundColor: 'rgba(255, 255, 255, 0.5)', fontSize: '20px', display: 'flex', padding: '20px',
+                     textAlign: 'left', margin: '0 0 12px 0', justifyContent: 'space-between',
+                      ...(props.test ? { flexDirection: 'row-reverse', alignItems: 'center', } : { flexDirection: 'column' })}}>
+                      {(props.test &&
+                        <input
+                          type="radio"
+                          checked={selectedDireccion.type === "secondary" && selectedDireccion.id === item.id}
+                          onChange={() => selectSecondaryDireccion(item.id)
+                          }
+                     />
+                      )} 
+                      <div style={{ textAlign: 'left', flex: 1, display: 'flex', flexDirection: 'column' }}>
                          <span style={{ margin:'0 0 8px 0'}}>{item.calle_numero}</span> 
                          <span style={{ margin:'0 0 8px 0'}}>{item.colonia}</span> 
                          <span style={{ margin:'0 0 8px 0'}}>{item.codigop}</span> 
                          <span style={{ margin:'0 0 8px 0'}}>{item.ciudad}</span>
+                         </div>
+                         {(!props.test &&
                          <div style={{ display: 'flex', justifyContent: 'flex-end', columnGap: '18px', margin: '10px 0 0' }}>
                           <span style={{ margin:'0 0 8px 0', textAlign: 'right', fontSize: '18px'}} onClick={() => {  props.unmount("Direcciones", item.id)}}>Editar</span>
                           <span style={{ margin:'0 0 8px 0', textAlign: 'right', fontSize: '18px'}} onClick={() => bajaDireccion(item.id)}>Eliminar</span>
-                         </div>  
+                         </div> 
+                         )} 
                      </div> 
-                 
+                    
+                    </label>
                   ))}	
-             
+              
                     <div style={{justifyContent: 'space-between', columnGap:'0.875rem', width:'100%', display:'flex', flexDirection:'row'}}> 
                     <div style={{width:'50%'}} align="center"> 
-                    <button className="buttonVerde" style={{width:'100%', fontWeight: 'bold'}} onClick={() => { Seleccionar();}}>Regresar</button>
+                    {!props.test ? (
+                        <button className="buttonVerde" style={{width:'100%', fontWeight: 'bold'}} onClick={() => { Regresar();}}>Regresar</button>
+                    ) : (
+                        <button className="buttonVerde" style={{width:'100%', fontWeight: 'bold'}} onClick={() => {  props.unmount("NuevoPedido");}}>Regresar</button>
+                    )}
                     </div>
                     <div style={{width:'50%'}} align="center"> 
+                    {!props.test ? (
                         <button type='submit' onClick={() => {  props.unmount("Direcciones")}} className='button' style={{ fontWeight: 'bold', width:'100%'}}>Añadir dirección</button>
-                        </div>
+                        ) : (
+                        <button type='submit' onClick={() => {
+                          
+                          Choose();
+                        }} className='button' style={{ fontWeight: 'bold', width:'100%'}}>Seleccionar</button>
+                      )}
+                      </div> 
                     </div>                    
                     <br></br>
   
