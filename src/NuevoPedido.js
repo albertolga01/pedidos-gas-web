@@ -51,6 +51,7 @@ function NuevoPedido(props){
 ////////////////////////////////////////////////// 
     const[Comentarios, setComentarios] = useState();
     const[CalleNumero, setCalleNumero] = useState();
+    const[Ciudad, setCiudad] = useState();
     const[Colonia, setColonia] = useState();
     const[Cantidad, setCantidad] = useState();
     const[Importe, setImporte] = useState();
@@ -67,6 +68,7 @@ function NuevoPedido(props){
         Colonia: "",
         CodigoPostal: "",
         CalleNumero: "",
+        Ciudad:""
       });
  
 	useEffect(() => {
@@ -120,6 +122,7 @@ function NuevoPedido(props){
           setColonia(props.direccion.Colonia);
           setCalleNumero(props.direccion.CalleNumero);
           setCodigoPostal(props.direccion.CodigoPostal);
+          setCiudad(props.direccion.Ciudad);
         } else {
           // Fetch data from the server if address information is not available
           let fd = new FormData();
@@ -137,6 +140,7 @@ function NuevoPedido(props){
           setCalleNumero(res.data[0].calle_numero);
           setColonia(res.data[0].colonia);
           setCodigoPostal(res.data[0].codigo_postal);
+          setCiudad(res.data[0].ciudad);
         }
       }
 
@@ -247,6 +251,10 @@ function NuevoPedido(props){
             fd.append("nombres", props.nombres)
             fd.append("apellidos", props.apellidos)
             fd.append("telefono", "0")
+            fd.append("colonia", Colonia)
+            fd.append("calle_numero", CalleNumero)
+            fd.append("codigo_postal", CodigoPostal)
+            fd.append("ciudad", Ciudad)
             fd.append("importe", Importe)
             openModalLoad();
             const res = await axios.post(process.env.REACT_APP_API_URL, fd)
@@ -388,7 +396,15 @@ function NuevoPedido(props){
 											/>
                 {/*    <input type='text' class="idInput" onChange={e => setCalleNumero(e.target.value)} defaultValue={CalleNumero}></input><br></br>
                     
-                    */}<div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'20px' }}>
+                    */}
+                    <label class="idLabel">Ciudad</label> 
+                    <Input readOnly={true}  onClick={() => disabledInput()}  type="text" 
+												placeholder='Ciudad' 
+												style={{width:'100%'}}
+                                                defaultValue={Ciudad}
+                                                onChange={e => setCiudad(e.target.value)}
+											/>
+                    <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'20px' }}>
                          <div style={{display:'flex',flexDirection:'column', width:'50%' }}>
                             <label class="idLabel">Fecha:</label>
 	                        <input id="FechaPedido" class="idInput"   style={{width:'100%', marginTop:'5px'}} type="date"/><br></br>

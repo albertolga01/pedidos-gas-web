@@ -12,6 +12,8 @@ import ErrorImg from './resources/error.svg'
 import { ModalCarga } from "./component/ModalCarga";
 import { Input } from 'semantic-ui-react' 
 import { ToastContainer, toast } from 'react-toastify';
+import { FaEdit } from "react-icons/fa";
+import { MdDeleteForever } from "react-icons/md";
 
  
 
@@ -201,6 +203,7 @@ function Choose() {
       Colonia: Colonia,
       CodigoPostal: CodigoPostal,
       CalleNumero: CalleNumero,
+      Ciudad: Ciudad,
     };
   } else {
     let direccion = direcciones.find(item => item.id === selectedDireccion.id);
@@ -208,6 +211,7 @@ function Choose() {
       Colonia: direccion.colonia,
       CodigoPostal: direccion.codigop,
       CalleNumero: direccion.calle_numero,
+      Ciudad: direccion.ciudad,
     };
   }
 
@@ -246,8 +250,8 @@ function Choose() {
                       </div>
                       {(!props.test &&
                         <div style={{ display: 'flex', justifyContent: 'flex-end', columnGap: '18px', margin: '10px 0 0' }}>
-                          <span style={{ margin: '0 0 8px 0', textAlign: 'right', fontSize: '18px' }} onClick={() => { Seleccionar("Usuario") }}>Editar</span>
-                          <span style={{ margin: '0 0 8px 0', textAlign: 'right', fontSize: '18px' }} onClick={() => bajaDireccion()}>Eliminar</span>
+                          <span style={{ margin: '0 0 8px 0', textAlign: 'right', fontSize: '18px', display:'flex', alignItems: 'center' }} onClick={() => { Seleccionar("Usuario") }}><FaEdit />Editar</span>
+                          <span style={{ margin: '0 0 8px 0', textAlign: 'right', fontSize: '18px', display:'flex', alignItems: 'center' }} onClick={() => bajaDireccion()}><MdDeleteForever />Eliminar</span>
                         </div>
                       )}
                     </div>
@@ -276,8 +280,8 @@ function Choose() {
                          </div>
                          {(!props.test &&
                          <div style={{ display: 'flex', justifyContent: 'flex-end', columnGap: '18px', margin: '10px 0 0' }}>
-                          <span style={{ margin:'0 0 8px 0', textAlign: 'right', fontSize: '18px'}} onClick={() => {  props.unmount("Direcciones", item.id)}}>Editar</span>
-                          <span style={{ margin:'0 0 8px 0', textAlign: 'right', fontSize: '18px'}} onClick={() => bajaDireccion(item.id)}>Eliminar</span>
+                          <span style={{ margin:'0 0 8px 0', textAlign: 'right', fontSize: '18px', display:'flex', alignItems: 'center'}} onClick={() => {  props.unmount("Direcciones", item.id)}}><FaEdit />Editar</span>
+                          <span style={{ margin:'0 0 8px 0', textAlign: 'right', fontSize: '18px', display:'flex', alignItems: 'center'}} onClick={() => bajaDireccion(item.id)}><MdDeleteForever />Eliminar</span>
                          </div> 
                          )} 
                      </div> 
