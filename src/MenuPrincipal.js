@@ -114,11 +114,11 @@ function MenuPrincipal(props){
         setIsViewerOpen(false); 
     }; 
     const images = [ 
-        process.env.REACT_APP_URL+"/images/Anuncios-Aplicacion-02.png", 
-        process.env.REACT_APP_URL+"/images/Anuncios-Aplicacion-02.png", 
-        process.env.REACT_APP_URL+"/images/Anuncios-Aplicacion-04.png" 
+        process.env.REACT_APP_URL+"/images/Banner-APPPetromarGAS-01.png", 
+        process.env.REACT_APP_URL+"/images/Banner-APPPetromarGAS-02.png", 
+        process.env.REACT_APP_URL+"/images/Banner-APPPetromarGAS-03.png" 
     ];
-
+    
     const imgRef = useRef();
 
     const onUpdate = useCallback(({ x, y, scale }) => {
@@ -226,9 +226,9 @@ function MenuPrincipal(props){
         const [isViewerOpen, setIsViewerOpen] = useState(false);
       
         const images = [
-          process.env.REACT_APP_URL + '/images/Anuncios-Aplicacion-02.png',
-          process.env.REACT_APP_URL + '/images/Anuncios-Aplicacion-03.png',
-          process.env.REACT_APP_URL + '/images/Anuncios-Aplicacion-04.png',
+          process.env.REACT_APP_URL + '/images/Banner-APPPetromarGAS-01.png',
+          process.env.REACT_APP_URL + '/images/Banner-APPPetromarGAS-02.png',
+          process.env.REACT_APP_URL + '/images/Banner-APPPetromarGAS-03.png',
           // Add more image URLs as needed
         ];
       
@@ -349,7 +349,7 @@ function MenuPrincipal(props){
                     <div>
                     <Carousel autoPlay interval={5000} showThumbs={false}>
                     {images.map((imageUrl, index) => (
-                        <div key={index} onClick={() => setIsViewerOpen(true)}>
+                        <div key={index} >
                             <img src={imageUrl} style={{ maxWidth: '700px', cursor: 'pointer' }} alt={`Image ${index + 1}`} />
                         </div>
                     ))}
