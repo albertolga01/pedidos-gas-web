@@ -123,30 +123,30 @@ function unmountPasarela(){
 					</>
         :
        
-        <div  style={{margin: 'auto', width:'80%', height: '100vh'}} align="center"> 
+        <div  style={{margin: 'auto', width:'90%', height: '100vh'}} align="center"> 
              <FadeIn><div style={{width:'100%'}} align="center">
             </div> <br></br><br></br><br></br>
             
             
             <div  style={{height:'100%', overflowY: 'scroll', width:'100%'}}>
 					<table  style={{width:'100%'}}>
-						<tr>
-							<th style={{color:'white'}}>Folio</th>
-							<th style={{color:'white'}}>Fecha</th>
-							<th style={{color:'white'}}>Litros</th>
-							<th style={{color:'white'}}>Importe</th> 
-							<th style={{color:'white'}}>Estatus</th> 
-							<th style={{color:'white'}} hidden>Pagar</th> 
+						<tr style={{backgroundColor: 'rgba(255, 255, 255, 0.5)'}}>
+							<th style={{color:'white', padding:'2px 10px 2px 0'}}>Folio</th>
+							<th style={{color:'white', padding:'2px 10px'}}>Fecha</th>
+							<th style={{color:'white', padding:'2px 10px'}}>Litros</th>
+							<th style={{color:'white', padding:'2px 10px'}}>Importe</th> 
+							<th style={{color:'white', padding:'2px 10px'}}>Estatus</th> 
+							<th style={{color:'white', padding:'2px 0 2px 10px'}} hidden>Pagar</th> 
 							 
 						</tr>
 
 						 { lista.map(item => ( 
 						<tr id="tabletr" style={{  fontSize:'18.5px', border: 'px solid #ABB2B9'}}>
-							<td style={{color:'white', textAlign:'center', padding:'10px' }}>{item.foliopedido}</td>   
-							<td style={{color:'white', textAlign:'center' }}> {formatDate(item.fechahorapedido)}</td>
-							<td style={{color:'white', textAlign:'center' }}> {item.litros + " L"}</td>
-							<td style={{color:'white', textAlign:'center' }}> {FormatNumber(item.monto)}</td>
-							<td style={{color:'white', textAlign:'center', padding:'5px' }}> {item.estatus_pedido}</td>
+							<td style={{color:'white', textAlign:'center', padding:'2px 10px 2px 0' }}>{item.foliopedido}</td>   
+							<td style={{color:'white', textAlign:'center', padding:'2px 10px' }}> {formatDate(item.fechahorapedido)}</td>
+							<td style={{color:'white', textAlign:'center', padding:'2px 10px' }}> {item.litros + " L"}</td>
+							<td style={{color:'white', textAlign:'center' , padding:'2px 10px'}}> {FormatNumber(item.monto)}</td>
+							<td style={{color:'white', textAlign:'center', padding:'2px 0 2px 5px' }}> {item.estatus_pedido}</td>
 							<td style={{color:'white', textAlign:'center' }} hidden> <button id="form-btn" className='buttonLogin' style={{margin:'5px', width: '80px', color:'white'}} onClick={() => cambiarSelected4(item.monto)}>PAGAR</button>  </td>
 							 
 							  
