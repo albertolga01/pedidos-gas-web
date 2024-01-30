@@ -224,6 +224,8 @@ function NuevoPedido(props){
             let pesos = document.getElementById("tipopesos");
             let litros = document.getElementById("tipolitros"); 
             var cantidad = 0;
+            var inputElementId = document.getElementById("tipopesos").checked ? "inputpesos" : "inputlitros";
+            var testing = document.getElementById(inputElementId).value;
             if(pesos.checked){ 
                  cantidad = document.getElementById("inputpesos").value;
                  cantidad = (cantidad / props.PrecioGas).toFixed(2);
@@ -232,8 +234,9 @@ function NuevoPedido(props){
                 cantidad = document.getElementById("inputlitros").value;
             }
 
-            if(cantidad == "" || cantidad == undefined){
-                
+            if(cantidad == "" || cantidad == undefined || testing == "" || testing == undefined){
+                notify("Seleccione e ingrese un importe o cantidad");
+                return false;
             }else{ 
                 cantidadServicio = cantidad;
             }
