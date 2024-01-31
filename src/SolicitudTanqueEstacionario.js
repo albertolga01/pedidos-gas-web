@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import './App.css'; 
-import Modal from 'react-modal';
+//import Modal from 'react-modal';
 import { ThreeDots } from  'react-loader-spinner' 
 import {Navbar} from './component/Navbar';  
 import Backgroundgas from './component/Background-gas.png'
@@ -13,6 +13,12 @@ import { ModalCarga } from "./component/ModalCarga";
 import { Input } from 'semantic-ui-react' 
 import { ToastContainer, toast } from 'react-toastify';
 import { SliderThumb } from "@mui/material";
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import { IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
  
 
 const customStyles = { 	
@@ -74,12 +80,26 @@ function SolicitudTanqueEstacionario(props){
  const[Descripcion, setDescripcion] = useState(); 
  const[Ciudad, setCiudad] = useState(); 
  const[Email, setEmail] = useState();
+ const isMobile = window.innerWidth <= 600;
+ const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: isMobile ? '90%' : 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+  padding: '50px 10px'
+};
 
 	useEffect(() => {
         //obtenerConsumidor();
         //currentDate();
+        openModal();
 	},[])
-  
+
 
     function openModalLoad() { 
 		setIsOpenLoad(true); 
@@ -94,7 +114,6 @@ function SolicitudTanqueEstacionario(props){
 	}  
 	   
 	function closeModal() {
-        
         //re direccionar a historial   
 		setIsOpen(false); 
 	}
@@ -434,10 +453,6 @@ function SolicitudTanqueEstacionario(props){
                                         </div>
                                     </div>
                                   
-                                    
-                                    
-                                  
-        
                                 </fieldset>
                                 <br></br>
                                 <br></br>
@@ -449,10 +464,52 @@ function SolicitudTanqueEstacionario(props){
                                     <button type='submit' className='button' style={{ fontWeight: 'bold', width:'100%'}} onClick={() => {altaSolicitudTanque();}}>SOLICITAR TANQUE</button> 
                                     </div>
                                 </div> 
+                                <Modal
+                                  open={modalIsOpen}
+                                  onClose={closeModal}
+                                  aria-labelledby="modal-modal-title"
+                                  aria-describedby="modal-modal-description"
+                                >
+                                  <Box sx={style}>
+                                    {/* Close button (X) at the top right */}
+                                    <IconButton
+                                      aria-label="close"
+                                      style={{ position: 'absolute', top: 8, right: 8 }}
+                                      onClick={closeModal}
+                                    >
+                                      <CloseIcon />
+                                    </IconButton>
 
+                                    <img src={process.env.REACT_APP_URL + "/images/GASApp-Popup.gif"} style={{ width: '100%', display:'block' }} />
+
+                                    {/* Button at the bottom right */}
+                                    <Button
+                                      onClick={closeModal}
+                                      style={{ position: 'absolute', bottom: 8, right: 8 }}
+                                    >
+                                      Cerrar
+                                    </Button>
+                                  </Box>
+                                </Modal>
+
+      {/* MUI Modal for loading */}
+      <Modal
+        open={modalIsOpenLoad}
+        onClose={closeModalLoad}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Loading...
+          </Typography>
+          {/* You can add a loading indicator here if needed */}
+        </Box>
+      </Modal>
+                                
                         <br></br>
                         </div>
-                         
+                        
                         <Modal 
                         isOpen={modalIsOpen}  
                         onRequestClose={closeModal}   
