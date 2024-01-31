@@ -243,10 +243,10 @@ function Choose() {
                         <input type="radio" checked={selectedDireccion.type === "main"} onChange={selectMainDireccion} />
                       )}
                       <div style={{ textAlign: 'left', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                        <span style={{ margin: '0 0 8px 0' }}>{CalleNumero}</span>
-                        <span style={{ margin: '0 0 8px 0' }}>{Colonia}</span>
-                        <span style={{ margin: '0 0 8px 0' }}>{CodigoPostal}</span>
-                        <span style={{ margin: '0 0 8px 0' }}>{Ciudad}</span>
+                        <span style={{ margin: '0 0 8px 0' }}>Calle: {CalleNumero}</span>
+                        <span style={{ margin: '0 0 8px 0' }}>Colonia: {Colonia}</span>
+                        <span style={{ margin: '0 0 8px 0' }}>CP: {CodigoPostal}</span>
+                        <span style={{ margin: '0 0 8px 0' }}>Ciudad: {Ciudad}</span>
                       </div>
                       {(!props.test &&
                         <div style={{ display: 'flex', justifyContent: 'flex-end', columnGap: '18px', margin: '10px 0 0' }}>
@@ -273,10 +273,10 @@ function Choose() {
                      />
                       )} 
                       <div style={{ textAlign: 'left', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                         <span style={{ margin:'0 0 8px 0'}}>{item.calle_numero}</span> 
-                         <span style={{ margin:'0 0 8px 0'}}>{item.colonia}</span> 
-                         <span style={{ margin:'0 0 8px 0'}}>{item.codigop}</span> 
-                         <span style={{ margin:'0 0 8px 0'}}>{item.ciudad}</span>
+                         <span style={{ margin:'0 0 8px 0'}}>Calle: {item.calle_numero}</span> 
+                         <span style={{ margin:'0 0 8px 0'}}>Colonia: {item.colonia}</span> 
+                         <span style={{ margin:'0 0 8px 0'}}>CP: {item.codigop}</span> 
+                         <span style={{ margin:'0 0 8px 0'}}>Ciudad: {item.ciudad}</span>
                          </div>
                          {(!props.test &&
                          <div style={{ display: 'flex', justifyContent: 'flex-end', columnGap: '18px', margin: '10px 0 0' }}>

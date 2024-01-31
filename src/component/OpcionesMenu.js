@@ -21,6 +21,8 @@ import {RiWhatsappFill, RiFacebookFill, RiInstagramFill } from "react-icons/ri";
 import { IconContext } from "react-icons";
 import { push as Menu } from 'react-burger-menu'
 import { toast } from 'react-toastify';
+import { TbDirections } from "react-icons/tb";
+import { TbMessageCircleQuestion } from "react-icons/tb";
 
 export default function OpcionesMenu(props) {
 
@@ -114,7 +116,7 @@ export default function OpcionesMenu(props) {
 
                 <IconContext.Provider value={{ size: "2.5em" }}>
                 <div id="sidebtn" className='menuOption'  style={{width:'65%'}}  onClick={() => { Seleccionar("LibretaDirecciones"); }}>
-                <img style={{width:'15%'}} src={Ayuda} />
+                <TbDirections />
                     <label style={{marginLeft:'10px', fontWeight:'bold', fontSize:'15px'}}>Mis direcciones</label> 
                 </div>
                 </IconContext.Provider> 
@@ -126,7 +128,7 @@ export default function OpcionesMenu(props) {
                 </IconContext.Provider> 
                 <IconContext.Provider value={{ size: "2.5em" }}>
                 <div id="sidebtn" className='menuOption'  style={{width:'65%'}}  onClick={() => { Seleccionar("PreguntasFrecuentes"); }}>
-                <img style={{width:'15%'}} src={Ayuda} />
+                <TbMessageCircleQuestion />
                     <label style={{marginLeft:'3px', fontWeight:'bold', fontSize:'15px'}}>Preguntas Frecuentes</label> 
                 </div>
                 </IconContext.Provider> 
