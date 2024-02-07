@@ -273,7 +273,7 @@ function MenuPrincipal(props){
                     <Carousel autoPlay interval={5000} showThumbs={false}>
                     {images.map((imageUrl, index) => (
                         <div key={index} >
-                            <img src={imageUrl} style={{ maxWidth: '700px', cursor: 'pointer', height: '103px' }} alt={`Image ${index + 1}`} />
+                            <img src={imageUrl} style={{ maxWidth: '700px', cursor: 'pointer', height: '8rem' }} alt={`Image ${index + 1}`} />
                         </div>
                     ))}
                 </Carousel>
