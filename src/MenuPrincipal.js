@@ -2,7 +2,6 @@ import React from "react";
 import { useState, useEffect, useCallback, useRef } from "react";
 import axios from "axios";
 import './App.css'; 
-import Modal from 'react-modal';
 import FadeIn from 'react-fade-in'
 import nivelgaslp from './resources/nivel_gas_lp.svg'
 import GaugeChart from 'react-gauge-chart' 
@@ -17,10 +16,13 @@ import WhatsAppButtonGreenLarge from './resources/WhatsAppButtonGreenLarge.svg'
 import {Carousel} from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; 
 import ImageViewer from "react-simple-image-viewer";
-import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
-
-import QuickPinchZoom, { make3dTransformValue } from "react-quick-pinch-zoom";
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import { IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 
 const customStylesD = { 	
@@ -35,12 +37,37 @@ const customStylesD = {
 	},
   };
 
+
  
 function MenuPrincipal(props){
+
+    const isMobile = window.innerWidth <= 600;
+ const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: isMobile ? '90%' : 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+  padding: '50px 10px'
+};
+
+
 	useEffect(() => { 
+        openModal();
         obtenerSaldo();
 	},[])
 
+    function openModal() { 
+		setIsOpen(true); 
+	}  
+	   
+	function closeModal() {
+		setIsOpen(false); 
+	}
 
 	function openModalLoad() { 
 		setIsOpenLoad(true); 
@@ -266,6 +293,47 @@ function MenuPrincipal(props){
                 </div><br></br>
 
             </div>
+                                <Modal  
+                                  open={modalIsOpen}
+                                  onClose={closeModal}
+                                  aria-labelledby="modal-modal-title"
+                                  aria-describedby="modal-modal-description"
+                                >
+                                  <Box sx={style}>
+                                    
+                                    <IconButton
+                                      aria-label="close"
+                                      style={{ position: 'absolute', top: 8, right: 8 }}
+                                      onClick={closeModal}
+                                    >
+                                      <CloseIcon />
+                                    </IconButton>
+
+                                    <img src={process.env.REACT_APP_URL + "/images/GASApp-Popup.gif"} style={{ width: '100%', display:'block' }} />
+
+                                   
+                                    <Button
+                                      onClick={closeModal}
+                                      style={{ position: 'absolute', bottom: 8, right: 8 }}
+                                    >
+                                      Cerrar
+                                    </Button>
+                                  </Box>
+                                </Modal>
+
+  
+      <Modal
+        open={modalIsOpenLoad}
+        onClose={closeModalLoad}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Loading...
+          </Typography>
+        </Box>
+      </Modal>
             
                 <Modal 
 						isOpen={modalIsOpenE}  
