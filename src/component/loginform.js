@@ -19,9 +19,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Input } from 'semantic-ui-react';
 import ReactWhatsappButton from 'react-whatsapp-button';
 import SolicitudTanqueEstacionario from '../SolicitudTanqueEstacionario';
+import { Modal as MuiModal, Box, IconButton, Button } from '@mui/material'; // Import @mui/material Modal
+import CloseIcon from '@mui/icons-material/Close';
+
 
 
 const customStyles = { 	
+	overlay: {
+		zIndex: 2,  
+	  },
 	content: {
 	  top: '50%',
 	  left: '50%',
@@ -99,8 +105,31 @@ const Login = (isLoggedIna) =>  {
 
 	const [modalIsOpenE, setIsOpenE] = React.useState(false);
 
-    const [modalIsOpenPoliticaPrivacidad, setIsOpenPoliticaPrivacidad] = React.useState(false); 
+    const [modalIsOpenPoliticaPrivacidad, setIsOpenPoliticaPrivacidad] = React.useState(false);
+	const [modalIsOpen, setIsOpen] = React.useState(false);
+	const isMobile = window.innerWidth <= 600;
+ const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: isMobile ? '90%' : 400,
+  zIndex: 1,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+  padding: '50px 10px'
+}; 
 
+function closeModal() {
+	setIsOpen(false); 
+}
+function openModal() { 
+	setIsOpen(true); 
+}  
+	
+	
 
 	/**
  * Determine the mobile operating system.
@@ -150,7 +179,7 @@ function getMobileOperatingSystem() {
 	useEffect(() => { 
 		continuar();
 		getMobileOperatingSystem();
-			
+		openModal();
 	},[])
   
 	 
@@ -479,6 +508,8 @@ function openPoliticaPrivacidad(e) {
 											}}
 											/>
 										</div>
+
+										
 										
 										<ModalCarga modalIsOpenLoad={modalIsOpenLoad} closeModalLoad={closeModalLoad}/>
 										<FadeIn  >
@@ -586,6 +617,35 @@ function openPoliticaPrivacidad(e) {
 													
 													</div>  
 											</Modal>
+
+											<MuiModal  
+                                  open={modalIsOpen}
+                                  onClose={closeModal}
+                                  aria-labelledby="modal-modal-title"
+								  style={{ zIndex: 1 }}
+                                  aria-describedby="modal-modal-description"
+                                >
+                                  <Box sx={style}>
+                                    
+                                    <IconButton
+                                      aria-label="close"
+                                      style={{ position: 'absolute', top: 8, right: 8 }}
+                                      onClick={closeModal}
+                                    >
+                                      <CloseIcon />
+                                    </IconButton>
+
+                                    <img src={process.env.REACT_APP_URL + "/images/GASApp-Popup.gif"} style={{ width: '100%', display:'block' }} />
+
+                                   
+                                    <Button
+                                      onClick={closeModal}
+                                      style={{ position: 'absolute', bottom: 8, right: 8 }}
+                                    >
+                                      Cerrar
+                                    </Button>
+                                  </Box>
+                                </MuiModal>
 
 										<ToastContainer 
 											progressClassName="toastProgress"
