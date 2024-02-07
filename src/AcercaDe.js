@@ -1,9 +1,6 @@
 import React from "react";
 import { useState, useEffect, useCallback, useRef } from "react";
-import axios from "axios";
 import './App.css'; 
-import Modal from 'react-modal';
-import { ThreeDots } from  'react-loader-spinner' 
 import {Navbar} from './component/Navbar';  
 import acerdadeUno from './resources/foto1acercade.jpg';
 import acerdadeDos from './resources/foto2acercade.png';
@@ -15,10 +12,6 @@ import QuickPinchZoom, { make3dTransformValue } from "react-quick-pinch-zoom";
 
 function AcercaDe(props){
 
-     
-    const[Nombre, setNombre] = useState(); 
-
- 
     function Seleccionar(){  
         props.unmount("MenuPrincipal");   
     }
@@ -85,8 +78,6 @@ function AcercaDe(props){
                 <img ref={imgRef2} src={acerdadeUno} style={{width:'85%'}}/> 
                 </QuickPinchZoom>
                 </div>
-                {/*
-                <img style={{width:'90%'}} src={acerdadeUno} />*/}
                 <h2>Nuestro servicio Grupo Petromar División Gas</h2>
                 <div style={{width:'100%'}} align="left">
                 <span style={{padding: '15px'}} align="justify">❯ Máxima seguridad y confianza.</span> <br></br>
@@ -101,7 +92,6 @@ function AcercaDe(props){
                         <p style={{padding: '15px'}} align="justify">Contamos con un área de atención
                         telefónica exclusiva.</p>
                         
-                            {/**style={{color: '#0071CE', marginBottom:'40px'}} */}
                             <label align="justify" style={{color: '#0071CE',  height:'40px', fontSize:'20px', padding: '15px' }}> • PROGRAMACIÓN</label>
                        
                         <p style={{padding: '15px'}} align="justify">Automática de servicio, nuestro
@@ -118,9 +108,6 @@ function AcercaDe(props){
                     Porque somos tu mejor aliado, te damos la confianza que necesitas. <br></br>
                     ¡Carga con nosotros y notarás la diferencia!</p>  
 
-                {/**<img style={{width:'90%'}} src={acerdadeCuatro} />
-                <img style={{width:'90%'}} src={acerdadeCinco} />
-                 */}
                  <div style={{width:'100%'}} align="left">
                 <QuickPinchZoom onUpdate={onUpdate1}
                 style={{width:'90%', height:'180px'}}>

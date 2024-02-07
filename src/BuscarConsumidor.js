@@ -2,21 +2,12 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import './App.css'; 
-import Modal from 'react-modal';
-import { ThreeDots } from  'react-loader-spinner'
 import {Navbar} from './component/Navbar';
-import {Gmaps, Marker, InfoWindow, Circle} from 'react-gmaps';
-import CorrectoImg from './resources/Correcto.svg'
-import ErrorImg from './resources/error.svg'
-import StripeContainer from './component/StripeContainer'; 
 import { ModalCarga } from "./component/ModalCarga";
 import { ToastContainer, toast } from 'react-toastify';
-import { BiBorderRadius, BiBorderRight, BiSearch } from "react-icons/bi";
 import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";    
-import Box from "@mui/material/Box";
-import { height } from "@mui/system";
-import { Container, Header, List } from "semantic-ui-react";
+
 
 import { Input } from 'semantic-ui-react'
 
@@ -24,17 +15,7 @@ const styleLink = document.createElement("link");
 styleLink.rel = "stylesheet";
 styleLink.href = "https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.css";
 document.head.appendChild(styleLink);
-const customStylesD = { 	
-	content: {
-        width:'80%',
-	  top: '50%',
-	  left: '50%',
-	  right: 'auto',
-	  bottom: 'auto',
-	  marginRight: '-50%',
-	  transform: 'translate(-50%, -50%)',
-	},
-  };
+
 
 
 function BuscarConsumidor(props){
@@ -44,8 +25,6 @@ function BuscarConsumidor(props){
  
     const [modalIsOpenLoad, setIsOpenLoad] = React.useState(false);
     const [modalIsOpen, setIsOpen] = React.useState(false);
-    const[Mensaje, setMensaje] = useState(); 
-    const[TelefonoNC, setTelefonoNC] = useState(); 
     const[lista, setlista] = useState([]); 
 
     const [modalIsOpenError, setIsOpenLoadError] = React.useState(false);
@@ -53,15 +32,6 @@ function BuscarConsumidor(props){
     function notify(message){
       toast(message);
   }
-
-    function openModal() { 
-		setIsOpen(true); 
-	}  
-	   
-	function closeModal() { 
-		setIsOpen(false); 
-        Seleccionar();
-	}
 
     function openModalLoad() { 
 		setIsOpenLoad(true); 
@@ -71,13 +41,6 @@ function BuscarConsumidor(props){
 		setIsOpenLoad(false); 
 	}
 
-    function openModalLoadError() { 
-		setIsOpenLoadError(true); 
-	}  
-	   
-	function closeModalLoadError() { 
-		setIsOpenLoadError(false); 
-	}
 
     function Seleccionar(telefono, noconsumidor){  
         props.unmount(telefono, noconsumidor);   
@@ -184,22 +147,6 @@ function BuscarConsumidor(props){
     );
 }
 
-const IconTextField = ({ iconStart, iconEnd, InputProps, ...props }) => {
-  return (
-    <TextField
-      {...props}
-      InputProps={{
-        ...InputProps,
-        startAdornment: iconStart ? (
-          <InputAdornment position="start">{iconStart}</InputAdornment>
-        ) : null,
-        endAdornment: iconEnd ? (
-          <InputAdornment position="end">{iconEnd}</InputAdornment>
-        ) : null
-      }}
-    />
-  );
-}; 
 
 export default BuscarConsumidor;
  

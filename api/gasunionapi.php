@@ -14,7 +14,7 @@ $options = array(
        $client = new SoapClient(NULL, $options);   
 $id = $_POST["id"];
 $data = json_decode(file_get_contents('php://input'), true);
- //print_r($data);
+
 if($id == "obtenerConsumidor"){
     obtenerConsumidor();
 }else if($id == "altaPedido"){
@@ -132,8 +132,7 @@ print_r($respuesta->informacion);
 
 $sessionId = getSessionId();
 $decodedsec = json_decode($respuesta->informacion);
-//print_r($decodedsec);
-//echo $decodedsec[0]->numero_cliente;
+
      
   
 $cliente->numero_cliente = $decodedsec[0]->numero_cliente;//Dejar vacio ya que es asignado por SGC Web
@@ -155,12 +154,6 @@ $cliente->telefono2 = $decodedsec[0]->telefono2;
 $cliente->activo = 1;
 $cliente->email = str_replace(",", "|", $decodedsec[0]->email);
 
- 
-//$consumidor->email = "consumidores@corporativosade.com.mx|consumer@corporativosade.com.mx"; 
-
-//print_r($decodedsec[0]->observaciones); 
-
-//print_r($decodedsec[0]->observaciones[0]); 
 
 
 $cliente->observaciones = [
@@ -289,8 +282,7 @@ function historial(){
 
 
  function Notificacion($mensaje){  
-    //equire './vendor/autoload.php'; 
-    //require('./vendor/autoload.php');
+   
     require __DIR__ . '/vendor/autoload.php';
       $options = array( 
         'cluster' => 'us3', 
@@ -427,7 +419,7 @@ function obtenerConsumidor(){
                     "obtenerListaPorFolio",
                     $paquete_json
                 );
-                //echo $respuesta->informacion->numero_consumidor;
+               
                
     print_r($respuesta->informacion); 
 }
@@ -519,18 +511,15 @@ function altaConsumidor(){
     $consumidor->posicion_gps->longitud_grados_decimales = $_POST["c_longitud"]; 
     }
     $consumidor_json = json_encode($consumidor); 
-  // print_r($consumidor_json);
+  
     $respuesta = $client->procesarPeticion(
                     $sessionId,
                     "Consumidores",
                     "registrar",
                     $consumidor_json);
-       //  print_r($respuesta);
+      
                      print_r($respuesta->informacion); 
-                   // $decoded = json_decode($respuesta->informacion);
-                    //  print_r($decoded);
-                     // $noCon = $decoded[0]->numero_consumidor;
-                     // echo $folioUsuario; 
+                   
                     if($_POST["noConsumidor"] != ""){
                         //correo de actualizacion de datos 
                         correoNotificacionActualizacionConsumidor();
@@ -555,7 +544,7 @@ function altaPedido(){
  
     $fechayhorafinal = date('Y-m-d H:i:s', strtotime($fechayhora));
     $newDate = date('Y-m-d H:i:s', strtotime($fechayhorafinal. ' + 7 hours')); 
-    //echo $newDate;
+    
 
     $cantidad = $_POST["cantidad"];
     if($cantidad == ""){
@@ -572,7 +561,7 @@ function altaPedido(){
     }else{
       $pedido->comentarios = $_POST['comentarios'];
     }
-    //$pedido->cantidad = $cantidad;
+    
     $pedido->cantidad = 1;
     $pedido->producto_id = "idextproductobase"; // 00001 || idextproductobase
     //$pedido->precio_id = "00001"; // ???  
@@ -582,17 +571,17 @@ function altaPedido(){
    // $pedido->lista_unidades_id = array("01"); //??  
 
     $pedido_json = json_encode($pedido); 
-  //  print_r($pedido_json);
+  
   
    $result = $client->procesarPeticion(
                     $sessionId,
                     "Pedidos",
                     "registrar",
                     $pedido_json);
-                    //print_r($result);
+                  
                  print_r($result->informacion);   
 
-               //  print_r($result);
+               
 
             correoNuevoPedido($_POST["correo"], $_POST["nombres"], $_POST["apellidos"], $_POST["telefono"], $fo+1, $fecha, $hora, $_POST['consumidor_id'], $cantidad, $_POST['comentarios']);
                  //obtener ultimo folio +1;
@@ -625,10 +614,10 @@ function obtenerDatosConsumidor(){
                     "obtenerListaPorFolio",
                     $paquete_json
                 );
-                //echo $respuesta->informacion->numero_consumidor;
+                
            
     $decodedConsumidor = json_decode($respuesta->informacion);
-    //print_r($decodedConsumidor[0]);
+    
     return $decodedConsumidor[0]; 
 
 }
@@ -654,11 +643,7 @@ function obtnerUltimoFolioPedido(){
     $array = json_decode($respuesta->informacion);
     }
 
-    /*$i = sizeof($array);
-    print_r($array);
-    $ultimo_folio = $array[$i - 1]->folio;
-    */
-  //  echo $array;
+    
     return $array;
 
 }

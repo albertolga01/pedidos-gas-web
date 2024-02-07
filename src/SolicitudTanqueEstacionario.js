@@ -2,8 +2,6 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import './App.css'; 
-//import Modal from 'react-modal';
-import { ThreeDots } from  'react-loader-spinner' 
 import {Navbar} from './component/Navbar';  
 import Backgroundgas from './component/Background-gas.png'
 import CorrectoImg from './resources/Correcto.svg'
@@ -12,7 +10,6 @@ import ErrorImg from './resources/error.svg'
 import { ModalCarga } from "./component/ModalCarga";
 import { Input } from 'semantic-ui-react' 
 import { ToastContainer, toast } from 'react-toastify';
-import { SliderThumb } from "@mui/material";
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -21,16 +18,6 @@ import { IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
  
 
-const customStyles = { 	
-	content: {
-	  top: '50%',
-	  left: '50%',
-	  right: 'auto',
-	  bottom: 'auto',
-	  marginRight: '-50%',
-	  transform: 'translate(-50%, -50%)',
-	},
-  };
   const customStylesD = { 	
 	content: {
         width:'80%',
@@ -46,26 +33,13 @@ const customStyles = {
 
 function SolicitudTanqueEstacionario(props){
 
-    const inlineStyle = {
-        input : {
-          backgroundColor: '#0071ce',
-        }
-      };
-
-    const[passActual, setPassActual] = useState();
-    const[passNueva, setPassNueva] = useState();
-    const[confirmarPass, setConfirmarPass] = useState();
 ////////////////////////////////////////////////// 
-    const[Apellidos, setApellidos] = useState();
     const[Nombre, setNombre] = useState();
     const[Comentarios, setComentarios] = useState();
     const[CalleNumero, setCalleNumero] = useState();
     const[Colonia, setColonia] = useState();
-    const[Cantidad, setCantidad] = useState();
-    const[Importe, setImporte] = useState();
     const[capacidad, setCapacidad] = useState();
     const[CodigoPostal, setCodigoPostal] = useState(); 
-    const [fechaHoy, setFechaHoy] = useState("null");
 
     const [modalIsOpenLoad, setIsOpenLoad] = React.useState(false);
 
@@ -76,8 +50,6 @@ function SolicitudTanqueEstacionario(props){
  ////////////////////////////////////////////////// 
  const[Apellido, setApellido] = useState();
  const[TelefonoUno, setTelUno] = useState();
- const[TelefonoDos, setTelDos] = useState();
- const[Descripcion, setDescripcion] = useState(); 
  const[Ciudad, setCiudad] = useState(); 
  const[Email, setEmail] = useState();
  const isMobile = window.innerWidth <= 600;
@@ -95,8 +67,6 @@ function SolicitudTanqueEstacionario(props){
 };
 
 	useEffect(() => {
-        //obtenerConsumidor();
-        //currentDate();
         openModal();
 	},[])
 
@@ -114,11 +84,9 @@ function SolicitudTanqueEstacionario(props){
 	}  
 	   
 	function closeModal() {
-        //re direccionar a historial   
 		setIsOpen(false); 
 	}
 
-    //Error Mensaje
     function openModalE() { 
 		setIsOpenE(true); 
 	}  
@@ -131,72 +99,6 @@ function SolicitudTanqueEstacionario(props){
 
     function notify(message){
         toast(message);
-    }
-  
-
-    async function obtenerConsumidor(){    
-		let fd = new FormData()   
-		fd.append("id", "obtenerConsumidor")  
-		fd.append("folioconsumidor", props.numero_consumidor) 
-		//setisLoggedIn(false);
-        openModalLoad();
-		const res = await axios.post(process.env.REACT_APP_API_URL, fd);
-        closeModalLoad();
-		console.log(res.data);  
-        if(res.data[0].comentario != undefined && res.data[0].comentario != "undefined"){
-            setComentarios(res.data[0].comentario);
-        }else{
-            setComentarios("");
-        }
-        setCalleNumero(res.data[0].calle_numero);
-        setColonia(res.data[0].colonia); 
-		setCodigoPostal(res.data[0].codigo_postal); 
-		//console.log(res.data); 
-	}
-
-    function validarDia(fecha){
-        var hoy = new Date()
-        var fechaHoy = hoy.getFullYear() + '-' + ('0' + (hoy.getMonth() + 1)).slice(-2) + '-' + ('0' + hoy.getDate()).slice(-2) ;
-        if(fecha==fechaHoy){
-            var horaValida = validarHora(document.getElementById("HoraPedido").value);
-            if(horaValida == true){
-                return true;
-            }else{
-                return false;
-            } 
-        }else if(fecha>fechaHoy){ 
-            return true;
-        }else{
-            return false;
-        }
-    }
-    function validarHorarioAtencion(hora){
-        if(hora>= "06:00" && hora <= "18:30" ){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-    function validarHora(hora){
-        var hoy = new Date()
-        var horaActual = ('0' + (hoy.getHours())).slice(-2) + ':' + ('0' + hoy.getMinutes()).slice(-2);
-       //  alert(hora + " " + horaActual);
-        if(hora>horaActual){ 
-            return true;
-        }else{  
-            return false;
-        } 
-    }
-    function validarDomingo(fecha){
-        let day = new Date(fecha);
-        console.log(day.getDay());
-        if(day.getDay() == 6){
-            return true;
-        }else{
-            return false;
-        }
-        
     }
 
     function Validador(NombreV, ApellidoV,Tel1V, CalleNumV, ColoniaV){
@@ -225,8 +127,7 @@ function SolicitudTanqueEstacionario(props){
         var valido = Validador(Nombre, Apellido, TelefonoUno, CalleNumero, Colonia);   
 
            
-        
-            //alert(cantidadServicio);
+    
             if(valido != true){
                 notify("Complete los datos para continuar");
                 return;
@@ -256,8 +157,7 @@ function SolicitudTanqueEstacionario(props){
                 }
               });
             closeModalLoad();
-            //console.log(res.data);
-           // var json = JSON.parse(JSON.stringify(res.data));
+        
              if(res.data == "1"){ 
                 setMensaje("");
                 openModal();
@@ -265,63 +165,14 @@ function SolicitudTanqueEstacionario(props){
                 openModalE();
                 setMensajeError("Error");
             }
-            //console.log(json.folio); 
+         
 	}
 
-    function currentDate(){ 
-        var hoy = new Date()
-        hoy.setMinutes ( hoy.getMinutes() + 30 ); 
-        var fecha = hoy.getFullYear() + '-' + ('0' + (hoy.getMonth() + 1)).slice(-2) + '-' + ('0' + hoy.getDate()).slice(-2) ;
-         var hora = ('0' + (hoy.getHours())).slice(-2) + ':' + ('0' + (hoy.getMinutes())).slice(-2);
-      // console.log(hora);
-        document.getElementById("FechaPedido").value = fecha;
-        document.getElementById("HoraPedido").value = hora; 
-
-	}
-
-    
 
     const handleChange = (e) => { 
         setCapacidad(e.target.value); 
       };
 
-    function tipoPedido(){
-       
-        let pesos = document.getElementById("tipopesos");
-        let litros = document.getElementById("tipolitros"); 
-        document.getElementById("inputlitros").value = "";
-        document.getElementById("inputpesos").value = "";
-        if(pesos.checked){
-            //mostrar inut pesos
-       
-            document.getElementById("divpesos").style.display = "block";
-            document.getElementById("divlitros").style.display = "none";
-            
-             
-
-        }
-        if(litros.checked){
-            //mostrar el de litros  
-            document.getElementById("divpesos").style.display = "none";
-            document.getElementById("divlitros").style.display = "block";
-        }
-    }
-
-
-    function HoraFecha(){
-        var hoy = new Date()
-        var fecha = hoy.getFullYear() + '-' + ('0' + (hoy.getMonth() + 1)).slice(-2) + '-' + ('0' + hoy.getDate()).slice(-2) ;
-        var hora = ('0' + hoy.getHours()).slice(-2) + ':' + ('0' + hoy.getMinutes()).slice(-2);
-
-        var fecha_hora = fecha +':'+ hora;
-        document.getElementById('FechaPedido').value = fecha_hora;
-        console.log(fecha_hora);
-    }
-    function disabledInput(){
-        notify("No es posible modificar esta información en este apartado, favor de ingresar a la sección de usuario para actualizar sus datos");
-    }
-
-    const[fecha_hora, setHoraFecha] = useState(); 
 
     return(
        <div style={{width:'100%'}}>
@@ -341,30 +192,21 @@ function SolicitudTanqueEstacionario(props){
                                     style={{width:'100%'}} 
                                     onChange={e => setNombre(e.target.value)}
                                                     />
-                                {/** 
-                                <input type='text' class="idInput" onChange={e => setNombre(e.target.value)}></input><br></br>
-                                */}
+                                
                                 <label class="idLabel">Apellido (s)*</label>
                                 <Input type="text" 
                                     placeholder='Apellido'
                                     style={{width:'100%'}}
                                     onChange={e => setApellido(e.target.value)}
                                                     />
-                                {/**
-                                <input type='text' class="idInput" onChange={e => setApellido(e.target.value)}></input><br></br>
-                                */}
-                                 
+                               
                                 <label class="idLabel">Teléfono*</label>
                                 <Input type="text" 
                                     placeholder='Teléfono'
                                     style={{width:'100%'}}
                                     onChange={e => setTelUno(e.target.value)}
                                                     />
-                                        {/**
-                                         <input type='tel' class="idInput" onChange={e => setTelUno(e.target.value)}></input><br></br>
-                                    */}
-                                         
-
+                                       
                                 <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'6%' }}>
                                     <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
                                         <label class="idLabel">Ciudad</label>
@@ -471,7 +313,7 @@ function SolicitudTanqueEstacionario(props){
                                   aria-describedby="modal-modal-description"
                                 >
                                   <Box sx={style}>
-                                    {/* Close button (X) at the top right */}
+                                    
                                     <IconButton
                                       aria-label="close"
                                       style={{ position: 'absolute', top: 8, right: 8 }}
@@ -482,7 +324,7 @@ function SolicitudTanqueEstacionario(props){
 
                                     <img src={process.env.REACT_APP_URL + "/images/GASApp-Popup.gif"} style={{ width: '100%', display:'block' }} />
 
-                                    {/* Button at the bottom right */}
+                                   
                                     <Button
                                       onClick={closeModal}
                                       style={{ position: 'absolute', bottom: 8, right: 8 }}
@@ -492,7 +334,7 @@ function SolicitudTanqueEstacionario(props){
                                   </Box>
                                 </Modal>
 
-      {/* MUI Modal for loading */}
+  
       <Modal
         open={modalIsOpenLoad}
         onClose={closeModalLoad}
@@ -503,7 +345,6 @@ function SolicitudTanqueEstacionario(props){
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Loading...
           </Typography>
-          {/* You can add a loading indicator here if needed */}
         </Box>
       </Modal>
                                 
@@ -562,8 +403,3 @@ function SolicitudTanqueEstacionario(props){
 }
 
 export default SolicitudTanqueEstacionario;
-
-/**
- * 
- * <label style={{TextColor:'red'}}>*</label>
-*/

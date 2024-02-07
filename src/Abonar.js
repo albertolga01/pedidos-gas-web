@@ -1,90 +1,26 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import './App.css'; 
-import Modal from 'react-modal';
-import { ThreeDots } from  'react-loader-spinner' 
 import {Navbar} from './component/Navbar';  
 import Backgroundgas from './component/Background-gas.png'
-import CorrectoImg from './resources/Correcto.svg'
-import ErrorImg from './resources/error.svg' 
 import StripeContainer from './component/StripeContainer'; 
  
-
-const customStyles = { 	
-	content: {
-	  top: '50%',
-	  left: '50%',
-	  right: 'auto',
-	  bottom: 'auto',
-	  marginRight: '-50%',
-	  transform: 'translate(-50%, -50%)',
-	},
-  };
-  const customStylesD = { 	
-	content: {
-        width:'80%',
-	  top: '50%',
-	  left: '50%',
-	  right: 'auto',
-	  bottom: 'auto',
-	  marginRight: '-50%',
-	  transform: 'translate(-50%, -50%)',
-	},
-  };
-
 
 function Abonar(props){
 
     const[pagar, setPagar] = useState(true);
-    const[passActual, setPassActual] = useState();
-    const[passNueva, setPassNueva] = useState();
-    const[confirmarPass, setConfirmarPass] = useState();
 ////////////////////////////////////////////////// 
-    const[Comentarios, setComentarios] = useState();
-    const[CalleNumero, setCalleNumero] = useState();
-    const[Colonia, setColonia] = useState();
     const[Cantidad, setCantidad] = useState();
-    const[CodigoPostal, setCodigoPostal] = useState(); 
-    const [fechaHoy, setFechaHoy] = useState("null");
 
     const [modalIsOpenLoad, setIsOpenLoad] = React.useState(false);
 
     const [modalIsOpen, setIsOpen] = React.useState(false);
     const [modalIsOpenE, setIsOpenE] = React.useState(false);
-    const[Mensaje, setMensaje] = useState(); 
-    const[MensajeError, setMensajeError] = useState(); 
  
 	useEffect(() => {
         setCantidad(50); 
         
 	},[])
-  
-
-    function openModalLoad() { 
-		setIsOpenLoad(true); 
-	}  
-	   
-	function closeModalLoad() { 
-		setIsOpenLoad(false); 
-	}
-
-    function openModal() { 
-		setIsOpen(true); 
-	}  
-	   
-	function closeModal() { 
-		setIsOpen(false); 
-	}
-
-    //Error Mensaje
-    function openModalE() { 
-		setIsOpenE(true); 
-	}  
-	   
-	function closeModalE() { 
-		setIsOpenE(false); 
-	}
 
     function Seleccionar(){  
         props.unmount("MenuPrincipal");   
@@ -155,8 +91,3 @@ function Abonar(props){
 }
 
 export default Abonar;
-
-/**
- * 
- * <label style={{TextColor:'red'}}>*</label>
-*/

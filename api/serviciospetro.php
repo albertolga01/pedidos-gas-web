@@ -15,19 +15,7 @@ $options = array(
       obtenerServicios();
        
 function obtenerServicios(){
-    /*
-global $connect;
-
-    $ultimo = "SELECT MAX(folio_servicio) as folio FROM servicios_pedidos_usuarios";
-         echo $ultimo;  
-        $resultu = $connect->query($ultimo);
-        if ($resultu->num_rows > 0) {  
-           // $existe = "1";
-        while ($row = $resultu->fetch_assoc()) {
-            $ultimoRegistrado = $row['folio'];
-        }
-        }*/
-//echo $ultimoRegistrado."<br>";
+  
 
     global $client; 
     
@@ -82,9 +70,7 @@ global $connect;
     );
     $servicios = $respuesta->informacion;
     $decoded = json_decode($servicios);
-    //print_r($decoded);
-    //$folioPedido = $decoded[0]->pedido->folio;
-     //getPedidos($decoded);
+    
 }
 
 
@@ -129,8 +115,7 @@ function getConsumidor($numero_consumidor){
     );
     $consumidor = $respuesta->informacion;
     $decodedcon = json_decode($consumidor);
-    //print_r($decodedcon);
-    //return $decodedcon->tipo_consumidor_id;
+    
     return $decodedcon;
 }
 function getSector($pipa){   
@@ -145,15 +130,15 @@ function getSector($pipa){
      
     $sector = $respuesta->informacion;
     $decodedsec = json_decode($sector); 
-    //return $decodedsec->tipo_consumidor_id;
+    
     return $decodedsec->ruta_id;
 }
 
 function getPedidos($folioServicio){
-    //print_r($folioServicio);
+    
     foreach($folioServicio as $s){
         $folioUsuario = "";
-         //   echo $p->pedido->folio."<br>";
+       
    
         global $client;
         $sessionId = getSessionId();
@@ -168,13 +153,13 @@ function getPedidos($folioServicio){
         );
         $pedidos = $respuesta->informacion; 
         $decoded = json_decode($pedidos);
-      //  print_r($decoded);
+      
         $folioUsuario = $decoded[0]->usuario_asignado_id;
-       // echo $decoded[0]->usuario_asignado_id;
+      
         if($folioUsuario == " "){ 
-           // echo "nel"."<br>".$folioUsuario;
+           
         }else{ 
-           // $cantidad = ($s->importe_total / $s->producto->precio_venta);
+          
            $tipo_servicio = $s->tipo_registro;
            $cantidad = $s->cantidad;
            $forma_pago = $s->facturacion->formapago;
@@ -195,7 +180,7 @@ function getPedidos($folioServicio){
 }
 
 function getUsuario($folioUsuario, $folioServicio, $ped, $usuario_operador, $nombre_cte, $rzonsocial, $cantidad, $monto, $colonia, $tipopago, $pipa, $categoria, $sector, $fechaservicio, $estatus_pedido, $numero_consumidor, $tipo_servicio, $forma_pago, $folio_unidad){
-  // echo $sector."-<br>";
+ 
   $datetimePedido = $ped->fecha_atencion;
   $datetimePedido = date('Y-m-d H:i:s', strtotime($datetimePedido. ' - 6 hour')); 
   $datetimeServicio = $fechaservicio;
@@ -271,7 +256,6 @@ global $connect;
         } 
          
        
-    //print_r($decodeduser->nombre." ".decodeduser->apellido);
 }
 
 

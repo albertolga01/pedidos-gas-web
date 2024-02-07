@@ -3,15 +3,13 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import './App.css'; 
 import Modal from 'react-modal';
-import { ThreeDots } from  'react-loader-spinner'
 import FadeIn from 'react-fade-in';
 import {Navbar} from './component/Navbar';  
 
-import {Gmaps, Marker, InfoWindow, Circle} from 'react-gmaps';
+import {Gmaps, Marker, Circle} from 'react-gmaps';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import CorrectoImg from './resources/Correcto.svg'
 import ErrorImg from './resources/error.svg'
 
 import { ModalCarga } from "./component/ModalCarga";
@@ -58,19 +56,6 @@ const customStylesD = {
 	},
   };
 
-
-const customStyles = { 	
-	content: {
-	  top: '50%',
-	  left: '50%',
-	  right: 'auto',
-	  bottom: 'auto',
-	  marginRight: '-50%',
-	  transform: 'translate(-50%, -50%)',
-	},
-  };
-
-
 function Usuario(props){
  
 
@@ -101,10 +86,7 @@ function Usuario(props){
     const [modalIsOpenEliminarCuenta, setIsOpenEliminarCuenta] = React.useState(false); 
 
 
-    async function postChangePass(postbody){
-        const rese = await axios.post('https://compras.grupopetromar.com/apirest/', postbody);
-        alert(rese.data);
-    }
+   
 	useEffect(() => {
         obtenerConsumidor();
 	},[])
@@ -161,44 +143,13 @@ function Usuario(props){
         setCiudad(res.data[0].ciudad);
 		setCodigoPostal(res.data[0].codigo_postal);
         setEmail(res.data[0].email);
-        /*
-        var latU = res.data[0]["posicion_gps"].latitud_grados_decimales;
-        var longU = res.data[0]["posicion_gps"].longitud_grados_decimales;
-
-        var latIntU = parseInt((latU/100));
-        var longIntU = parseInt((longU/100));
-        
-        latU = latU / 100;
-        
-        longU = longU / 100;
-        var latFU =  latU - latIntU;
-        
-        var longFU =  longU -longIntU ;
-        latFU = (latFU / 60) * 100;
-        
-        longFU = (longFU / 60) * 100;
-        latFU = getDecimalPart(latFU);
-        longFU = getDecimalPart(longFU);
-        latFU = ""+latIntU +"."+ latFU; 
-        
-        longFU = ""+longIntU +"."+ longFU;
-        console.log(latFU);
-        console.log(longFU * -1);
-        setLat(latFU);
-        setLong(longFU * -1);
-
-        setLat1(latFU);
-        setLong1(longFU * -1);
-*/
+       
         setLat1(res.data[0]["posicion_gps"].latitud_grados_decimales);
         setLong1(res.data[0]["posicion_gps"].longitud_grados_decimales);
  
-		//console.log(res.data); 
 	}
 
-    function Regresar(){  
-        props.unmount("MenuPrincipal");   
-    }
+   
 
     async function ActualizarConsumidor(){    
         var valido = Validador(Nombre, Apellido, TelefonoUno, CalleNumero); 
@@ -218,26 +169,18 @@ function Usuario(props){
 		fd.append("codigo_postal", CodigoPostal)
         fd.append("c_latitud", lat1)
         fd.append("c_longitud", long1)
-        //setisLoggedIn(false);
+ 
         openModalLoad();
 		const res = await axios.post(process.env.REACT_APP_API_URL, fd);
         closeModalLoad();
 		console.log(res.data); 
         notify("Actualizado correctamente");
-		//console.log(res.data); 
+
         }else{
             openModalLoadError();
         }
 	}
 
-
-    function mapOnClick(e) {
-        console.log('onClick', e);
-      }
-
-      function mapOnCloseClick() {
-        console.log('onCloseClick');
-      }
 
     const coords = { 
         lat: 23.235668,
@@ -282,7 +225,7 @@ function Usuario(props){
         notify("Eliminado correctamente"); 
         if (window.Android){
             window.Android.showToast("", "", "", "", "", "", "0");
-            //alert(res);
+           
         }else{
             window.location.reload();
         }
@@ -344,8 +287,7 @@ function Usuario(props){
                                                 defaultValue={Nombre}
                                                 onChange={e => setNombre(e.target.value)}
 											/>
-                    {/*<input hidden type='text' class="idInput" onChange={e => setNombre(e.target.value)} defaultValue={Nombre}></input><br></br>
-                    */}
+                   
                     <label class="idLabel">Apellido (s)*</label>
                     <Input type="text" 
 												placeholder='Apellido'
@@ -354,9 +296,7 @@ function Usuario(props){
                                                 defaultValue={Apellido}
                                                 onChange={e => setApellido(e.target.value)}
 											/>
-                    {/*}
-                    <input hidden type='text' class="idInput" onChange={e => setApellido(e.target.value)} defaultValue={Apellido}></input><br></br>
-                    */}
+                    
                     <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'6%' }}>
                          <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
                             <label class="idLabel">Telefono1*</label>
@@ -367,9 +307,7 @@ function Usuario(props){
                                                 defaultValue={TelefonoUno}
                                                 onChange={e => setTelUno(e.target.value)}
 											/>
-                    {/*
-                            <input type='tel' class="idInput" onChange={e => setTelUno(e.target.value)} defaultValue={TelefonoUno}></input><br></br>
-                    */}
+                 
                         </div>
                          <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
                             <label class="idLabel">Telefono2*</label>
@@ -380,9 +318,7 @@ function Usuario(props){
                                                 defaultValue={TelefonoDos}
                                                 onChange={e => setTelDos(e.target.value)}
 											/>
-                            {/*
-                            <input type='tel' class="idInput" onChange={e => setTelDos(e.target.value)} defaultValue={TelefonoDos}></input><br></br>
-                         **/}
+                            
                             </div>
                     </div> 
                     <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'6%' }}>
@@ -395,9 +331,7 @@ function Usuario(props){
                                                 defaultValue={Ciudad}
                                                 onChange={e => setCiudad(e.target.value)}
 											/>
-                                            {/*
-                            <input type='text' class="idInput" onChange={e => setCiudad(e.target.value)} defaultValue={Ciudad}></input><br></br>
-                        * */}
+                                           
                             </div>
                        <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
                             <label class="idLabel">Código Postal*</label>
@@ -408,9 +342,7 @@ function Usuario(props){
                                                 defaultValue={CodigoPostal}
                                                 onChange={e => setCodigoPostal(e.target.value)}
 											/>
-                                            {/** 
-                            <input type='text' class="idInput" onChange={e => setCodigoPostal(e.target.value)} defaultValue={CodigoPostal}></input><br></br>
-                        */}
+                            
                             </div>
                     </div>
                     <label class="idLabel">Colonia*</label>
@@ -421,9 +353,7 @@ function Usuario(props){
                                                 defaultValue={Colonia}
                                                 onChange={e => setColonia(e.target.value)}
 											/>
-                    {/*
-                    <input type='text' class="idInput" onChange={e => setColonia(e.target.value)} defaultValue={Colonia}></input><br></br>
-                     */}
+                   
                     <label class="idLabel">Calle y Número*</label>
                     <Input type="text" 
 												placeholder='Calle/Numero'
@@ -432,12 +362,9 @@ function Usuario(props){
                                                 defaultValue={CalleNumero}
                                                 onChange={e => setCalleNumero(e.target.value)}
 											/>
-                    {/**
-                    <input type='text' class="idInput" onChange={e => setCalleNumero(e.target.value)} defaultValue={CalleNumero}></input><br></br>
-                     */}
-                     {/** onChange={e => setEmail(e.target.value)} for="email" defaultValue={Email} */}
+                   
                     <label class="idLabel">Correo Electrónico</label>
-                    {/*<input type="email" class="idInput" name="email"></input>*/}
+                    
                     <Input type="email" 
 												placeholder='Email'
 												id="form-usuario"
@@ -477,12 +404,10 @@ function Usuario(props){
                             longF = Math.trunc(longF*100)/100;
                             console.log("Latitud decimals: " + latF);
                             console.log("longitud decimals: " + longF);
-                         //   setLat1(latF);
-                          //  setLong1(longF);
+                         
                             setLat(ev.latLng.lat());
                             setLong(ev.latLng.lng());
-                          //  console.log("latitide = ", ev.latLng.lat());
-                           // console.log("longitude = ", ev.latLng.lng());
+                          
                           }}
                        >
                         <Marker

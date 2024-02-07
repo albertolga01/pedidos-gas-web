@@ -3,34 +3,15 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import axios from "axios";
 import './App.css'; 
 import Modal from 'react-modal';
-import { ThreeDots } from  'react-loader-spinner' 
-import {Navbar} from './component/Navbar';   
-import bgprincipal from './resources/bg-principal.png'
-import logoGlp from './resources/logoGlp.png'
-import usericon from './resources/usericon.svg'
-import novedades from './resources/novedades.svg'
-import nuevopedido from './resources/truck.svg'
 import FadeIn from 'react-fade-in'
 import nivelgaslp from './resources/nivel_gas_lp.svg'
 import GaugeChart from 'react-gauge-chart' 
-import historialpedidos from './resources/historialpedidos.svg'
 import { ModalCarga } from "./component/ModalCarga";
-import NuevoPedido from "./NuevoPedido";
-
-import UsuarioProp from './resources/usericon.svg'
 import UsuariomenuProp from './resources/UsuariomenuProp.svg'
-import PromocionProp from './resources/usericon.svg'
 import PromocionmenuProp from './resources/PromocionProp.svg'
-import PrivacidadProp from './resources/usericon.svg'
-import PedidoProp from './resources/PedidoProp.svg'
 import Pedido from './resources/Pedido.svg'
-import LogoProp from './resources/LogoProp.svg'
 import LogoRomboGasLp from './resources/LogoRomboGasLp.svg'
 import HistorialProp from './resources/HistorialProp.svg'
-import ConfiguracionProp from './resources/usericon.svg'
-import CerrarProp from './resources/usericon.svg'
-import AyudaProp from './resources/usericon.svg'
-import AcercaProp from './resources/usericon.svg'
 import ReactWhatsappButton from 'react-whatsapp-button';
 import WhatsAppButtonGreenLarge from './resources/WhatsAppButtonGreenLarge.svg'
 import {Carousel} from 'react-responsive-carousel';
@@ -41,7 +22,7 @@ import 'react-image-lightbox/style.css';
 
 import QuickPinchZoom, { make3dTransformValue } from "react-quick-pinch-zoom";
 
-import Zoom from "react-img-zoom-gdn";
+
 const customStylesD = { 	
 	content: {
         width:'30%',
@@ -54,16 +35,7 @@ const customStylesD = {
 	},
   };
 
-  const customStyles = { 	
-	content: {
-	  top: '50%',
-	  left: '50%',
-	  right: 'auto',
-	  bottom: 'auto',
-	  marginRight: '-50%',
-	  transform: 'translate(-50%, -50%)',
-	},
-  };
+ 
 function MenuPrincipal(props){
 	useEffect(() => { 
         obtenerSaldo();
@@ -78,20 +50,10 @@ function MenuPrincipal(props){
 		setIsOpenLoad(false); 
 	}
 	const [modalIsOpenLoad, setIsOpenLoad] = React.useState(false);
-//////////////////////////////////////////////////
-    const [ValorTanque, setValorTanque] = useState();
-    const [ValorTanqueNull, setValorTanqueNull] = useState();
 
-////////////////////////////////////////////////// 
-    const[passActual, setPassActual] = useState();
-    const[passNueva, setPassNueva] = useState();
-    const[confirmarPass, setConfirmarPass] = useState();
-//////////////////////////////////////////////////
-    const[Nombre, setNombre] = useState(); 
-    const[PrecioGas, setPrecioGas] = useState(); 
+    const [ValorTanque, setValorTanque] = useState();
     const[SaldoDisponible, setSaldo] = useState(); 
 
-//////////////////////////////////////////////////
     const [modalIsOpenE, setIsOpenE] = React.useState(false);
     const [modalIsOpen, setIsOpen] = React.useState(false);
     function openModalE() { 
@@ -102,10 +64,6 @@ function MenuPrincipal(props){
         setIsOpenE(false); 
     }
 
-    function openModal() { 
-		setIsOpen(true); 
-	}  
-	
 
     const [currentImage, setCurrentImage] = useState(0); 
     const [isViewerOpen, setIsViewerOpen] = useState(false); 
@@ -121,32 +79,20 @@ function MenuPrincipal(props){
     
     const imgRef = useRef();
 
-    const onUpdate = useCallback(({ x, y, scale }) => {
-        const { current: img } = imgRef; 
-    
-        if (img) {
-          const value = make3dTransformValue({ x, y, scale });
-    
-          img.style.setProperty("transform", value);
-        } 
-      }, []);
+
      
     const[Mensaje, setMensaje] = useState(); 
-    const[MensajeError, setMensajeError] = useState(); 	  
 
-    
 
     async function obtenerSaldo(){    
 		let fd = new FormData()    
         fd.append("id", "obtenerSaldo")   
         fd.append("noConsumidor", props.identificador_externo)   
 		const res = await axios.post(process.env.REACT_APP_API_URL, fd); 
-		 //alert(res.trim);
          console.log(res.data);
         setSaldo(res.data); 
         props.saldoCliente(res.data);
-        //document.getElementById("precioGas").innerHTML =  "$" +json["productos"]["GAS"].precio;
-		//console.log(res.data); 
+
 	}
     function FormatNumber(importe){
         
@@ -174,15 +120,11 @@ function MenuPrincipal(props){
             }else{
                 var json = JSON.parse(JSON.stringify(res.data));
                 var valor = json.dispositivos[0].porcentaje;
-                //   console.log();
-                   //setMensaje(json.dispositivos[0].porcentaje + " %");
                    openModalE();
                     
                    setValorTanque(valor / 100);
                    ValorTanque(setValorTanque);
             }
-            
-            //console.log(res.data); 
         
 	}
 
@@ -193,17 +135,10 @@ function MenuPrincipal(props){
 
  
     function logOut() {
-        /*if (window.Android){
-            window.Android.showToast("", "", "", "", "", "", "0");
-            //alert(res);
-        }else{
-            window.location.reload();
-        }
-		    
-		*/
+    
         if (window.Android){
             window.Android.showToast("", "", "", "", "", "", "0");
-            //alert(res);
+         
         }else{
         
         try { 
@@ -221,46 +156,7 @@ function MenuPrincipal(props){
         
     }
 
-    const ImageCarousel = () => {
-        const [lightboxIndex, setLightboxIndex] = useState(0);
-        const [isViewerOpen, setIsViewerOpen] = useState(false);
-      
-        const images = [
-          process.env.REACT_APP_URL + '/images/Banner-APPPetromarGAS-01.png',
-          process.env.REACT_APP_URL + '/images/Banner-APPPetromarGAS-02.png',
-          process.env.REACT_APP_URL + '/images/Banner-APPPetromarGAS-03.png',
-          // Add more image URLs as needed
-        ];
-      
-        const openLightbox = (index) => {
-          setLightboxIndex(index);
-          setIsViewerOpen(true);
-        };
-      
-        return (
-          <>
-            <Carousel autoPlay interval="5000" showThumbs={false}>
-              {images.map((imageUrl, index) => (
-                <div key={index} onClick={() => openLightbox(index)}>
-                  <img src={imageUrl} style={{ maxWidth: '700px' }} alt={`Image ${index + 1}`} />
-                </div>
-              ))}
-            </Carousel>
-      
-            {isViewerOpen && (
-              <Lightbox
-                mainSrc={images[lightboxIndex]}
-                nextSrc={images[(lightboxIndex + 1) % images.length]}
-                prevSrc={images[(lightboxIndex + images.length - 1) % images.length]}
-                onCloseRequest={() => setIsViewerOpen(false)}
-                onMovePrevRequest={() => setLightboxIndex((lightboxIndex + images.length - 1) % images.length)}
-                onMoveNextRequest={() => setLightboxIndex((lightboxIndex + 1) % images.length)}
-              />
-            )}
-          </>
-        );
-      };
-      
+     
    
     return(
        
@@ -354,17 +250,7 @@ function MenuPrincipal(props){
                         </div>
                     ))}
                 </Carousel>
-                
-    {/*<ImageViewer
-        src={images}
-        currentIndex={currentImage}
-        onClose={() => setIsViewerOpen(false)}
-        backgroundStyle={{
-            backgroundColor: "rgba(0, 0, 0, 0.9)"
-        }}
-    />
-    */} 
-                    
+                 
 {isViewerOpen && ( 
                         <ImageViewer 
                         src={images} 

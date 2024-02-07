@@ -1,13 +1,10 @@
 import React, { useState, useEffect, useSyncExternalStore } from 'react'
-import App from '../App'; 
 import NuevoPedido from '../NuevoPedido';
 import Usuario from '../Usuario';
 import axios from "axios";
 import Novedades from '../Novedades';
 import OpcionesMenu from './OpcionesMenu';  
 import MenuPrincipal from '../MenuPrincipal';  
-import { push as Menu } from 'react-burger-menu';
-import Backgroundgas from './Background-gas.png';
 import DetalleSaldo from '../DetalleSaldo';
 import Historial from '../Historial';
 import Abonar from '../Abonar';
@@ -32,15 +29,10 @@ export default function SideMenu(props) {
  
 
     const [selected, setSelect] = useState(props.selected);
-    const [usuario, setUsuario] = useState(props.userid);
     const [isMenuOpen1, SetIsMenuOpen1] = useState(false); 
-    const [ref, setRef] = useState(false); 
-    const [title, setTitle] = useState("titul"); 
-    const [n, setN] = useState(); 
     const [saldo, setSaldo] = useState(); 
     const [folio_pedido, setFolio_Pedido] = useState(); 
     const [Cantidad, setCantidad] = useState(); 
-    // console.log(props.selected); 
   
     const[PrecioGas, setPrecioGas] = useState(); 
     const[idDireccion, setIdDireccion] = useState(); 
@@ -63,10 +55,8 @@ export default function SideMenu(props) {
 		const res = await axios.post("https://sistemagas.grupopetromar.com/scripts/obtenerPrecioGPLP.php", fd); 
 		var json = JSON.parse(JSON.stringify(res.data));
 		console.log(json.precio_venta); 
-        //var precio = json["precio_venta"].precio;
         setPrecioGas(json.precio_venta.slice(0,-2)); 
-        //document.getElementById("precioGas").innerHTML =  "$" +json["productos"]["GAS"].precio;
-		//console.log(res.data); 
+
 	}
 
     
@@ -133,51 +123,6 @@ export default function SideMenu(props) {
         } 
     }
 
-    useEffect(() => {
-          
-		// eslint-disable-next-line
-	},[])
-  
- 
-   
-    /*
-        function Not(data, user){
-            
-            console.log(data.mensaje+ " " + data.userid + " " + props.userid);
-    if(data.userid === props.userid && data.tipo === "act"){   
-                Push.create("Notificación: ", { 
-                body:  data.mensaje, 
-                icon: 'https://actividades.grupopetromar.com/favicon.png', 
-                timeout: 5000, 
-                onClick: function () { 
-                window.focus(); 
-                this.close(); 
-            } 
-        });      
-    }
-    }
-
-    function notificaciones(){
-
-    var pusher = new Pusher('5238df05729a28dcfb1a', { 
-    cluster: 'us3' 
-    }); 
-    var channel = pusher.subscribe('my-channel'); 
-        channel.bind('my-event', function(data) { 
-            //	alert(data.mensaje + " " + data.userid + " " + JSON.stringify(data)); 
-            //console.log(usuario);
-        
-
-            Not(data, props.userid);
-
-        
-    });
-
-    }*/
-
- 
-
-
    
         if(selected == "MenuPrincipal"){
             return (
@@ -190,18 +135,7 @@ export default function SideMenu(props) {
             return (
            
            <div  class="divPrincipal" style={{ height: '100vh', width: '100vw', top: '0',  position: 'sticky', display: 'flex', flexDirection:'column', overflowX: 'auto'}}>
-                     {/*   <OpcionesMenu unmount={cambiarSelected}   isMenuOpen1={isMenuOpen1} nombres={props.nombres} apellidos={props.apellidos} numero_consumidor={props.numero_consumidor} identificador_externo={props.identificador_externo}></OpcionesMenu>
-                     <div style={{width:'100%', display:'flex', flexDirection:'row', flexWrap:'wrap', backgroundColor:'#0158A0',  borderRadius: '0px 0px 9px 9px', boxShadow: 'rgb(0 0 0 / 45%) 0px 5px 15px'}}> 
-                <div style={{width:'100%', color:'white', fontSize:'20px'}} align="center"> 
-                <br></br>
-                <br></br>
-                <label style={{margin: '20px', fontWeight: 'bold'}}>Nuevo Pedido</label> <br></br>
-                <br></br>
-                </div>
-                 
-                 
-           </div>
-               */}         <Element  selected={selected} style={{backgroundColor:'red'}} />   
+                         <Element  selected={selected} style={{backgroundColor:'red'}} />   
                     </div>
                 )
         }

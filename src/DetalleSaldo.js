@@ -2,12 +2,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import './App.css'; 
-import Modal from 'react-modal';
-import { ThreeDots } from  'react-loader-spinner' 
 import {Navbar} from './component/Navbar';   
-import Abonar from "./Abonar";
 import FadeIn from 'react-fade-in';
-import Usuario from "./Usuario";
 function DetalleSaldo(props){
 
   
@@ -16,9 +12,7 @@ function DetalleSaldo(props){
          
         detalleSaldo();
 	},[])
-    const[SaldoDisponible, setSaldo] = useState();
     const[lista, setlista] = useState([]); 
-   // const[Nombre, setNombre] = useState(); 
  
 
         
@@ -28,10 +22,10 @@ function DetalleSaldo(props){
     fd.append("id", "detalleSaldo")   
     fd.append("noConsumidor", props.identificador_externo)   
     const res = await axios.post(process.env.REACT_APP_API_URL, fd); 
-     //alert(res.trim);
+   
      console.log(res.data);
      setlista(res.data);
-   //  setSaldo(res.data); 
+
    
 }
  

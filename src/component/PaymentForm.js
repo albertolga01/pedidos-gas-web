@@ -69,7 +69,6 @@ export default function PaymentForm(props) {
 	
 	 
 
-    //Error Mensaje
     function openModalE() { 
         setIsOpenE(true); 
     }  
@@ -78,7 +77,6 @@ export default function PaymentForm(props) {
         setIsOpenE(false); 
     }
 
-    //Error Mensaje
     function openModalE2() { 
         setIsOpenE2(true); 
     }  
@@ -115,7 +113,7 @@ export default function PaymentForm(props) {
             if(response.data.success && response.data.codigobd == "1") {
                 console.log("Successful payment")
                 setSuccess(true)
-                //modal confirmacion 
+         
                  openModal()
             }else{
                 openModalE()

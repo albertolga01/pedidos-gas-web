@@ -1,48 +1,11 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import axios from "axios";
 import './App.css'; 
-import Modal from 'react-modal';
-import { ThreeDots } from  'react-loader-spinner' 
 import {Navbar} from './component/Navbar';   
 
-import { Document,Page } from 'react-pdf/dist/esm/entry.webpack';
-import loginscreen from './resources/login.png';
-import buscarConsumidor from './resources/buscarConsumidor.png';
-import registrarse from './resources/registrarse.png';
-import menuPrincipal from './resources/menuPrincipal.png';
-import altaPedido from './resources/altaPedido.png';
-import pedidoRealizado from './resources/pedidoRealizado.png';
-import actualizarDatos from './resources/actualizarDatos.png';
-import notificacionActualizar from './resources/notificacionActualizar.png';
+
 
 function PreguntasFrecuentes(props){
 
-       
-  const [numPages, setNumPages] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1);
-
-  function onDocumentLoadSuccess({numPages}){
-    setNumPages(numPages);
-    setPageNumber(1);
-  }
-
-  function changePage(offSet){
-    setPageNumber(prevPageNumber => prevPageNumber + offSet);
-  }
-
-  function changePageBack(){
-    changePage(-1)
-  }
-
-  function changePageNext(){
-    changePage(+1)
-  }
-
-  
-    const[Nombre, setNombre] = useState(); 
-
- 
     function Seleccionar(){  
         props.unmount("MenuPrincipal");   
     }

@@ -1,11 +1,10 @@
 import React from 'react';
   
-import OpcionesMenu from './OpcionesMenu';  
 
 export  const Navbar = (props) =>(
 <div className="m-2">
   
-{/* <OpcionesMenu unmount={props.cambiarSelected} nombres={props.nombres} apellidos={props.apellidos}></OpcionesMenu>*/}
+
 
   <nav style={{borderRadius:'5px', width:'100%',  position: 'relative', display: 'flex',
   flexWrap: 'wrap',
@@ -17,9 +16,6 @@ export  const Navbar = (props) =>(
                 </div>
                 </div>  
 
-    
- {/*  <label style={{ width:'100%', textAlign:"center", color:'white', fontFamily: "'Roboto', Sans-Serif", fontSize:'20px', fontWeight:'bold'}}>{props.titulo}</label>
-  */}
   </nav> 
 </div>
 

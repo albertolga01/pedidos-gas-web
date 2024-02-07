@@ -1,11 +1,10 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import axios from "axios";
 import './App.css'; 
 import Modal from 'react-modal';
-import { ThreeDots } from  'react-loader-spinner'
 import {Navbar} from './component/Navbar';
-import {Gmaps, Marker, InfoWindow, Circle} from 'react-gmaps';
+import {Gmaps, Marker, Circle} from 'react-gmaps';
 import CorrectoImg from './resources/Correcto.svg'
 import ErrorImg from './resources/error.svg'
 import { ModalCarga } from "./component/ModalCarga";
@@ -40,9 +39,6 @@ const customStylesD = {
 
 function Registro(props){
 
-    const[passActual, setPassActual] = useState();
-    const[passNueva, setPassNueva] = useState();
-    const[confirmarPass, setConfirmarPass] = useState();
 //////////////////////////////////////////////////
     const[Nombre, setNombre] = useState();
     const[Apellido, setApellido] = useState();
@@ -56,9 +52,7 @@ function Registro(props){
     const[CodigoPostal, setCodigoPostal] = useState();
     const[Email, setEmail] = useState();
     const[lat, setLat] = useState();
-    const[lat1, setLat1] = useState();
     const[long, setLong] = useState();
-    const[long1, setLong1] = useState();
  
     const [modalIsOpenLoad, setIsOpenLoad] = React.useState(false);
     const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -187,14 +181,6 @@ function Registro(props){
       closeModalPoliticaPrivacidad();
     }
 
-    function switchChange () { 
-          let privacidadcheck = 0;
-          if(privacidad.checked){
-            privacidadcheck = 1;
-          } 
-          console.log(privacidad.checked) 
-        }
-
       
     async function altaConsumidor(){
 
@@ -257,16 +243,8 @@ function Registro(props){
          }else{
             openModalLoadError();
          }  
-		//console.log(res.data); 
+	
 	}
-
-    function mapOnClick(e) {
-        console.log('onClick', e);
-      }
-
-      function mapOnCloseClick() {
-        console.log('onCloseClick');
-      }
 
     const coords = { 
         lat: 23.235668,
@@ -298,18 +276,14 @@ function Registro(props){
                             style={{width:'100%'}} 
                             onChange={e => setNombre(e.target.value)}
 											/>
-                      {/** 
-                      <input type='text' class="idInput" onChange={e => setNombre(e.target.value)}></input><br></br>
-                      */}
+                     
                       <label class="idLabel">Apellido (s)*</label>
                       <Input type="text" 
                             placeholder='Apellido'
                             style={{width:'100%'}}
                             onChange={e => setApellido(e.target.value)}
 											/>
-                      {/**
-                      <input type='text' class="idInput" onChange={e => setApellido(e.target.value)}></input><br></br>
-                      */}
+                     
                       <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'6%' }}>
                             <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
                                 <label class="idLabel">Telefono1*</label>
@@ -325,9 +299,7 @@ function Registro(props){
                             }}
                             onChange={e => setTelUno(e.target.value)}
 											/>
-                                {/**
-                                <input type='tel' class="idInput" onChange={e => setTelUno(e.target.value)}></input><br></br>
-                             */}
+                               
                                 </div>
                             <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
                                 <label class="idLabel">Telefono2</label>
@@ -343,9 +315,7 @@ function Registro(props){
                             }}
                             onChange={e => setTelDos(e.target.value)}
 											/>
-                      {/**
-                                <input type='tel' class="idInput" onChange={e => setTelDos(e.target.value)}></input><br></br>
-                           */}
+                      
                                 </div>
                       </div>
                       
@@ -372,9 +342,7 @@ function Registro(props){
                             style={{width:'100%'}}
                             onChange={e => setCodigoPostal(e.target.value)}
 											/>
-                                {/*
-                                <input type='text' class="idInput" onChange={e => setCodigoPostal(e.target.value)}></input><br></br>
-                            */}
+                              
                                 </div>
                       </div>
 
@@ -384,9 +352,7 @@ function Registro(props){
                             style={{width:'100%'}}
                             onChange={e => setColonia(e.target.value)}
 											/>
-                      {/**
-                      <input type='text' class="idInput" onChange={e => setColonia(e.target.value)}></input>
-                       */}<br></br>
+                      <br></br>
                       
                       <label class="idLabel">Calle y Número*</label>
                       <Input type="text" 
@@ -394,9 +360,7 @@ function Registro(props){
                             style={{width:'100%'}}
                             onChange={e => setCalleNumero(e.target.value)}
 											/>
-                      {/**
-                      <input type='text' class="idInput" onChange={e => setCalleNumero(e.target.value)}></input>
-                       */}<br></br>
+                      <br></br>
                       
                       
                       <label class="idLabel"  for="email">Correo Electrónico</label>
@@ -405,9 +369,7 @@ function Registro(props){
                             style={{width:'100%'}}
                             onChange={e => setEmail(e.target.value)}
 											/>
-                      {/**
-                      <input type="email" class="idInput" onChange={e => setEmail(e.target.value)} name="email"></input>
-                      */}
+                    
 
                       <label class="idLabel">Descripción</label>
                       <textarea class="idInput" style={{ minHeight:'50px', resize: 'none'}} onChange={e => setDescripcion(e.target.value)} rows="5" cols="50"></textarea><br></br>
@@ -447,12 +409,10 @@ function Registro(props){
                               longF = Math.trunc(longF*100)/100;
                               console.log("Latitud decimals: " + latF);
                               console.log("longitud decimals: " + longF);
-                            //  setLat1(latF);
-                            // setLong1(longF);
+                           
                               setLat(ev.latLng.lat());
                               setLong(ev.latLng.lng());
-                            //  console.log("latitide = ", ev.latLng.lat());
-                            // console.log("longitude = ", ev.latLng.lng());
+                         
                             }}
                         >
                           <Marker

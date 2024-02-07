@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import './App.css'; 
 import Modal from 'react-modal';
-import { ThreeDots } from  'react-loader-spinner' 
 import {Navbar} from './component/Navbar';  
 import Backgroundgas from './component/Background-gas.png'
 import CorrectoImg from './resources/Correcto.svg'
@@ -13,17 +12,6 @@ import { ModalCarga } from "./component/ModalCarga";
 import { Input } from 'semantic-ui-react' 
 import { ToastContainer, toast } from 'react-toastify';
  
-
-const customStyles = { 	
-	content: {
-	  top: '50%',
-	  left: '50%',
-	  right: 'auto',
-	  bottom: 'auto',
-	  marginRight: '-50%',
-	  transform: 'translate(-50%, -50%)',
-	},
-  };
   const customStylesD = { 	
 	content: {
         width:'80%',
@@ -44,18 +32,12 @@ function EditarPedido(props){
           backgroundColor: '#0071ce',
         }
       };
-
-    const[passActual, setPassActual] = useState();
-    const[passNueva, setPassNueva] = useState();
-    const[confirmarPass, setConfirmarPass] = useState();
 ////////////////////////////////////////////////// 
     const[Comentarios, setComentarios] = useState();
     const[CalleNumero, setCalleNumero] = useState();
     const[Colonia, setColonia] = useState();
-    const[Cantidad, setCantidad] = useState();
     const[Importe, setImporte] = useState();
     const[CodigoPostal, setCodigoPostal] = useState(); 
-    const [fechaHoy, setFechaHoy] = useState("null");
 
     const [modalIsOpenLoad, setIsOpenLoad] = React.useState(false);
 
@@ -83,13 +65,11 @@ function EditarPedido(props){
 	}  
 	   
 	function closeModal() {
-        
-        //re direccionar a historial 
+
         props.unmount("Historial");   
 		setIsOpen(false); 
 	}
 
-    //Error Mensaje
     function openModalE() { 
 		setIsOpenE(true); 
 	}  
@@ -112,7 +92,6 @@ function EditarPedido(props){
 		let fd = new FormData()   
 		fd.append("id", "obtenerConsumidor")  
 		fd.append("folioconsumidor", props.numero_consumidor) 
-		//setisLoggedIn(false);
         openModalLoad();
 		const res = await axios.post(process.env.REACT_APP_API_URL, fd);
         closeModalLoad();
@@ -125,7 +104,6 @@ function EditarPedido(props){
         setCalleNumero(res.data[0].calle_numero);
         setColonia(res.data[0].colonia); 
 		setCodigoPostal(res.data[0].codigo_postal); 
-		//console.log(res.data); 
 	}
 
     function validarDia(fecha){
@@ -155,7 +133,6 @@ function EditarPedido(props){
     function validarHora(hora){
         var hoy = new Date()
         var horaActual = ('0' + (hoy.getHours())).slice(-2) + ':' + ('0' + hoy.getMinutes()).slice(-2);
-       //  alert(hora + " " + horaActual);
         if(hora>horaActual){ 
             return true;
         }else{  
@@ -180,25 +157,17 @@ function EditarPedido(props){
         var domingo = validarDomingo(document.getElementById("FechaPedido").value);
 
         if(fechaValida == false){
-            //alert("fecha invalida o anterior a la hora actual para el mismo dia");
-            //modal fecha invalida
             setMensajeError("No se puede programar pedido para un día y/o hora anterior al actual");
             openModalE();
-            
-            
         }
         if(horaAtencion == false){
-            //alert("fuera del horario de atencion");
             setMensajeError("No se puede programar pedido fuera del horario de atención");
             openModalE();
-            //modal hora fuera del horario de atencion
         }
 
         if(domingo == true){
-            //alert("fuera del horario de atencion");
             setMensajeError("No se puede programar pedido para día domingo");
             openModalE();
-            //modal hora fuera del horario de atencion
         }
 
         if(fechaValida == true && horaAtencion == true && domingo == false){ 
@@ -221,10 +190,10 @@ function EditarPedido(props){
             }else{ 
                 cantidadServicio = cantidad;
             }
-           // alert(cantidadServicio);
+        
             let fd = new FormData()   
             fd.append("id", "editarPedido")  
-            fd.append("identificadorexterno", props.numero_consumidor) //props.identificador_externo 
+            fd.append("identificadorexterno", props.numero_consumidor) 
             fd.append("fecha", document.getElementById("FechaPedido").value)  
             fd.append("hora", document.getElementById("HoraPedido").value)  
             fd.append("comentarios", Comentarios)  
@@ -249,7 +218,7 @@ function EditarPedido(props){
                 }
               });
             closeModalLoad();
-            //console.log(res.data);
+        
             var json = JSON.parse(JSON.stringify(res.data));
             
             if (json.folio== undefined){
@@ -259,7 +228,7 @@ function EditarPedido(props){
                 setMensaje("folio: "+json.folio + " cantidad: "+json.cantidad+ " estatus: "+json.estatus);
                 openModal();
             } 
-            //console.log(json.folio); 
+            
         }
 	}
 
@@ -268,7 +237,7 @@ function EditarPedido(props){
         hoy.setMinutes ( hoy.getMinutes() + 30 ); 
         var fecha = hoy.getFullYear() + '-' + ('0' + (hoy.getMonth() + 1)).slice(-2) + '-' + ('0' + hoy.getDate()).slice(-2) ;
          var hora = ('0' + (hoy.getHours())).slice(-2) + ':' + ('0' + (hoy.getMinutes())).slice(-2);
-      // console.log(hora);
+      
         document.getElementById("FechaPedido").value = fecha;
         document.getElementById("HoraPedido").value = hora; 
 
@@ -284,7 +253,7 @@ function EditarPedido(props){
         document.getElementById("inputlitros").value = "";
         document.getElementById("inputpesos").value = "";
         if(pesos.checked){
-            //mostrar inut pesos
+            
        
             document.getElementById("divpesos").style.display = "block";
             document.getElementById("divlitros").style.display = "none";
@@ -293,27 +262,16 @@ function EditarPedido(props){
 
         }
         if(litros.checked){
-            //mostrar el de litros  
+          
             document.getElementById("divpesos").style.display = "none";
             document.getElementById("divlitros").style.display = "block";
         }
     }
 
-
-    function HoraFecha(){
-        var hoy = new Date()
-        var fecha = hoy.getFullYear() + '-' + ('0' + (hoy.getMonth() + 1)).slice(-2) + '-' + ('0' + hoy.getDate()).slice(-2) ;
-        var hora = ('0' + hoy.getHours()).slice(-2) + ':' + ('0' + hoy.getMinutes()).slice(-2);
-
-        var fecha_hora = fecha +':'+ hora;
-        document.getElementById('FechaPedido').value = fecha_hora;
-        console.log(fecha_hora);
-    }
     function disabledInput(){
         notify("No es posible modificar esta información en este apartado, favor de ingresar a la sección de usuario para actualizar sus datos");
     }
 
-    const[fecha_hora, setHoraFecha] = useState(); 
 
     return(
        <div style={{width:'100%'}}>
@@ -336,9 +294,7 @@ function EditarPedido(props){
                                                 defaultValue={Colonia}
                                                 onChange={e => setColonia(e.target.value)}
 											/>
-                            {/*
-                            <input type='text' class="idInput" onChange={e => setColonia(e.target.value)} defaultValue={Colonia}></input><br></br>
-                            */}
+                          
                             </div>
                         <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
                            <label class="idLabel">Código Postal</label>
@@ -348,9 +304,7 @@ function EditarPedido(props){
                                                 defaultValue={CodigoPostal}
                                                 onChange={e => setCodigoPostal(e.target.value)}
 											/>
-                                            {/**
-                           <input type='text' class="idInput" onChange={e => setCodigoPostal(e.target.value)} defaultValue={CodigoPostal}></input><br></br>
-                        */}
+                                        
                            </div>
                     </div> 
                     <label class="idLabel">Calle y Número</label> 
@@ -360,9 +314,7 @@ function EditarPedido(props){
                                                 defaultValue={CalleNumero}
                                                 onChange={e => setCalleNumero(e.target.value)}
 											/>
-                {/*    <input type='text' class="idInput" onChange={e => setCalleNumero(e.target.value)} defaultValue={CalleNumero}></input><br></br>
-                    
-                    */}<div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'20px' }}>
+              <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'20px' }}>
                          <div style={{display:'flex',flexDirection:'column', width:'50%' }}>
                             <label class="idLabel">Fecha:</label>
 	                        <input id="FechaPedido" class="idInput"   style={{width:'100%', marginTop:'5px'}} type="date"/><br></br>
@@ -404,7 +356,7 @@ function EditarPedido(props){
 												style={{width:'100%'}}
                                                 id="inputlitros"  
 											/>
-                           {/** <input type='text' class="idInput" id="inputlitros"  ></input>  */}
+                          
                          </div>
                          <div  id="divpesos">
                               <label class="idLabel">Importe</label> 
@@ -413,8 +365,7 @@ function EditarPedido(props){
 												style={{width:'100%'}}
                                                 id="inputpesos"  
 											/>
-                             {/**
-	                          <input type='text' id="inputpesos" class="idInput"    ></input> */}<br></br>
+                             <br></br>
                          </div>
                          </div>
                     </div>
@@ -473,8 +424,3 @@ function EditarPedido(props){
 }
 
 export default EditarPedido;
-
-/**
- * 
- * <label style={{TextColor:'red'}}>*</label>
-*/

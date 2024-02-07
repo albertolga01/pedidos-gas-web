@@ -1,16 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import './App.css'; 
-import Modal from 'react-modal';
-import { ThreeDots } from  'react-loader-spinner' 
 import {Navbar} from './component/Navbar';    
 import { Document,Page } from 'react-pdf/dist/esm/entry.webpack';
 
 function Avisoprivacidad(props){
-
-     
-    const[Nombre, setNombre] = useState(); 
 
  
     function Seleccionar(){  

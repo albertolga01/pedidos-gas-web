@@ -2,15 +2,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import './App.css'; 
-import Modal from 'react-modal';
-import { ThreeDots } from  'react-loader-spinner' 
 import {Navbar} from './component/Navbar';   
-import Abonar from "./Abonar";
 import FadeIn from 'react-fade-in';
-import Usuario from "./Usuario";
-import StripeContainer from './component/StripeContainer'; 
-
-import BuscarServicio from './BuscarServicio';
 import PasarelaPago from './PasarelaPago';
 
  
@@ -38,14 +31,8 @@ function Historial(props){
 	},[])
 
     const [idrespuesta, setIdrespuesta] = useState();
-    const[SaldoDisponible, setSaldo] = useState();
     const[lista, setlista] = useState([]); 
-   // const[Nombre, setNombre] = useState(); 
- 
-   const [pagarServicio, setPagarServicio] = useState(false);  
    const [PasarelaPagos, setPasarelaPagos] = useState(false); 
-
-        
    const[Cantidad, setCantidad] = useState();
    const[nombres, setNombres] = useState();
 
@@ -54,11 +41,8 @@ function Historial(props){
     fd.append("id", "historial")   
     fd.append("noConsumidor", props.identificador_externo)   
     const res = await axios.post(process.env.REACT_APP_API_URL, fd); 
-     //alert(res.trim);
      console.log(res.data);
      setlista(res.data);
-   //  setSaldo(res.data);  
-   
     } 
 
 
@@ -72,13 +56,9 @@ function Historial(props){
         let fd = new FormData()   
 		fd.append("id", "checkoutID")  
 		const res = await axios.post(process.env.REACT_APP_API_URL, fd);
-        //console.log(res.data.id);
         setIdrespuesta(res.data.id); 
     }
 
-    function Seleccionar(){  
-        props.unmount("Abonar");    
-    }
    function FormatNumber(importe){
     return ((Number(importe)).toLocaleString('en-US',{
         style:'currency',
@@ -86,11 +66,6 @@ function Historial(props){
     }));
    }
 
-   function pagarServicio1(monto){
-    setPagarServicio(true);
-    setCantidad(monto);
-    setNombres(props.nombres);
-   }
 
    function formatDate(date){
     let index = date.search(" ");
@@ -110,7 +85,6 @@ function unmountPasarela(){
     return(
         <div style={{width:'100%'}}>
              <Navbar titulo="Historial" />
-             {/*idrespuesta*/}
         <>
         {(PasarelaPagos) ? 
         	<>

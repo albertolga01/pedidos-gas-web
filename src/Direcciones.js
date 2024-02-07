@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import './App.css'; 
 import Modal from 'react-modal';
-import { ThreeDots } from  'react-loader-spinner' 
 import {Navbar} from './component/Navbar';  
 import Backgroundgas from './component/Background-gas.png'
 import CorrectoImg from './resources/Correcto.svg'
@@ -13,17 +12,6 @@ import { ModalCarga } from "./component/ModalCarga";
 import { Input } from 'semantic-ui-react' 
 import { ToastContainer, toast } from 'react-toastify';
  
-
-const customStyles = { 	
-	content: {
-	  top: '50%',
-	  left: '50%',
-	  right: 'auto',
-	  bottom: 'auto',
-	  marginRight: '-50%',
-	  transform: 'translate(-50%, -50%)',
-	},
-  };
   const customStylesD = { 	
 	content: {
         width:'80%',
@@ -45,17 +33,11 @@ function Direcciones(props){
         }
       };
 
-    const[passActual, setPassActual] = useState();
-    const[passNueva, setPassNueva] = useState();
-    const[confirmarPass, setConfirmarPass] = useState();
 ////////////////////////////////////////////////// 
-    const[Comentarios, setComentarios] = useState();
-    const[direcciones, setDirecciones] = useState([props.iddireccion]);
     const[calleNumero, setCalleNumero] = useState("");
     const[colonia, setColonia] = useState("");
     const [ciudad, setCiudad] = useState(props.iddireccion ? "" : "MAZATLAN");
     const[codigoPostal, setCodigoPostal] = useState(""); 
-    const [fechaHoy, setFechaHoy] = useState("null");
 
     const [modalIsOpenLoad, setIsOpenLoad] = React.useState(false);
 
@@ -117,7 +99,6 @@ function Direcciones(props){
         closeModalLoad();
 		console.log(res.data); 
         notify("Actualizado correctamente");
-		//console.log(res.data); 
         }else{
             openModalLoadError();
         }
@@ -133,13 +114,13 @@ function Direcciones(props){
 		fd.append("colonia", colonia) 
 		fd.append("ciudad", ciudad)
 		fd.append("codigop", codigoPostal)
-        //setisLoggedIn(false);
+    
         openModalLoad();
 		const res = await axios.post(process.env.REACT_APP_API_URL, fd);
         closeModalLoad();
 		console.log(res.data); 
         notify("Agregado correctamente");
-		//console.log(res.data); 
+	
         }else{
             openModalLoadError();
         }
@@ -167,102 +148,24 @@ function Direcciones(props){
 		setIsOpenLoad(false); 
 	}
 
-    function openModal() { 
-		setIsOpen(true); 
-	}  
 	   
 	function closeModal() {
-        
-        //re direccionar a historial 
+
         props.unmount("Historial");   
 		setIsOpen(false); 
 	}
 
-    //Error Mensaje
-    function openModalE() { 
-		setIsOpenE(true); 
-	}  
 	   
 	function closeModalE() { 
 		setIsOpenE(false); 
 	}
 
-    function Seleccionar(){  
-        props.unmount("MenuPrincipal");   
-    }
 
 
     function notify(message){
         toast(message);
     }
   
-
-    function validarHorarioAtencion(hora){
-        if(hora>= "06:00" && hora <= "19:00" ){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-    function validarHora(hora){
-        var hoy = new Date()
-        var horaActual = ('0' + (hoy.getHours())).slice(-2) + ':' + ('0' + hoy.getMinutes()).slice(-2);
-       //  alert(hora + " " + horaActual);
-        if(hora>horaActual){ 
-            return true;
-        }else{  
-            return false;
-        } 
-    }
-    function validarDomingo(fecha){
-        let day = new Date(fecha);
-        console.log(day.getDay());
-        if(day.getDay() == 6){
-            return true;
-        }else{
-            return false;
-        }
-        
-    }
-    async function altaDireccion(){
-        let fd = new FormData()   
-        fd.append("id", "altaDireccion")  
-        fd.append("identificadorexterno", props.numero_consumidor) //props.identificador_externo 
-    }
-     
-
-    function tipoPedido(){
-        let pesos = document.getElementById("tipopesos");
-        let litros = document.getElementById("tipolitros"); 
-        document.getElementById("inputlitros").value = "";
-        document.getElementById("inputpesos").value = "";
-        if(pesos.checked){
-            //mostrar inut pesos
-       
-            document.getElementById("divpesos").style.display = "block";
-            document.getElementById("divlitros").style.display = "none";
-            
-             
-
-        }
-        if(litros.checked){
-            //mostrar el de litros  
-            document.getElementById("divpesos").style.display = "none";
-            document.getElementById("divlitros").style.display = "block";
-        }
-    }
-
-
-    function HoraFecha(){
-        var hoy = new Date()
-        var fecha = hoy.getFullYear() + '-' + ('0' + (hoy.getMonth() + 1)).slice(-2) + '-' + ('0' + hoy.getDate()).slice(-2) ;
-        var hora = ('0' + hoy.getHours()).slice(-2) + ':' + ('0' + hoy.getMinutes()).slice(-2);
-
-        var fecha_hora = fecha +':'+ hora;
-        document.getElementById('FechaPedido').value = fecha_hora;
-        console.log(fecha_hora);
-    }
 
     return(
         
@@ -306,9 +209,6 @@ function Direcciones(props){
                                                 defaultValue={codigoPostal}
                                                 onChange={e => setCodigoPostal(e.target.value)}
 											/>
-                                            {/**
-                           <input type='text' class="idInput" onChange={e => setCodigoPostal(e.target.value)} defaultValue={CodigoPostal}></input><br></br>
-                        */}
                            </div>
                     </div> 
                     <label class="idLabel">Calle y Número</label> 

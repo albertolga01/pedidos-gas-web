@@ -2,26 +2,10 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import './App.css'; 
-import Modal from 'react-modal';
-import { ThreeDots } from  'react-loader-spinner'
 import {Navbar} from './component/Navbar';
-import {Gmaps, Marker, InfoWindow, Circle} from 'react-gmaps';
-import CorrectoImg from './resources/Correcto.svg'
-import ErrorImg from './resources/error.svg'
 import StripeContainer from './component/StripeContainer'; 
 import { ModalCarga } from "./component/ModalCarga";
 
-const customStylesD = { 	
-	content: {
-        width:'80%',
-	  top: '50%',
-	  left: '50%',
-	  right: 'auto',
-	  bottom: 'auto',
-	  marginRight: '-50%',
-	  transform: 'translate(-50%, -50%)',
-	},
-  };
 
 
 function BuscarServicio(props){
@@ -37,15 +21,7 @@ const[nombres, setNombres] = useState();
     const[TelefonoNC, setTelefonoNC] = useState(); 
 
     const [modalIsOpenError, setIsOpenLoadError] = React.useState(false);
-
-    function openModal() { 
-		setIsOpen(true); 
-	}  
 	   
-	function closeModal() { 
-		setIsOpen(false); 
-        Seleccionar();
-	}
 
     function openModalLoad() { 
 		setIsOpenLoad(true); 
@@ -55,13 +31,6 @@ const[nombres, setNombres] = useState();
 		setIsOpenLoad(false); 
 	}
 
-    function openModalLoadError() { 
-		setIsOpenLoadError(true); 
-	}  
-	   
-	function closeModalLoadError() { 
-		setIsOpenLoadError(false); 
-	}
 
     function Seleccionar(){  
         props.unmount(Mensaje, TelefonoNC);   

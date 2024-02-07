@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import './App.css'; 
 import Modal from 'react-modal';
-import { ThreeDots } from  'react-loader-spinner' 
 import {Navbar} from './component/Navbar';  
 import Backgroundgas from './component/Background-gas.png'
 import CorrectoImg from './resources/Correcto.svg'
@@ -13,17 +12,6 @@ import { ModalCarga } from "./component/ModalCarga";
 import { Input } from 'semantic-ui-react' 
 import { ToastContainer, toast } from 'react-toastify';
  
-
-const customStyles = { 	
-	content: {
-	  top: '50%',
-	  left: '50%',
-	  right: 'auto',
-	  bottom: 'auto',
-	  marginRight: '-50%',
-	  transform: 'translate(-50%, -50%)',
-	},
-  };
   const customStylesD = { 	
 	content: {
         width:'80%',
@@ -45,18 +33,13 @@ function NuevoPedido(props){
         }
       };
 
-    const[passActual, setPassActual] = useState();
-    const[passNueva, setPassNueva] = useState();
-    const[confirmarPass, setConfirmarPass] = useState();
 ////////////////////////////////////////////////// 
     const[Comentarios, setComentarios] = useState();
     const[CalleNumero, setCalleNumero] = useState();
     const[Ciudad, setCiudad] = useState();
     const[Colonia, setColonia] = useState();
-    const[Cantidad, setCantidad] = useState();
     const[Importe, setImporte] = useState();
     const[CodigoPostal, setCodigoPostal] = useState(); 
-    const [fechaHoy, setFechaHoy] = useState("null");
 
     const [modalIsOpenLoad, setIsOpenLoad] = React.useState(false);
 
@@ -91,13 +74,10 @@ function NuevoPedido(props){
 	}  
 	   
 	function closeModal() {
-        
-        //re direccionar a historial 
         props.unmount("Historial");   
 		setIsOpen(false); 
 	}
 
-    //Error Mensaje
     function openModalE() { 
 		setIsOpenE(true); 
 	}  
@@ -124,7 +104,7 @@ function NuevoPedido(props){
           setCodigoPostal(props.direccion.CodigoPostal);
           setCiudad(props.direccion.Ciudad);
         } else {
-          // Fetch data from the server if address information is not available
+          
           let fd = new FormData();
           fd.append("id", "obtenerConsumidor");
           fd.append("folioconsumidor", props.numero_consumidor);
@@ -171,7 +151,7 @@ function NuevoPedido(props){
     function validarHora(hora){
         var hoy = new Date()
         var horaActual = ('0' + (hoy.getHours())).slice(-2) + ':' + ('0' + hoy.getMinutes()).slice(-2);
-       //  alert(hora + " " + horaActual);
+       
         if(hora>horaActual){ 
             return true;
         }else{  
@@ -196,25 +176,21 @@ function NuevoPedido(props){
         var domingo = validarDomingo(document.getElementById("FechaPedido").value);
 
         if(fechaValida == false){
-            //alert("fecha invalida o anterior a la hora actual para el mismo dia");
-            //modal fecha invalida
             setMensajeError("No se puede programar pedido para un día y/o hora anterior al actual");
             openModalE();
             
             
         }
         if(horaAtencion == false){
-            //alert("fuera del horario de atencion");
             setMensajeError("No se puede programar pedido fuera del horario de atención");
             openModalE();
-            //modal hora fuera del horario de atencion
         }
 
         if(domingo == true){
-            //alert("fuera del horario de atencion");
+    
             setMensajeError("No se puede programar pedido para día domingo");
             openModalE();
-            //modal hora fuera del horario de atencion
+         
         }
 
         if(fechaValida == true && horaAtencion == true && domingo == false){ 
@@ -240,10 +216,10 @@ function NuevoPedido(props){
             }else{ 
                 cantidadServicio = cantidad;
             }
-             // alert(cantidadServicio);
+             
            let fd = new FormData()   
             fd.append("id", "altaPedido")  
-            fd.append("identificadorexterno", props.numero_consumidor) //props.identificador_externo 
+            fd.append("identificadorexterno", props.numero_consumidor) 
             fd.append("fecha", document.getElementById("FechaPedido").value)  
             fd.append("hora", document.getElementById("HoraPedido").value)  
             fd.append("comentarios", Comentarios)  
@@ -271,9 +247,9 @@ function NuevoPedido(props){
                 }
               });
             closeModalLoad();
-            //console.log(res.data);
+          
             var json = JSON.parse(JSON.stringify(res.data));
-            //alert(String(json[0].pedidopendiente).length);
+      
             
             
              if (json.folio!= undefined){
@@ -293,7 +269,7 @@ function NuevoPedido(props){
                 }  
                 
             } 
-            //console.log(json.folio); 
+            
         }
 	}
 
@@ -302,7 +278,7 @@ function NuevoPedido(props){
         hoy.setMinutes ( hoy.getMinutes() + 30 ); 
         var fecha = hoy.getFullYear() + '-' + ('0' + (hoy.getMonth() + 1)).slice(-2) + '-' + ('0' + hoy.getDate()).slice(-2) ;
          var hora = ('0' + (hoy.getHours())).slice(-2) + ':' + ('0' + (hoy.getMinutes())).slice(-2);
-      // console.log(hora);
+     
         document.getElementById("FechaPedido").value = fecha;
         document.getElementById("HoraPedido").value = hora; 
 
@@ -318,7 +294,7 @@ function NuevoPedido(props){
         document.getElementById("inputlitros").value = "";
         document.getElementById("inputpesos").value = "";
         if(pesos.checked){
-            //mostrar inut pesos
+      
        
             document.getElementById("divpesos").style.display = "block";
             document.getElementById("divlitros").style.display = "none";
@@ -327,27 +303,17 @@ function NuevoPedido(props){
 
         }
         if(litros.checked){
-            //mostrar el de litros  
+    
             document.getElementById("divpesos").style.display = "none";
             document.getElementById("divlitros").style.display = "block";
         }
     }
 
 
-    function HoraFecha(){
-        var hoy = new Date()
-        var fecha = hoy.getFullYear() + '-' + ('0' + (hoy.getMonth() + 1)).slice(-2) + '-' + ('0' + hoy.getDate()).slice(-2) ;
-        var hora = ('0' + hoy.getHours()).slice(-2) + ':' + ('0' + hoy.getMinutes()).slice(-2);
-
-        var fecha_hora = fecha +':'+ hora;
-        document.getElementById('FechaPedido').value = fecha_hora;
-        console.log(fecha_hora);
-    }
     function disabledInput(){
         notify("No es posible modificar esta información en este apartado, favor de ingresar a la sección de usuario para actualizar sus datos");
     }
 
-    const[fecha_hora, setHoraFecha] = useState(); 
 
     return(
        <div style={{width:'100%'}}>
@@ -373,9 +339,7 @@ function NuevoPedido(props){
                                                 value={Colonia}
                                                 onChange={(e) => setSelectedDireccionInfo((prev) => ({ ...prev, Colonia: e.target.value }))}  
 											/>
-                            {/*
-                            <input type='text' class="idInput" onChange={e => setColonia(e.target.value)} defaultValue={Colonia}></input><br></br>
-                            */}
+                            
                             </div>
                         <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
                            <label class="idLabel">Código Postal</label>
@@ -385,9 +349,7 @@ function NuevoPedido(props){
                                                 defaultValue={CodigoPostal}
                                                 onChange={e => setCodigoPostal(e.target.value)}
 											/>
-                                            {/**
-                           <input type='text' class="idInput" onChange={e => setCodigoPostal(e.target.value)} defaultValue={CodigoPostal}></input><br></br>
-                        */}
+                                       
                            </div>
                     </div> 
                     <label class="idLabel">Calle y Número</label> 
@@ -397,9 +359,7 @@ function NuevoPedido(props){
                                                 defaultValue={CalleNumero}
                                                 onChange={e => setCalleNumero(e.target.value)}
 											/>
-                {/*    <input type='text' class="idInput" onChange={e => setCalleNumero(e.target.value)} defaultValue={CalleNumero}></input><br></br>
-                    
-                    */}
+               
                     <label class="idLabel">Ciudad</label> 
                     <Input readOnly={true}  onClick={() => disabledInput()}  type="text" 
 												placeholder='Ciudad' 
@@ -449,7 +409,7 @@ function NuevoPedido(props){
 												style={{width:'100%'}}
                                                 id="inputlitros"  
 											/>
-                           {/** <input type='text' class="idInput" id="inputlitros"  ></input>  */}
+                          
                          </div>
                          <div  id="divpesos">
                               <label class="idLabel">Importe</label> 
@@ -458,8 +418,7 @@ function NuevoPedido(props){
 												style={{width:'100%'}}
                                                 id="inputpesos"  
 											/>
-                             {/**
-	                          <input type='text' id="inputpesos" class="idInput"    ></input> */}<br></br>
+                             <br></br>
                          </div>
                          </div>
                     </div>
@@ -519,7 +478,3 @@ function NuevoPedido(props){
 
 export default NuevoPedido;
 
-/**
- * 
- * <label style={{TextColor:'red'}}>*</label>
-*/

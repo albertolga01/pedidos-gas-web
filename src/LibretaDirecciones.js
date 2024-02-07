@@ -3,30 +3,16 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import './App.css'; 
 import Modal from 'react-modal';
-import { ThreeDots } from  'react-loader-spinner' 
 import {Navbar} from './component/Navbar';  
 import Backgroundgas from './component/Background-gas.png'
 import CorrectoImg from './resources/Correcto.svg'
 import FadeIn from 'react-fade-in';
 import ErrorImg from './resources/error.svg'
 import { ModalCarga } from "./component/ModalCarga";
-import { Input } from 'semantic-ui-react' 
 import { ToastContainer, toast } from 'react-toastify';
 import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 
- 
-
-const customStyles = { 	
-	content: {
-	  top: '50%',
-	  left: '50%',
-	  right: 'auto',
-	  bottom: 'auto',
-	  marginRight: '-50%',
-	  transform: 'translate(-50%, -50%)',
-	},
-  };
   const customStylesD = { 	
 	content: {
         width:'80%',
@@ -42,11 +28,6 @@ const customStyles = {
 
 function LibretaDirecciones(props){
 
-    const inlineStyle = {
-        input : {
-          backgroundColor: '#0071ce',
-        }
-      };
 
 ////////////////////////////////////////////////// 
     const[direcciones, setDirecciones] = useState([]);
@@ -111,21 +92,11 @@ function LibretaDirecciones(props){
 		setIsOpenLoad(false); 
 	}
 
-    function openModal() { 
-		setIsOpen(true); 
-	}  
 	   
 	function closeModal() {
-        
-        //re direccionar a historial 
         props.unmount("Historial");   
 		setIsOpen(false); 
 	}
-
-    //Error Mensaje
-    function openModalE() { 
-		setIsOpenE(true); 
-	}  
 	   
 	function closeModalE() { 
 		setIsOpenE(false); 
@@ -140,7 +111,6 @@ function LibretaDirecciones(props){
       let fd = new FormData()   
       fd.append("id", "obtenerConsumidor")  
       fd.append("folioconsumidor", props.numero_consumidor) 
-      //setisLoggedIn(false);
           openModalLoad();
       const res = await axios.post(process.env.REACT_APP_API_URL, fd);
           closeModalLoad();
@@ -156,7 +126,6 @@ function LibretaDirecciones(props){
 		let fd = new FormData()   
 		fd.append("id", "obtenerDirecciones")  
 		fd.append("noconsumidor", props.numero_consumidor) 
-		//setisLoggedIn(false);
         openModalLoad();
 		const res = await axios.post(process.env.REACT_APP_API_URL, fd);
         closeModalLoad();
@@ -178,7 +147,7 @@ function LibretaDirecciones(props){
       console.log(res.data);
       notify("Eliminado correctamente");
   
-      // After successful deletion, update the state to trigger a re-render
+      
       obtenerDirecciones();
     } catch (error) {
       console.error("Error:", error);

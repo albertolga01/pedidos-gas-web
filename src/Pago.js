@@ -33,17 +33,12 @@ const customStyles = {
 
 
 function Pago(props){
-
-    const[passActual, setPassActual] = useState();
-    const[passNueva, setPassNueva] = useState();
-    const[confirmarPass, setConfirmarPass] = useState();
 ////////////////////////////////////////////////// 
     const[Comentarios, setComentarios] = useState();
     const[CalleNumero, setCalleNumero] = useState();
     const[Colonia, setColonia] = useState();
     const[Cantidad, setCantidad] = useState();
     const[CodigoPostal, setCodigoPostal] = useState(); 
-    const [fechaHoy, setFechaHoy] = useState("null");
 
     const [modalIsOpenLoad, setIsOpenLoad] = React.useState(false);
 
@@ -66,18 +61,11 @@ function Pago(props){
 		setIsOpenLoad(false); 
 	}
 
-    function openModal() { 
-		setIsOpen(true); 
-	}  
 	   
 	function closeModal() { 
 		setIsOpen(false); 
 	}
-
-    //Error Mensaje
-    function openModalE() { 
-		setIsOpenE(true); 
-	}  
+ 
 	   
 	function closeModalE() { 
 		setIsOpenE(false); 
@@ -100,7 +88,7 @@ function Pago(props){
         setCalleNumero(res.data[0].calle_numero);
         setColonia(res.data[0].colonia); 
 		setCodigoPostal(res.data[0].codigo_postal); 
-		//console.log(res.data); 
+	
 	}
 
      
@@ -180,8 +168,3 @@ function Pago(props){
 }
 
 export default Pago;
-
-/**
- * 
- * <label style={{TextColor:'red'}}>*</label>
-*/

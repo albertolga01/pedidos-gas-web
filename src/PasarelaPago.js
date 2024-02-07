@@ -5,7 +5,6 @@ import './App.css';
 import './OpenPay.css'; 
 import Modal from 'react-modal';
 import { ThreeDots } from  'react-loader-spinner' 
-import {Navbar} from './component/Navbar';  
 import Backgroundgas from './component/Background-gas.png'
 import CorrectoImg from './resources/Correcto.svg'
 import ErrorImg from './resources/error.svg'
@@ -36,25 +35,15 @@ const customStyles = {
 
 function PasarelaPago(props){
 
-    const[passActual, setPassActual] = useState();
-    const[passNueva, setPassNueva] = useState();
-    const[confirmarPass, setConfirmarPass] = useState();
     const[folioPago, setFolioPago] = useState();
 ////////////////////////////////////////////////// 
-    const[Comentarios, setComentarios] = useState();
-    const[CalleNumero, setCalleNumero] = useState();
-    const[Colonia, setColonia] = useState();
-    const[Cantidad, setCantidad] = useState();
-    const[CodigoPostal, setCodigoPostal] = useState(); 
     const[tokenId, setTokenId] = useState(); 
     const[hiddenId, setHiddenId] = useState(); 
-    const [fechaHoy, setFechaHoy] = useState("null");
 
     const [modalIsOpenLoad, setIsOpenLoad] = React.useState(false);
 
     const [modalIsOpen, setIsOpen] = React.useState(false);
     const [modalIsOpenE, setIsOpenE] = React.useState(false);
-    const[Mensaje, setMensaje] = useState(); 
     const[MensajeError, setMensajeError] = useState(); 
  
 	useEffect(() => {
@@ -75,13 +64,11 @@ function PasarelaPago(props){
 	}  
 	   
 	function closeModal() { 
-		//re direccionar a historial 
         setIsOpen(false); 
         props.unmount("Historial");
         
 	}
 
-    //Error Mensaje
     function openModalE() { 
 		setIsOpenE(true); 
 	}  
@@ -123,14 +110,11 @@ function PasarelaPago(props){
             setMensajeError("Error al procesar la transacción intente nuevamente");
             openModalE();
         }
-		//console.log(res.data);   
-		//console.log(res.data); 
 	}
 
     var success_callbak = function(response) {
         var token_id = response.data.id;
         setTokenId(token_id); 
-        //$('#token_id').val(token_id);
         openPay(token_id);
         
     };
@@ -139,8 +123,6 @@ function PasarelaPago(props){
        
         e.preventDefault();
         document.getElementById("pay-button").setAttribute("disabled", true);
-        //$("#pay-button").prop( "disabled", true);
-       
         window.OpenPay.token.extractFormAndCreate('payment-form', success_callbak, error_callbak); 
 
     }
@@ -149,7 +131,6 @@ function PasarelaPago(props){
     var desc = response.data.description != undefined ?
     response.data.description : response.message;
     alert("ERROR [" + response.status + "] " + desc);
-    //$("#pay-button").prop("disabled", false);
     document.getElementById("pay-button").setAttribute("disabled", false);
     openModalE();
     };
@@ -160,8 +141,7 @@ function PasarelaPago(props){
         <div   style={{margin: 'auto', width:'100%' , height: '100vh', backgroundImage: Backgroundgas}} align="center"> 
 
               <div style={{ display: 'flex', flexDirection: 'column', maxWidth: '100%', }} align="center">
-                   {/**  {tokenId}
-                   <label style={{fontSize:'14px', fontWeight:'bold'}}>{}</label>*/}
+                  
                     <label style={{color:'white', fontSize:'24px'}}>Solicitud de pago</label>
                      <table style={{color:'white'}}>
                         <tr>
@@ -318,8 +298,3 @@ function PasarelaPago(props){
 }
 
 export default PasarelaPago;
-
-/**
- * 
- * <label style={{TextColor:'red'}}>*</label>
-*/

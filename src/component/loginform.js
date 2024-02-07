@@ -1,23 +1,15 @@
 import React,{useState, useEffect} from 'react';  
 import './styles-login.css';
-import Logo from '../resources/LogoGasPetromar.png';
 import axios from '../axios';
 import SideMenu from './SideMenu'; 
 import Registro from '../Registro';
 import BuscarServicio from '../BuscarServicio';
-//import 'dotenv/config';   
+
 import Modal from 'react-modal';
 import FadeIn from 'react-fade-in';
 import { ModalCarga } from "./ModalCarga"; 
-import logoGlp from '../resources/logoGlp.png';
-import { fadeIn } from 'react-animations';
-//import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";  
-import {ThreeDots } from  'react-loader-spinner';
 import BuscarConsumidor from '../BuscarConsumidor';
-import LogoProp from '../resources/LogoProp.svg';
-import LogoRomboGasLp from '../resources/LogoRomboGasLp.svg'
-import Button from '@mui/material/Button';
-import TextField from "@mui/material/TextField";    
+import LogoRomboGasLp from '../resources/LogoRomboGasLp.svg'  
 import descargarPlaystore from '../resources/descargarPlaystore.png';
 import appgallery from '../resources/appGallery.svg';
 import DownloadAppStore from '../resources/DownloadAppStore.svg';
@@ -25,7 +17,6 @@ import continuaenlaweb from '../resources/continuaenlaweb.svg';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Input } from 'semantic-ui-react';
-import {BsWhatsapp } from "react-icons/bs";
 import ReactWhatsappButton from 'react-whatsapp-button';
 import SolicitudTanqueEstacionario from '../SolicitudTanqueEstacionario';
 
@@ -87,10 +78,6 @@ const Login = (isLoggedIna) =>  {
 				setNuevoConsumidor(info.detail.consumidor);
 			}
 
-
-			//alert("a");
-			//Login();
-		//	document.getElementById("form-btn").click();
 		}, false);
 	
 
@@ -163,12 +150,7 @@ function getMobileOperatingSystem() {
 	useEffect(() => { 
 		continuar();
 		getMobileOperatingSystem();
-			/*if (navigator.geolocation) {
-			  navigator.geolocation.watchPosition(function(position) {
-				console.log("Latitude is :", position.coords.latitude);
-				console.log("Longitude is :", position.coords.longitude);
-			  });
-			} */ 
+			
 	},[])
   
 	 
@@ -213,7 +195,7 @@ function getMobileOperatingSystem() {
 		fd.append("id", "obtenerConsumidor")  
 		fd.append("folioconsumidor", NoConsumidor)
 		fd.append("telefono", telefono) 
-		//setisLoggedIn(false);
+	
 		openModalLoad();
 		const res = await axios.post(process.env.REACT_APP_API_URL, fd)
 		.catch(function (error) {
@@ -224,7 +206,7 @@ function getMobileOperatingSystem() {
 			} else { 
 			  notify("Error de conexión, vuelva a intentarlo");
 			}
-		//	console.log(error.config);
+	
 		  });
 		closeModalLoad();
 		console.log(res.data);
@@ -233,9 +215,6 @@ function getMobileOperatingSystem() {
 		    window.Android.showToast(telefono, NoConsumidor, res.data[0].nombres, res.data[0].apellidos, res.data[0].email, res.data[0].identificador_externo, "1");
 			}
 			try {
-				//var my_json = {tel: telefono, noconsumidor: NoConsumidor};
-				//var jsonStr = '{"datos":[{"telefono":"'+telefono+'","noConsumidor":"'+NoConsumidor+'"},{"nombres":"'+res.data[0].nombres+'","apellidos":"'+res.data[0].apellidos+'"},{"email":"'+res.data[0].email+'","identificador_externo":"'+res.data[0].identificador_externo+'"},{"loggeado":"1"}]}';
-				//var obj = JSON.parse(jsonStr);
 
 				var jsonStr = '{"telefono":"'+telefono+'","noConsumidor":"'+NoConsumidor+'","nombres":"'+res.data[0].nombres+'","apellidos":"'+res.data[0].apellidos+'","email":"'+res.data[0].email+'","identificador_externo":"'+res.data[0].identificador_externo+'","loggeado":"1", "tipo":"1"}';
 
@@ -264,8 +243,7 @@ function getMobileOperatingSystem() {
 			alert("Usuario eliminado, si desea recuperar su acceso llámanos al (669) 984-20-20");
 		}else{
 			alert("Datos de acceso incorrectos");
-		} 
-		//console.log(res.data); 
+		}  
 	}
 	function cambiarSelected(nuevoConsumidor1, telefononc){ 
           setRegistrarse(false); 
@@ -277,9 +255,7 @@ function getMobileOperatingSystem() {
 
     }
 
-	function hello() { 
-		alert("hello world"); 
-	}
+	
 
 	function cambiarSelected1(){  
 		setPagarServicio(false);  
@@ -287,7 +263,7 @@ function getMobileOperatingSystem() {
 
   function cambiarSelected2(telefono, noConsumidor){  
 	setBuscarConsumidor(false);  
-	//document.getElementById("form-usuario").value = noConsumidor;
+	
 	setNuevoTelefono(telefono);
 	setNuevoConsumidor(noConsumidor);
 	console.log("----nocon "+noConsumidor);
@@ -297,7 +273,7 @@ function cambiarSelected4(){
 }
 function cambiarSelected3(telefono, noConsumidor){  
 	setRegistrarse(false);  
-	//document.getElementById("form-usuario").value = noConsumidor;
+
 	setNuevoTelefono(telefono);
 	setNuevoConsumidor(noConsumidor);
 	console.log("----nocon "+noConsumidor);
@@ -324,10 +300,7 @@ function openPoliticaPrivacidad(e) {
 	closeModalPoliticaPrivacidad();
   }
 
-  function test1(x){
-	setNuevoConsumidor(x);
-
-  }
+ 
 
   window.reactFunction1 = (defTelefono, defConsumidor, defNombres, defApellidos, defEmail, defIdentificador_externo) => {
     		setnombres(defNombres);
@@ -424,7 +397,7 @@ function openPoliticaPrivacidad(e) {
 														defaultValue={nuevoTelefono}  
 														maxlength="10"
 													/>
-											{/* <input id="form-password" onKeyPress={handleKeyPress} defaultValue={nuevoTelefono} type="tel" maxlength="10" style={{height:'30px', width:'80%'}}  placeholder="Teléfono"/>*/}
+										
 											</div>
 											<div style={{width:'100%'}} align="center">
 											<div style={{width:'80%'}} align="left">
@@ -439,7 +412,7 @@ function openPoliticaPrivacidad(e) {
 														defaultValue={nuevoConsumidor}  
 														maxlength="6"
 													/>
-											{/* <input id="form-usuario" onKeyPress={handleKeyPress} defaultValue={nuevoConsumidor} type="tel" style={{height:'30px', width:'80%'}} placeholder="Número Consumidor"/>*/}
+											
 											</div>
 											<div style={{width:'80%', height:'45px', margin: '2vmax auto 0'}} align="center">
 											<label style={{color:'white', fontWeight: 'bold', fontSize:'20px'}}>

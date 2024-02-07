@@ -1,33 +1,21 @@
 import React, { useState, useEffect } from 'react'
-import NuevoPedido from '../NuevoPedido'; 
-import Logo from './favicon.svg';
-import LogoProp from '../resources/LogoProp.svg'
 import LogoRomboGasLp from '../resources/LogoRomboGasLp.svg'
 import AcercaDe from '../resources/AcercaProp.svg'
 import PromocionmenuProp from '../resources/PromocionmenuProp.svg'
 import Ayuda from '../resources/AyudaProp.svg'
 import UsuarioProp from '../resources/UsuarioProp.svg'
-import Tank from '../resources/Tank.svg'
-import Naturalgas from '../resources/Naturalgas.svg'
 import tanque from '../resources/tanque.svg'
-import PrivacidadProp from '../resources/PrivacidadProp.svg'
-import { TfiHelpAlt, TfiFile } from "react-icons/tfi";
-import { CiDiscount1, CiCircleInfo } from "react-icons/ci";
-    import { FaFacebookSquare, FaInstagramSquare } from "react-icons/fa";
-import { HiOutlineUserCircle } from "react-icons/hi";
 import { FiLogOut } from "react-icons/fi";
 
 import {RiWhatsappFill, RiFacebookFill, RiInstagramFill } from "react-icons/ri";
 import { IconContext } from "react-icons";
 import { push as Menu } from 'react-burger-menu'
-import { toast } from 'react-toastify';
 import { TbDirections } from "react-icons/tb";
 import { TbMessageCircleQuestion } from "react-icons/tb";
 
 export default function OpcionesMenu(props) {
 
      const [isMenuOpen1, SetIsMenuOpen1] = useState(props.isMenuOpen1);
-    // console.log(props.selected);
     console.log(props.dptoid);
 
    
@@ -40,17 +28,17 @@ export default function OpcionesMenu(props) {
     }
 
     function instagram(){
-        //toast("asdfg");
+        
         window.webkit.messageHandlers.instagram.postMessage("");
       }
 
       function facebook(){
-        //toast("asdfg");
+       
         window.webkit.messageHandlers.facebook.postMessage("");
       }
 
       function whatsapp(){
-        //toast("asdfg");
+
         if (!window.Android){
             window.webkit.messageHandlers.whatsapp.postMessage("");
         }
@@ -71,7 +59,7 @@ export default function OpcionesMenu(props) {
     function logOut() {
         if (window.Android){
             window.Android.showToast("", "", "", "", "", "", "0");
-            //alert(res);
+           
         }else{
         
         try { 
@@ -151,15 +139,7 @@ export default function OpcionesMenu(props) {
                     <label style={{marginLeft:'10px', fontWeight:'bold', fontSize:'15px'}}>Solicita tu tanque estacionario aquí</label>
                 </div>
                 </IconContext.Provider>
-                {/*
-                <IconContext.Provider   value={{ size: "2.5em" }}>
-                <div  id="sidebtn" className='menuOption'  style={{width:'65%'}} onClick={() => { Seleccionar("Avisoprivacidad"); }}>
-                <img style={{width:'15%'}} src={PrivacidadProp} />
-
-                    <label style={{marginLeft:'10px', fontWeight:'bold', fontSize:'15px'}}>Aviso de privacidad</label> 
-                </div>
-                </IconContext.Provider>
-                */}
+                
                 </center>
                 <IconContext.Provider value={{ size: "2.5em" }}>
                 <center>
