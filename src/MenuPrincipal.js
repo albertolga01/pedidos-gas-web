@@ -56,6 +56,37 @@ function MenuPrincipal(props){
 };
 
 
+const defaultImages = [
+  process.env.REACT_APP_URL + "/images/Banner-APPPetromarGAS-01.png",
+  process.env.REACT_APP_URL + "/images/Banner-APPPetromarGAS-02.png",
+  process.env.REACT_APP_URL + "/images/Banner-APPPetromarGAS-03.png",
+];
+const [galleryImages, setGalleryImages] = useState(defaultImages);
+
+const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+
+const handleGalleryChange = () => {
+  setGalleryImages([
+    // New set of images
+    process.env.REACT_APP_URL + "/images/Banner-320x568-02.png",
+    process.env.REACT_APP_URL + "/images/Banner-320x568-01.png",
+    process.env.REACT_APP_URL + "/images/imagen1-webp.webp",
+  ]);
+};
+
+const handleImageClick = (index) => {
+  setCurrentImage(index);
+  setIsViewerOpen(true);
+  setIsGalleryOpen(true);
+  handleGalleryChange();
+};
+
+const handleCloseGallery = () => {
+  setIsGalleryOpen(false); // Set gallery open status to false
+  setGalleryImages(defaultImages);
+};
+
+
 	useEffect(() => { 
         openModal();
         obtenerSaldo();
@@ -271,25 +302,29 @@ function MenuPrincipal(props){
 
                     <div>
                     <Carousel autoPlay interval={5000} showThumbs={false}>
-                    {images.map((imageUrl, index) => (
-                        <div key={index} >
-                            <img src={imageUrl} style={{ maxWidth: '700px', cursor: 'pointer', height: '8rem' }} alt={`Image ${index + 1}`} />
-                        </div>
-                    ))}
-                </Carousel>
+  {galleryImages.map((imageUrl, index) => (
+    <div key={index} onClick={() => handleImageClick(index)}>
+      <img src={imageUrl} style={{ maxWidth: '700px', cursor: 'pointer', height: '8rem' }} alt={`Image ${index + 1}`} />
+    </div>
+  ))}
+</Carousel>
                  
-{isViewerOpen && ( 
-                        <ImageViewer 
-                        src={images} 
-                        currentIndex={0} 
-                        onClose={closeImageViewer} 
-                        disableScroll={false} 
-                        backgroundStyle={{ 
-                            backgroundColor: "rgba(0,0,0,0.9)" 
-                        }} 
-                        closeOnClickOutside={true} 
-                        /> 
-                    )}
+{isViewerOpen && (
+  <ImageViewer
+    src={galleryImages}
+    currentIndex={currentImage}
+    onClose={() => {
+      closeImageViewer();
+      handleCloseGallery(); // Call handleCloseGallery when the gallery is closed
+    }}
+    disableScroll={false}
+    backgroundStyle={{
+      backgroundColor: "rgba(0,0,0,0.9)",
+      zIndex: 9999,
+    }}
+    closeOnClickOutside={true}
+  />
+)}
                 </div><br></br>
 
             </div>

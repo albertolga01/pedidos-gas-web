@@ -120,7 +120,9 @@ function Direcciones(props){
         closeModalLoad();
 		console.log(res.data); 
         notify("Agregado correctamente");
-	
+        setTimeout(() => {
+          props.unmount("LibretaDirecciones");
+        }, 1000);
         }else{
             openModalLoadError();
         }

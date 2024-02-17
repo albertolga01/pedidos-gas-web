@@ -11,6 +11,7 @@ import ErrorImg from './resources/error.svg'
 import { ModalCarga } from "./component/ModalCarga";
 import { Input } from 'semantic-ui-react' 
 import { ToastContainer, toast } from 'react-toastify';
+import { MdErrorOutline } from "react-icons/md";
  
   const customStylesD = { 	
 	content: {
@@ -47,6 +48,8 @@ function NuevoPedido(props){
     const [modalIsOpenE, setIsOpenE] = React.useState(false);
     const[Mensaje, setMensaje] = useState(); 
     const[MensajeError, setMensajeError] = useState(); 
+    const [isModalOpen, setModalOpen] = useState(false);
+const [modalMessage, setModalMessage] = useState("");
     const [selectedDireccionInfo, setSelectedDireccionInfo] = useState({
         Colonia: "",
         CodigoPostal: "",
@@ -57,6 +60,7 @@ function NuevoPedido(props){
 	useEffect(() => {
         obtenerConsumidor();
         currentDate();
+        tipoPedido();
         console.log(props.direccion)
     }, []);
   
@@ -169,6 +173,7 @@ function NuevoPedido(props){
         
     }
  
+    let numericValue = 0;
 
     async function altaPedido(){  
         var fechaValida = validarDia(document.getElementById("FechaPedido").value);
@@ -203,19 +208,21 @@ function NuevoPedido(props){
             var inputElementId = document.getElementById("tipopesos").checked ? "inputpesos" : "inputlitros";
             var testing = document.getElementById(inputElementId).value;
             if(pesos.checked){ 
-                 cantidad = document.getElementById("inputpesos").value;
+                 cantidad = numericValue;
                  cantidad = (cantidad / props.PrecioGas).toFixed(2);
                             }
             if(litros.checked){
-                cantidad = document.getElementById("inputlitros").value;
+                cantidad = numericValue;
             }
 
             if(cantidad == "" || cantidad == undefined || testing == "" || testing == undefined){
-                notify("Seleccione e ingrese un importe o cantidad");
+                setModalMessage("Ingrese un importe o cantidad");
+                setModalOpen(true);
                 return false;
             }else{ 
                 cantidadServicio = cantidad;
             }
+            
              
            let fd = new FormData()   
             fd.append("id", "altaPedido")  
@@ -293,6 +300,36 @@ function NuevoPedido(props){
         let litros = document.getElementById("tipolitros"); 
         document.getElementById("inputlitros").value = "";
         document.getElementById("inputpesos").value = "";
+
+        document.getElementById('inputpesos').addEventListener('input', function(event) {
+            let inputValue = event.target.value;
+    
+            let cleanedValue = inputValue.replace(/[^0-9]/g, '');
+  
+            if (!isNaN(cleanedValue)) {
+                numericValue = parseInt(cleanedValue);
+            }
+
+            event.target.value = cleanedValue !== '' ? '$' + cleanedValue : '';
+        });
+
+    document.getElementById('inputlitros').addEventListener('input', function(event) {
+        let inputElement = event.target;
+        let inputValue = inputElement.value;
+    
+        let cursorPosition = inputElement.selectionStart;
+    
+        let cleanedValue = inputValue.replace(/[^0-9]/g, '');
+    
+        if (cleanedValue !== '') {
+            numericValue = parseInt(cleanedValue);  // Store the numeric value
+            cleanedValue += 'L';
+        }
+    
+        inputElement.value = cleanedValue;
+    
+        inputElement.setSelectionRange(cursorPosition, cursorPosition);
+    });
         if(pesos.checked){
       
        
@@ -390,6 +427,7 @@ function NuevoPedido(props){
                             <legend class="idLabel">Seleccione:</legend>
                             <div >
                             <input style={{marginRight: '15px', height:'15px', width:'15px'}} type="radio" id="tipopesos" name="tipopedido"  
+                                     defaultChecked
                                      onClick={() => tipoPedido()}/>
                             <label class="idLabel" for="pesos">Pesos</label>
                            
@@ -404,7 +442,7 @@ function NuevoPedido(props){
                         <div style={{display:'flex',flexDirection:'column', width:'47%' }} >
                          <div  id="divlitros" style={{display: 'none'}}>
                             <label class="idLabel">Cantidad (Lts)</label>
-                            <Input type="number" 
+                            <Input type="text" 
 												placeholder='Cantidad' 
 												style={{width:'100%'}}
                                                 id="inputlitros"  
@@ -413,7 +451,7 @@ function NuevoPedido(props){
                          </div>
                          <div  id="divpesos">
                               <label class="idLabel">Importe</label> 
-                              <Input type="number" 
+                              <Input type="text" 
 												placeholder='Importe' 
 												style={{width:'100%'}}
                                                 id="inputpesos"  
@@ -455,6 +493,21 @@ function NuevoPedido(props){
                          <button style={{width:'100%', color:'white', backgroundColor:'#008445'}} className="buttonLogin" onClick={closeModal}>Ok</button>
 						</div>  
 				</Modal>
+
+                {isModalOpen && (
+                    <Modal 
+                        isOpen={isModalOpen}
+                        onRequestClose={() => setModalOpen(false)}
+                        style={customStylesD}
+                    >
+                        <div style={{width:'100%'}} align="center">  
+                        <MdErrorOutline style={{ fontSize: '4rem', color: 'red' }} />    
+                        <br></br>
+                        <label style={{fontWeight:'bold'}}>{modalMessage}</label>
+                        <button style={{width:'100%', color:'white', backgroundColor:'#008445', margin: '15px 0 0 0'}} className="buttonLogin" onClick={() => setModalOpen(false)}>Ok</button>
+                        </div>
+                    </Modal>
+                    )}
 
                 <Modal 
 						isOpen={modalIsOpenE}  
