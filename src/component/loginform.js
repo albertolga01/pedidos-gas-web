@@ -635,7 +635,7 @@ function openPoliticaPrivacidad(e) {
                                       <CloseIcon />
                                     </IconButton>
 
-                                    <img src={process.env.REACT_APP_URL + "/images/GASApp-Popup.gif"} style={{ width: '100%', display:'block' }} />
+                                    <img src={process.env.REACT_APP_URL + "/images/Precios-Tanques.gif"} style={{ width: '100%', display:'block' }} />
 
                                    
                                     <Button

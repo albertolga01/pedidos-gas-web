@@ -57,9 +57,9 @@ function MenuPrincipal(props){
 
 
 const defaultImages = [
-  process.env.REACT_APP_URL + "/images/Banner-APPPetromarGAS-01.png",
-  process.env.REACT_APP_URL + "/images/Banner-APPPetromarGAS-02.png",
-  process.env.REACT_APP_URL + "/images/Banner-APPPetromarGAS-03.png",
+  process.env.REACT_APP_URL + "/images/Banner-APPPetromarGAS-01VALE.png",
+  process.env.REACT_APP_URL + "/images/Banner-APPPetromarGAS-02LaCaja.png",
+  process.env.REACT_APP_URL + "/images/Banner-APPPetromarGAS-03 Gasolina.png",
 ];
 const [galleryImages, setGalleryImages] = useState(defaultImages);
 
@@ -130,9 +130,9 @@ const handleCloseGallery = () => {
         setIsViewerOpen(false); 
     }; 
     const images = [ 
-        process.env.REACT_APP_URL+"/images/Banner-APPPetromarGAS-01.png", 
-        process.env.REACT_APP_URL+"/images/Banner-APPPetromarGAS-02.png", 
-        process.env.REACT_APP_URL+"/images/Banner-APPPetromarGAS-03.png" 
+      process.env.REACT_APP_URL + "/images/Banner-APPPetromarGAS-01VALE.png",
+      process.env.REACT_APP_URL + "/images/Banner-APPPetromarGAS-02LaCaja.png",
+      process.env.REACT_APP_URL + "/images/Banner-APPPetromarGAS-03 Gasolina.png",
     ];
     
     const imgRef = useRef();
@@ -304,7 +304,7 @@ const handleCloseGallery = () => {
                     <Carousel autoPlay interval={5000} showThumbs={false}>
   {galleryImages.map((imageUrl, index) => (
     <div key={index} onClick={() => handleImageClick(index)}>
-      <img src={imageUrl} style={{ maxWidth: '700px', cursor: 'pointer', height: '8rem' }} alt={`Image ${index + 1}`} />
+      <img src={imageUrl} style={{ maxWidth: '700px', cursor: 'pointer', height: '6rem'}} alt={`Image ${index + 1}`} />
     </div>
   ))}
 </Carousel>
@@ -344,7 +344,7 @@ const handleCloseGallery = () => {
                                       <CloseIcon />
                                     </IconButton>
 
-                                    <img src={process.env.REACT_APP_URL + "/images/GASApp-Popup.gif"} style={{ width: '100%', display:'block' }} />
+                                    <img src={process.env.REACT_APP_URL + "/images/Precios-Tanques.gif"} style={{ width: '100%', display:'block' }} />
 
                                    
                                     <Button
