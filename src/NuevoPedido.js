@@ -364,9 +364,6 @@ const [modalMessage, setModalMessage] = useState("");
                
                 <br></br>
                 <br></br>
-                <div style={{display:'flex', justifyContent: 'flex-end'}}>
-                    <span style={{ margin:'0 0 8px 0', textAlign: 'right', fontSize: '18px', color: 'white'}} onClick={() => {  props.unmount1("LibretaDirecciones", "", "1")}}>Cambiar Direccion</span>
-                </div>
                       <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'6%' }}>
                          <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
                             <label class="idLabel">Colonia</label>
@@ -404,6 +401,9 @@ const [modalMessage, setModalMessage] = useState("");
                                                 defaultValue={Ciudad}
                                                 onChange={e => setCiudad(e.target.value)}
 											/>
+                    <br></br>
+                    <button className="buttonVerde" style={{width:'60%', fontWeight: 'bold',background: 'linear-gradient(#999, #666)', alignSelf : 'center'}} onClick={() => {  props.unmount1("LibretaDirecciones", "", "1")}}>Cambiar Direccion</button>
+                    <br></br>
                     <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'20px' }}>
                          <div style={{display:'flex',flexDirection:'column', width:'50%' }}>
                             <label class="idLabel">Fecha:</label>

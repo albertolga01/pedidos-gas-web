@@ -186,8 +186,6 @@ function Direcciones(props){
                 <br></br>
                 <div>
                       <h3 class="idLabel">Dirección actual</h3>
-                      <label  class="idLabel" style={{textAlign:'left'}}>{colonia}</label>
-                      <br></br>
                       </div>
                
                 <br></br> 

@@ -220,7 +220,6 @@ function Choose() {
                       {(!props.test &&
                         <div style={{ display: 'flex', justifyContent: 'flex-end', columnGap: '18px', margin: '10px 0 0' }}>
                           <span style={{ margin: '0 0 8px 0', textAlign: 'right', fontSize: '18px', display:'flex', alignItems: 'center' }} onClick={() => { Seleccionar("Usuario") }}><FaEdit />Editar</span>
-                          <span style={{ margin: '0 0 8px 0', textAlign: 'right', fontSize: '18px', display:'flex', alignItems: 'center' }} onClick={() => bajaDireccion()}><MdDeleteForever />Eliminar</span>
                         </div>
                       )}
                     </div>

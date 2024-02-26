@@ -274,14 +274,16 @@ function Registro(props){
                       <Input type="text" 
                             placeholder='Nombre(s)'
                             style={{width:'100%'}} 
-                            onChange={e => setNombre(e.target.value)}
+                            value={Nombre}
+                            onChange={e => setNombre(e.target.value.toUpperCase())}
 											/>
                      
                       <label class="idLabel">Apellido (s)*</label>
                       <Input type="text" 
                             placeholder='Apellido'
                             style={{width:'100%'}}
-                            onChange={e => setApellido(e.target.value)}
+                            value={Apellido}
+                            onChange={e => setApellido(e.target.value.toUpperCase())}
 											/>
                      
                       <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'6%' }}>
