@@ -68,8 +68,6 @@ const [isGalleryOpen, setIsGalleryOpen] = useState(false);
 const handleGalleryChange = () => {
   setGalleryImages([
     // New set of images
-    process.env.REACT_APP_URL + "/images/Banner-320x568-02.png",
-    process.env.REACT_APP_URL + "/images/Banner-320x568-01.png",
     process.env.REACT_APP_URL + "/images/imagen1-webp.webp",
   ]);
 };
@@ -328,6 +326,7 @@ const handleCloseGallery = () => {
                 </div><br></br>
 
             </div>
+        {/*
                                 <Modal  
                                   open={modalIsOpen}
                                   onClose={closeModal}
@@ -370,6 +369,7 @@ const handleCloseGallery = () => {
         </Box>
       </Modal>
             
+      */}
                 <Modal 
 						isOpen={modalIsOpenE}  
 						onRequestClose={closeModalE}   
