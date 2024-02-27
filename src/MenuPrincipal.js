@@ -73,10 +73,10 @@ const handleGalleryChange = () => {
 };
 
 const handleImageClick = (index) => {
-  setCurrentImage(index);
-  setIsViewerOpen(true);
-  setIsGalleryOpen(true);
-  handleGalleryChange();
+  //setCurrentImage(index);
+  //setIsViewerOpen(true);
+  //setIsGalleryOpen(true);
+  //handleGalleryChange();
 };
 
 const handleCloseGallery = () => {
@@ -306,7 +306,8 @@ const handleCloseGallery = () => {
     </div>
   ))}
 </Carousel>
-                 
+
+   {/*              
 {isViewerOpen && (
   <ImageViewer
     src={galleryImages}
@@ -323,6 +324,7 @@ const handleCloseGallery = () => {
     closeOnClickOutside={true}
   />
 )}
+*/}
                 </div><br></br>
 
             </div>
