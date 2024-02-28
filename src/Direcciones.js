@@ -35,6 +35,7 @@ function Direcciones(props){
 
 ////////////////////////////////////////////////// 
     const[calleNumero, setCalleNumero] = useState("");
+    const[alias, setAlias] = useState("");
     const[colonia, setColonia] = useState("");
     const [ciudad, setCiudad] = useState(props.iddireccion ? "" : "MAZATLAN");
     const[codigoPostal, setCodigoPostal] = useState(""); 
@@ -72,6 +73,7 @@ function Direcciones(props){
       
           if (selectedObject) {
             setColonia(selectedObject.colonia);
+            setAlias(selectedObject.alias);
             setCalleNumero(selectedObject.calle_numero);
             setCiudad(selectedObject.ciudad);
             setCodigoPostal(selectedObject.codigop);
@@ -92,6 +94,7 @@ function Direcciones(props){
 		fd.append("noconsumidor", props.numero_consumidor) 
 		fd.append("calle_numero", calleNumero)
 		fd.append("colonia", colonia) 
+    fd.append("alias", alias) 
 		fd.append("ciudad", ciudad)
 		fd.append("codigop", codigoPostal)
         openModalLoad();
@@ -99,6 +102,9 @@ function Direcciones(props){
         closeModalLoad();
 		console.log(res.data); 
         notify("Actualizado correctamente");
+        setTimeout(() => {
+          props.unmount("LibretaDirecciones");
+        }, 1000);
         }else{
             openModalLoadError();
         }
@@ -112,6 +118,7 @@ function Direcciones(props){
 		fd.append("noconsumidor", props.numero_consumidor) 
 		fd.append("calle_numero", calleNumero)
 		fd.append("colonia", colonia) 
+    fd.append("alias", alias) 
 		fd.append("ciudad", ciudad)
 		fd.append("codigop", codigoPostal)
     
@@ -189,8 +196,15 @@ function Direcciones(props){
                       </div>
                
                 <br></br> 
+                      <label class="idLabel">Alias</label> 
+                            <Input type="text" 
+                                placeholder='Alias' 
+                                style={{width:'100%'}}
+                                defaultValue={alias}
+                                onChange={e => setAlias(e.target.value)}
+                              />
                       <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'6%' }}>
-                
+        
                          <div style={{display:'flex',flexDirection:'column', width:'47%' }}>
                             <label class="idLabel">Colonia</label>
                             <Input className='input' type="text" 

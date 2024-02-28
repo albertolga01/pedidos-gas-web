@@ -35,6 +35,7 @@ function LibretaDirecciones(props){
     const[Ciudad, setCiudad] = useState();
     const[CodigoPostal, setCodigoPostal] = useState(); 
     const[CalleNumero, setCalleNumero] = useState();
+    const[Alias, setAlias] = useState();
 
     const [modalIsOpenLoad, setIsOpenLoad] = React.useState(false);
 
@@ -115,6 +116,7 @@ function LibretaDirecciones(props){
       const res = await axios.post(process.env.REACT_APP_API_URL, fd);
           closeModalLoad();
       console.log(res.data);
+          setAlias(res.data[0].alias);
           setCalleNumero(res.data[0].calle_numero);
           setColonia(res.data[0].colonia);
           setCiudad(res.data[0].ciudad);
@@ -170,6 +172,7 @@ function Choose() {
   if (selectedDireccion.id === null) {
     selectedDireccionInfo = {
       Colonia: Colonia,
+      Alias: Alias,
       CodigoPostal: CodigoPostal,
       CalleNumero: CalleNumero,
       Ciudad: Ciudad,
@@ -178,6 +181,7 @@ function Choose() {
     let direccion = direcciones.find(item => item.id === selectedDireccion.id);
     selectedDireccionInfo = {
       Colonia: direccion.colonia,
+      Alias: direccion.alias,
       CodigoPostal: direccion.codigop,
       CalleNumero: direccion.calle_numero,
       Ciudad: direccion.ciudad,
@@ -212,6 +216,7 @@ function Choose() {
                         <input type="radio" checked={selectedDireccion.type === "main"} onChange={selectMainDireccion} />
                       )}
                       <div style={{ textAlign: 'left', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                        <span style={{ margin: '0 0 8px 0', fontWeight: 'bold' }}>Principal</span>
                         <span style={{ margin: '0 0 8px 0' }}>Calle: {CalleNumero}</span>
                         <span style={{ margin: '0 0 8px 0' }}>Colonia: {Colonia}</span>
                         <span style={{ margin: '0 0 8px 0' }}>CP: {CodigoPostal}</span>
@@ -241,6 +246,7 @@ function Choose() {
                      />
                       )} 
                       <div style={{ textAlign: 'left', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                         <span style={{ margin: '0 0 8px 0', fontWeight: 'bold' }}>{item.alias}</span>
                          <span style={{ margin:'0 0 8px 0'}}>Calle: {item.calle_numero}</span> 
                          <span style={{ margin:'0 0 8px 0'}}>Colonia: {item.colonia}</span> 
                          <span style={{ margin:'0 0 8px 0'}}>CP: {item.codigop}</span> 
