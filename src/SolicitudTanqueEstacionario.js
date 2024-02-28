@@ -322,7 +322,7 @@ function SolicitudTanqueEstacionario(props){
                                       <CloseIcon />
                                     </IconButton>
 
-                                    <img src={process.env.REACT_APP_URL + "/images/Precios-Tanques.gif"} style={{ width: '100%', display:'block' }} />
+                                    <img src={process.env.REACT_APP_URL + "/images/PreciosTanques1.jpg"} style={{ width: '100%', display:'block' }} />
 
                                    
                                     <Button
