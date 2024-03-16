@@ -101,13 +101,14 @@ export default function OpcionesMenu(props) {
                 </div>
                 </div>
                 </IconContext.Provider> 
-
+                {/*
                 <IconContext.Provider value={{ size: "2.5em" }}>
                 <div id="sidebtn" className='menuOption'  style={{width:'65%'}}  onClick={() => { Seleccionar("LibretaDirecciones"); }}>
                 <TbDirections />
                     <label style={{marginLeft:'10px', fontWeight:'bold', fontSize:'15px'}}>Mis direcciones</label> 
                 </div>
                 </IconContext.Provider> 
+                */}
                 <IconContext.Provider value={{ size: "2.5em" }}>
                 <div id="sidebtn" className='menuOption'  style={{width:'65%'}}  onClick={() => { Seleccionar("Ayuda"); }}>
                 <img style={{width:'15%'}} src={Ayuda} />

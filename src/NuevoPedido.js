@@ -402,7 +402,7 @@ const [modalMessage, setModalMessage] = useState("");
                                                 onChange={e => setCiudad(e.target.value)}
 											/>
                     <br></br>
-                    <button className="buttonVerde" style={{width:'60%', fontWeight: 'bold',background: 'linear-gradient(#999, #666)', alignSelf : 'center'}} onClick={() => {  props.unmount1("LibretaDirecciones", "", "1")}}>Cambiar Direccion</button>
+                    {/* <button className="buttonVerde" style={{width:'60%', fontWeight: 'bold',background: 'linear-gradient(#999, #666)', alignSelf : 'center'}} onClick={() => {  props.unmount1("LibretaDirecciones", "", "1")}}>Cambiar Direccion</button>*/}
                     <br></br>
                     <div style={{display:'flex',flexDirection:'row', justifyContent:'spaceBetween', gap:'20px' }}>
                          <div style={{display:'flex',flexDirection:'column', width:'50%' }}>
